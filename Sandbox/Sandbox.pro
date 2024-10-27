@@ -10,12 +10,14 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    BondingWire.cpp \
     LogicGateSymbol.cpp \
     TrySqlite.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
+    BondingWire.h \
     LogicGateSymbol.h \
     TrySqlite.h \
     mainwindow.h

@@ -1,30 +1,28 @@
 #include "LogicGateSymbol.h"
 
 LogicGateSymbol::LogicGateSymbol() : QWidget() {
+    setFixedSize(200, 200);
 }
 
 void LogicGateSymbol::paintEvent(QPaintEvent *event) {
     QPainter painter(this);
-    painter.setBrush(Qt::blue);
-    QFont font("Arial", 72);
+    //painter.setBrush(Qt::blue);
+    //painter.setPen(Qt::blue);
+    //QFont font("Arial", 72);
     mrect.setRect(100, 100, 100, 100);
-    painter.setFont(font);
+    //painter.setFont(font);
+    painter.setRenderHint(QPainter::Antialiasing);
     painter.drawRect(mrect);
-    painter.drawText(130, 130, "&");
+    QColor col("#FF6A00");
+    painter.setPen(QPen(col, 20));
 }
 
 void LogicGateSymbol::mousePressEvent(QMouseEvent *event) {
-    if (event->button() == Qt::LeftButton && isCursorPosValid(event)) {
+    if (event->button() == Qt::LeftButton) {
         dragWidgetStartPos = pos();
         dragCursorStartPos = event->pos();
         isDragging = true;
     }
-}
-
-bool LogicGateSymbol::isCursorPosValid(QMouseEvent *event){
-    if (mrect.contains(event->pos()))
-        return true;
-    return false;
 }
 
 void LogicGateSymbol::mouseMoveEvent(QMouseEvent *event) {
