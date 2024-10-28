@@ -14,7 +14,7 @@ void BondingWire::mouseMoveEvent(QMouseEvent *event) {
         int dx = event->pos().x() - startPos.x();
         int dy= event->pos().y() - startPos.y();
 
-        if (dx > dy) {
+        if (std::abs(dx) > std::abs(dy)) {
             endPos.setY(startPos.y());
             endPos.setX(event->pos().x());
         } else {
