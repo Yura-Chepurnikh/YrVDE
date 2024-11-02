@@ -6,6 +6,8 @@
 #include "BondingWire.h"
 
 #include "./Edge.h"
+#include "./Grid.h"
+
 
 int main(int argc, char *argv[])
 {
@@ -14,10 +16,10 @@ int main(int argc, char *argv[])
 
    //BondingWire* bw = new BondingWire();
 
-    Edge* edge = new Edge();
+    Grid* gr = new Grid();
 
     QMainWindow w;
-    w.setCentralWidget(edge);
+    w.setCentralWidget(gr);
     w.show();
 
     return a.exec();
