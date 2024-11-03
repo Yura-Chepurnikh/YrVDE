@@ -3,9 +3,14 @@
 int WorkSpace::m_Gap =  0;
 
 WorkSpace::WorkSpace() : QWidget() {
-    m_ShowGrid = false;
-    m_Gap =  this->height() / 30; // 30 здесь рандомное число
     setFocusPolicy(Qt::StrongFocus);
+    setMouseTracking(true);
+
+    m_ShowGrid = false;
+    m_Gap =  this->height() / 30; // 30 is a random number
+    m_MergeDistance = m_Gap / 2;
+    setFocusPolicy(Qt::StrongFocus);
+    update();
 }
 
 void WorkSpace::keyPressEvent(QKeyEvent *event) {
@@ -17,6 +22,7 @@ void WorkSpace::keyPressEvent(QKeyEvent *event) {
 void WorkSpace::paintEvent(QPaintEvent*) {
     if (m_ShowGrid) {
         QPainter painter(this);
+        painter.setPen({Qt::black, 1});
 
         int work_space_width = this->width();
         int work_space_height = this->height();
@@ -24,26 +30,42 @@ void WorkSpace::paintEvent(QPaintEvent*) {
         for (int x = 0; x < work_space_width; x += m_Gap) {
             painter.drawLine(x, 0, x, work_space_height);
         }
-
         for (int y = 0; y < work_space_height; y += m_Gap) {
             painter.drawLine(0, y, work_space_width, y);
         }
+
+        for (int x = 0; x < work_space_width; x += m_Gap) {
+            std::vector<QPoint> points;
+            for (int y = 0; y < work_space_height; y += m_Gap) {
+                points.push_back(QPoint(x, y));
+            }
+            m_GridPoints.push_back(points);
+        }
+
+        painter.setPen({Qt::black, 3});
+        for (int i = 0; i < m_GridPoints.size(); ++i) {
+            for (int j = 0; j < m_GridPoints[i].size(); ++j) {
+                painter.drawPoint(m_GridPoints[i][j]);
+            }
+        }
+        painter.setPen({Qt::red, 5});
+        painter.drawPoint(m_HighLightPoint);
+
     }
     update();
 }
 
-/*
-* У нас есть 2 метода, где keyPressEvent проверяет была ли нажата G key
-* и в этом случае вызывает метод ShowGrid
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*/
+void WorkSpace::mouseMoveEvent(QMouseEvent* event) {
+    for (int i = 0; i < m_GridPoints.size(); ++i) {
+        for (int j = 0; j < m_GridPoints[i].size(); ++j) {
+            if (std::abs(event->pos().x() - m_GridPoints[i][j].x()) < m_MergeDistance &&
+                std::abs(event->pos().y() - m_GridPoints[i][j].y()) < m_MergeDistance)
+            {
+                qDebug() << event->pos() << '\n';
+                m_HighLightPoint = m_GridPoints[i][j];
+                return;
+            }
+        }
+    }
+}
+
