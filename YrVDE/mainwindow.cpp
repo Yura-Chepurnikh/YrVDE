@@ -6,10 +6,14 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    m_WorkSpace = new WorkSpace();
+    setCentralWidget(m_WorkSpace);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
+
 

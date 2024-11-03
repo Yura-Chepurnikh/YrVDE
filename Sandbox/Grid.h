@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QPaintEvent>
 #include <QScreen>
+#include <QLine>
 #include <QPainter>
 
 class Grid : public QWidget {

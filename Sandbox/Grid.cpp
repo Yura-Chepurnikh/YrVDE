@@ -5,8 +5,6 @@ Grid::Grid() : QWidget() { }
 void Grid::paintEvent(QPaintEvent* event) {
     QPainter painter(this);
 
-    QScreen* screen = QGuiApplication::primaryScreen();
-
     int width = this->width();
     int height = this->height();
 
