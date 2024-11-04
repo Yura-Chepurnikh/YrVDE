@@ -5,7 +5,6 @@
 #include <QPoint>
 #include <QKeyEvent>
 #include <QMouseEvent>
-#include <QImage>
 #include <QPainter>
 
 class WorkSpace : public QWidget {

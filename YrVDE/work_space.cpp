@@ -5,9 +5,12 @@ int WorkSpace::m_Gap =  0;
 WorkSpace::WorkSpace() : QWidget() {
     setFocusPolicy(Qt::StrongFocus);
     setMouseTracking(true);
+    setAttribute(Qt::WA_StyledBackground, true);
+
+    this->setStyleSheet("background-color: #1F1F1F;");
 
     m_ShowGrid = false;
-    m_Gap =  this->height() / 30; // 30 is a random number
+    m_Gap =  this->height() / 15; // 15 is a random number
     m_MergeDistance = m_Gap / 2;
     setFocusPolicy(Qt::StrongFocus);
     update();
@@ -22,7 +25,7 @@ void WorkSpace::keyPressEvent(QKeyEvent *event) {
 void WorkSpace::paintEvent(QPaintEvent*) {
     if (m_ShowGrid) {
         QPainter painter(this);
-        painter.setPen({Qt::black, 1});
+        painter.setPen({QColor("#2A2A2A"), 1});
 
         int work_space_width = this->width();
         int work_space_height = this->height();
@@ -42,7 +45,7 @@ void WorkSpace::paintEvent(QPaintEvent*) {
             m_GridPoints.push_back(points);
         }
 
-        painter.setPen({Qt::black, 3});
+        painter.setPen({QColor("#2A2A2A"), 3});
         for (int i = 0; i < m_GridPoints.size(); ++i) {
             for (int j = 0; j < m_GridPoints[i].size(); ++j) {
                 painter.drawPoint(m_GridPoints[i][j]);

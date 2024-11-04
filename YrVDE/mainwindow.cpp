@@ -7,7 +7,9 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    menu = new Menu();
     m_WorkSpace = new WorkSpace();
+    setMenuWidget(menu);
     setCentralWidget(m_WorkSpace);
 }
 

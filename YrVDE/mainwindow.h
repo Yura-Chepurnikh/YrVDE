@@ -2,7 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QHBoxLayout>
+
 #include "./work_space.h"
+#include "./menu.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -17,6 +20,7 @@ public:
     ~MainWindow();
 
 private:
+    Menu* menu;
     WorkSpace* m_WorkSpace;
     Ui::MainWindow *ui;
 };
