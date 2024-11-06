@@ -9,6 +9,8 @@
 #include <QPoint>
 #include <QMouseEvent>
 
+#include "../BondingWire/bondingwire.h"
+
 class WorkSpace : public QGraphicsView {
 public:
     WorkSpace(QGraphicsScene* scene);
@@ -23,6 +25,7 @@ private:
     int m_mergeDistance;
     QPoint m_highlightPoint;
     std::vector<std::vector<QPoint>> m_gridPoints;
+    BondingWire* wire;
 };
 
 #endif // WORKSPACE_H
