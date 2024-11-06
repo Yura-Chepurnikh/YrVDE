@@ -6,6 +6,10 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    QGraphicsScene* scene = new QGraphicsScene();
+    workspace = new WorkSpace(scene);
+    setCentralWidget(workspace);
 }
 
 MainWindow::~MainWindow()
