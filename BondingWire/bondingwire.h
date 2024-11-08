@@ -3,22 +3,20 @@
 
 #include "BondingWire_global.h"
 
-class BONDINGWIRE_EXPORT BondingWire : public QGraphicsItem {
+class BONDINGWIRE_EXPORT BondingWire : public QGraphicsPathItem {
 public:
     BondingWire();
 
 protected:
-    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
     void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
     void mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;
     void mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override;
-    QRectF boundingRect() const override;
 
 private:
     bool m_isDrag;
-    QPointF m_startPos;
-    QPointF m_endPos;
-    std::vector<QLineF> m_wires;
+    QPointF m_lastPos;
+    QPainterPath m_wirePath;
 };
 
 #endif // BONDINGWIRE_H

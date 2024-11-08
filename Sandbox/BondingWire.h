@@ -1,32 +1,28 @@
 #ifndef BONDINGWIRE_H
 #define BONDINGWIRE_H
 
-#include <QPainterPath>
-#include <QPainter>
-#include <QRect>
-#include <QWidget>
 #include <QMouseEvent>
-#include <QLabel>
+#include <QGraphicsView>
+#include <QGraphicsPathItem>
+#include <QPainterPath>
+#include <QGraphicsSceneMouseEvent>
 
-class BondingWire : public QWidget {
+class BondingWire : public QGraphicsItem {
 public:
     BondingWire();
 
-    bool isClicked;
-    QPoint startPos;
-    QPoint endPos;
-    struct BWLine {
-        QPoint startPos;
-        QPoint endPos;
-    };
-    QList<BWLine> lines;
-
 protected:
-    void mousePressEvent(QMouseEvent* event) override;
-    void mouseMoveEvent(QMouseEvent* event) override;
-    void mouseReleaseEvent(QMouseEvent* event) override;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+    void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
+    void mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override;
+    QRectF boundingRect() const override;
 
-    void paintEvent(QPaintEvent* event);
+private:
+    bool isDrag = false;
+    std::vector<QPointF> m_points;
+    std::vector<std::vector<QPointF>> m_all_Points;
+
 };
 
 #endif // BONDINGWIRE_H

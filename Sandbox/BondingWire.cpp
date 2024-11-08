@@ -2,45 +2,67 @@
 
 BondingWire::BondingWire() { }
 
-void BondingWire::mousePressEvent(QMouseEvent *event) {
-    if (event->button() == Qt::LeftButton) {
-        isClicked = true;
-        startPos = event->pos();
+void BondingWire::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
+    Q_UNUSED(option);
+    Q_UNUSED(widget);
+
+    QPainterPath path;
+
+    painter->setRenderHint(QPainter::Antialiasing, true);
+
+    if (!m_points.empty()) {
+        path.moveTo(m_points[0]);
     }
+
+    if (!m_points.empty()) {
+        for (size_t i = 1; i < m_points.size(); ++i) {
+            path.quadTo(m_points[i-1], m_points[i]);
+        }
+    }
+    path.closeSubpath();
+    painter->drawPath(path);
 }
 
-void BondingWire::mouseMoveEvent(QMouseEvent *event) {
-    if (isClicked && (event->buttons() & Qt::LeftButton)) {
-        int dx = event->pos().x() - startPos.x();
-        int dy= event->pos().y() - startPos.y();
-
-        if (std::abs(dx) > std::abs(dy)) {
-            endPos.setY(startPos.y());
-            endPos.setX(event->pos().x());
-        } else {
-            endPos.setX(startPos.x());
-            endPos.setY(event->pos().y());
-        }
+void BondingWire::mousePressEvent(QGraphicsSceneMouseEvent *event) {
+    if (event->button() == Qt::LeftButton) {
+        isDrag = true;
+        m_points.push_back(event->pos());
         update();
     }
 }
 
-void BondingWire::mouseReleaseEvent(QMouseEvent *event) {
-    if (event->button() == Qt::LeftButton) {
-        isClicked = false;
-        lines.append({startPos, endPos});
+void BondingWire::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
+    if (isDrag && (event->buttons() & Qt::LeftButton)) {
+        auto dx = m_points.back().x() - event->pos().x();
+        auto dy = m_points.back().y() - event->pos().y();
+
+        QPointF currentPos;
+
+        if (dx > dy) {
+            currentPos.setY(m_points.back().y());
+            currentPos.setX(event->pos().x());
+        }
+        else if (dx <= dy) {
+            currentPos.setY(event->pos().y());
+            currentPos.setX(m_points.back().x());
+        }
+
+        if ((dx < 0 || dy < 0) && !m_points.empty())
+            m_points.pop_back();
+        else
+            m_points.push_back(currentPos);
+
+        update();
     }
 }
 
-void BondingWire::paintEvent(QPaintEvent *event) {
-    QPainter painter(this);
-    painter.setPen(QPen(Qt::black, 12));
-
-    for (const auto& line : lines) {
-        painter.drawLine(line.startPos, line.endPos);
+void BondingWire::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
+    if (isDrag && event->button() == Qt::LeftButton) {
+        isDrag = false;
+        update();
     }
+}
 
-    if (isClicked) {
-        painter.drawLine(startPos, endPos);
-    }
+QRectF BondingWire::boundingRect() const {
+    return QRectF { -400, -400, 1920, 1080 };
 }

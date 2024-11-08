@@ -2,13 +2,14 @@
 #define BONDINGWIRE_GLOBAL_H
 
 #include <QtCore/qglobal.h>
-#include <QtWidgets/QGraphicsItem>
+#include <QtWidgets/QGraphicsPathItem>
 #include <QtWidgets/QWidget>
 #include <QtWidgets/QStyleOptionGraphicsItem>
 #include <QtGui/QPainter>
 #include <QtWidgets/QGraphicsSceneMouseEvent>
 #include <QtCore/QPointF>
 #include <QtCore/QLineF>
+#include <QtGui/QPainterPath>
 
 #if defined(BONDINGWIRE_LIBRARY)
 #define BONDINGWIRE_EXPORT Q_DECL_EXPORT
