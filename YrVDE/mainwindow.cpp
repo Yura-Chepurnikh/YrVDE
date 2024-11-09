@@ -7,8 +7,14 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    QGraphicsScene* scene = new QGraphicsScene();
-    workspace = new WorkSpace(scene);
+    m_scene = new QGraphicsScene();
+    m_view = new QGraphicsView(m_scene);
+    m_view->setScene(m_scene);
+
+    m_logicGate = new LogicGate();
+    m_scene->addItem(m_logicGate);
+
+    workspace = new WorkSpace(m_scene);
     setCentralWidget(workspace);
 }
 

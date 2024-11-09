@@ -1,0 +1,12 @@
+#ifndef LOGICGATES_GLOBAL_H
+#define LOGICGATES_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(LOGICGATES_LIBRARY)
+#  define LOGICGATES_EXPORT Q_DECL_EXPORT
+#else
+#  define LOGICGATES_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // LOGICGATES_GLOBAL_H

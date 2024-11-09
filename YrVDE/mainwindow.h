@@ -2,7 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QGraphicsView>
+#include <QGraphicsScene>
 #include "./workspace.h"
+#include "../LogicGate/logicgate.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -17,6 +20,9 @@ public:
     ~MainWindow();
 
 private:
+    QGraphicsView* m_view;
+    QGraphicsScene* m_scene;
+    LogicGate* m_logicGate;
     WorkSpace* workspace;
     Ui::MainWindow *ui;
 };
