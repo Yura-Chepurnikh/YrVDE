@@ -12,6 +12,7 @@ CONFIG += c++17
 SOURCES += \
     BondingWire.cpp \
     Edge.cpp \
+    Grid.cpp \
     LogicGateSymbol.cpp \
     TrySqlite.cpp \
     main.cpp \
@@ -20,6 +21,7 @@ SOURCES += \
 HEADERS += \
     BondingWire.h \
     Edge.h \
+    Grid.h \
     LogicGateSymbol.h \
     TrySqlite.h \
     mainwindow.h
