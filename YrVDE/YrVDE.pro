@@ -25,6 +25,8 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
+
+
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../BondingWire/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/release/ -lBondingWire
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../BondingWire/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/debug/ -lBondingWire
 else:unix: LIBS += -L$$PWD/../BondingWire/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/ -lBondingWire

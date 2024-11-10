@@ -8,9 +8,6 @@ public:
     LogicGate();
 
 protected:
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
-    QRectF boundingRect() const override;
-private:
     QPointF m_pos {400, 400};
 };
 

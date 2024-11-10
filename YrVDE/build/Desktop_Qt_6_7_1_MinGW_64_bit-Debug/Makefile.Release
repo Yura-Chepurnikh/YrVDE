@@ -301,7 +301,6 @@ release/moc_mainwindow.cpp: ../../mainwindow.h \
 		C:/Qt/6.7.1/mingw_64/include/QtCore/qlocale.h \
 		C:/Qt/6.7.1/mingw_64/include/QtGui/qguiapplication_platform.h \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qtabwidget.h \
-		../../workspace.h \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/QGraphicsView \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qgraphicsview.h \
 		C:/Qt/6.7.1/mingw_64/include/QtGui/qpainter.h \
@@ -312,6 +311,7 @@ release/moc_mainwindow.cpp: ../../mainwindow.h \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qframe.h \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/QGraphicsScene \
+		../../workspace.h \
 		C:/Qt/6.7.1/mingw_64/include/QtGui/QWheelEvent \
 		C:/Qt/6.7.1/mingw_64/include/QtGui/QPainter \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/QGraphicsLineItem \
@@ -558,7 +558,6 @@ release/main.o: ../../main.cpp ../../mainwindow.h \
 		C:/Qt/6.7.1/mingw_64/include/QtCore/qlocale.h \
 		C:/Qt/6.7.1/mingw_64/include/QtGui/qguiapplication_platform.h \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qtabwidget.h \
-		../../workspace.h \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/QGraphicsView \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qgraphicsview.h \
 		C:/Qt/6.7.1/mingw_64/include/QtGui/qpainter.h \
@@ -569,6 +568,7 @@ release/main.o: ../../main.cpp ../../mainwindow.h \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qframe.h \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/QGraphicsScene \
+		../../workspace.h \
 		C:/Qt/6.7.1/mingw_64/include/QtGui/QWheelEvent \
 		C:/Qt/6.7.1/mingw_64/include/QtGui/QPainter \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/QGraphicsLineItem \
@@ -792,7 +792,6 @@ release/mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
 		C:/Qt/6.7.1/mingw_64/include/QtCore/qlocale.h \
 		C:/Qt/6.7.1/mingw_64/include/QtGui/qguiapplication_platform.h \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qtabwidget.h \
-		../../workspace.h \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/QGraphicsView \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qgraphicsview.h \
 		C:/Qt/6.7.1/mingw_64/include/QtGui/qpainter.h \
@@ -803,6 +802,7 @@ release/mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qframe.h \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/QGraphicsScene \
+		../../workspace.h \
 		C:/Qt/6.7.1/mingw_64/include/QtGui/QWheelEvent \
 		C:/Qt/6.7.1/mingw_64/include/QtGui/QPainter \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/QGraphicsLineItem \
