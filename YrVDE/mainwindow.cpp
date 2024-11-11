@@ -16,6 +16,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     workspace = new WorkSpace(m_scene);
     setCentralWidget(workspace);
+
+    QObject::connect(workspace, &WorkSpace::SendPoint, m_xorGate, &XORGate::GetPoint);
 }
 
 MainWindow::~MainWindow()

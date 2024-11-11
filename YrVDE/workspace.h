@@ -12,8 +12,14 @@
 #include "../BondingWire/bondingwire.h"
 
 class WorkSpace : public QGraphicsView {
+    Q_OBJECT
+
 public:
     WorkSpace(QGraphicsScene* scene);
+
+signals:
+    void SendPoint(QPoint point);
+    void EmitSendPoint(); // I'm writing this for clarity
 
 protected:
     void wheelEvent(QWheelEvent* event) override;

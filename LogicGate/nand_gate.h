@@ -4,8 +4,11 @@
 #include "./logicgate.h"
 
 class LOGICGATE_EXPORT NANDGate : public LogicGate {
+    Q_OBJECT
 public:
     NANDGate();
+    virtual ~NANDGate() = default;
+
 
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;

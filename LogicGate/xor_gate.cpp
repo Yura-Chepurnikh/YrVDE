@@ -6,6 +6,7 @@ void XORGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
+    painter->setPen(QPen(QColor{ "#23A9F2" }, 2));
     QPainterPath path;
 
     path.moveTo(m_pos);

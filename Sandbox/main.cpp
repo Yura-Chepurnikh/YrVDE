@@ -8,6 +8,9 @@
 #include "./Edge.h"
 #include "./Grid.h"
 
+#include "./A.h"
+#include "./B.h"
+
 #include <QGraphicsView>
 #include <QGraphicsScene>
 
@@ -17,14 +20,25 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     QMainWindow w;
 
-    QGraphicsScene* scene = new QGraphicsScene();
+    // QGraphicsScene* scene = new QGraphicsScene();
 
-    Grid* grid = new Grid(scene);
-    w.setCentralWidget(grid);
+    // Grid* grid = new Grid(scene);
+    // w.setCentralWidget(grid);
 
 
-    BondingWire* wire = new BondingWire(grid);
-    scene->addItem(wire);
+    // BondingWire* wire = new BondingWire(grid);
+    // scene->addItem(wire);
+
+    A obj_A;
+    B b;
+
+    QObject::connect(&obj_A, &A::A_signal, &b, &B::B_slot);
+    obj_A.Emit_signal();
+
+    for (size_t i = 0; i < 1000; ++i) {
+        obj_A.Increment_val();
+        obj_A.Emit_signal();
+    }
 
     w.show();
     return a.exec();

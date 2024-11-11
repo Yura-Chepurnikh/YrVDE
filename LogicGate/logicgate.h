@@ -3,9 +3,15 @@
 
 #include "LogicGate_global.h"
 
-class LOGICGATE_EXPORT LogicGate : public QGraphicsItem {
+class LOGICGATE_EXPORT LogicGate : public QObject, public QGraphicsItem {
+    Q_OBJECT
+
 public:
     LogicGate();
+    virtual ~LogicGate() = default;
+
+// public slots:
+//     void GetPoint(QPoint point);
 
 protected:
     QPointF m_pos {400, 400};

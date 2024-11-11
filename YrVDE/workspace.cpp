@@ -70,3 +70,11 @@ void WorkSpace::mouseMoveEvent(QMouseEvent *event) {
         }
     }
 }
+
+void WorkSpace::SendPoint(QPoint point) {
+
+}
+
+void WorkSpace::EmitSendPoint() {
+    emit SendPoint(m_highlightPoint);
+}

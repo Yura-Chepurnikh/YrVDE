@@ -4,8 +4,10 @@
 #include "./logicgate.h"
 
 class LOGICGATE_EXPORT ANDGate : public LogicGate {
+    Q_OBJECT
 public:
     ANDGate();
+    virtual ~ANDGate() = default;
 
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
