@@ -6,6 +6,7 @@
 #include <QtWidgets/QGraphicsScene>
 #include <QtGui/QPainterPath>
 #include <QtGui/QPainter>
+#include <QPoint>
 
 #if defined(LOGICGATE_LIBRARY)
 #define LOGICGATE_EXPORT Q_DECL_EXPORT

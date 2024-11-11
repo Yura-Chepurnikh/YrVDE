@@ -11,8 +11,8 @@ MainWindow::MainWindow(QWidget *parent)
     m_view = new QGraphicsView(m_scene);
     m_view->setScene(m_scene);
 
-    m_orGate = new ORGate();
-    m_scene->addItem(m_orGate);
+    m_xorGate = new XORGate();
+    m_scene->addItem(m_xorGate);
 
     workspace = new WorkSpace(m_scene);
     setCentralWidget(workspace);

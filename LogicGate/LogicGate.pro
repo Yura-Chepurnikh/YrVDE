@@ -11,6 +11,7 @@ CONFIG += c++17
 
 SOURCES += \
     and_gate.cpp \
+    buffer_gate.cpp \
     logicgate.cpp \
     nand_gate.cpp \
     nor_gate.cpp \
@@ -22,6 +23,7 @@ SOURCES += \
 HEADERS += \
     LogicGate_global.h \
     and_gate.h \
+    buffer_gate.h \
     logicgate.h \
     nand_gate.h \
     nor_gate.h \

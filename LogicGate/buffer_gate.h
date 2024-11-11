@@ -1,11 +1,11 @@
-#ifndef NOR_GATE_H
-#define NOR_GATE_H
+#ifndef BUFFER_GATE_H
+#define BUFFER_GATE_H
 
 #include "./logicgate.h"
 
-class LOGICGATE_EXPORT NORGate : public LogicGate {
+class LOGICGATE_EXPORT BUFFERGate : public LogicGate {
 public:
-    NORGate();
+    BUFFERGate();
 
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
@@ -15,4 +15,4 @@ private:
 
 };
 
-#endif // NOR_GATE_H
+#endif // BUFFER_GATE_H
