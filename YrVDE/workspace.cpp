@@ -9,6 +9,9 @@ WorkSpace::WorkSpace(QGraphicsScene* scene) : QGraphicsView(scene)
     m_gap = 30;
     m_mergeDistance = m_gap / 2;
 
+    m_andGate = new ANDGate();
+    scene->addItem(m_andGate);
+
     wire = new BondingWire();
     scene->addItem(wire);
 }
@@ -71,10 +74,4 @@ void WorkSpace::mouseMoveEvent(QMouseEvent *event) {
     }
 }
 
-void WorkSpace::SendPoint(QPoint point) {
 
-}
-
-void WorkSpace::EmitSendPoint() {
-    emit SendPoint(m_highlightPoint);
-}

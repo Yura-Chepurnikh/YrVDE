@@ -4,10 +4,10 @@
 #include "./logicgate.h"
 
 class LOGICGATE_EXPORT NANDGate : public LogicGate {
-    Q_OBJECT
+
 public:
     NANDGate();
-    virtual ~NANDGate() = default;
+    //virtual ~NANDGate();
 
 
 protected:

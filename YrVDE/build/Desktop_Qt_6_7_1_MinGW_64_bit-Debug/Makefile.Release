@@ -311,6 +311,9 @@ release/moc_mainwindow.cpp: ../../mainwindow.h \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qframe.h \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/QGraphicsScene \
+		C:/Qt/6.7.1/mingw_64/include/QtWidgets/QToolBar \
+		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qtoolbar.h \
+		C:/Qt/6.7.1/mingw_64/include/QtGui/QAction \
 		../../workspace.h \
 		C:/Qt/6.7.1/mingw_64/include/QtGui/QWheelEvent \
 		C:/Qt/6.7.1/mingw_64/include/QtGui/QPainter \
@@ -339,9 +342,11 @@ release/moc_mainwindow.cpp: ../../mainwindow.h \
 		C:/Qt/6.7.1/mingw_64/include/QtCore/QPointF \
 		C:/Qt/6.7.1/mingw_64/include/QtCore/QLineF \
 		C:/Qt/6.7.1/mingw_64/include/QtGui/QPainterPath \
+		../../../LogicGate/and_gate.h \
 		../../../LogicGate/logicgate.h \
 		../../../LogicGate/LogicGate_global.h \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/QGraphicsItem \
+		C:/Qt/6.7.1/mingw_64/include/QtGui/QCursor \
 		release/moc_predefs.h \
 		C:/Qt/6.7.1/mingw_64/bin/moc.exe
 	C:\Qt\6.7.1\mingw_64\bin\moc.exe $(DEFINES) --include D:/YrVDE/YrVDE/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/release/moc_predefs.h -IC:/Qt/6.7.1/mingw_64/mkspecs/win32-g++ -ID:/YrVDE/YrVDE -ID:/YrVDE/BondingWire/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/debug -ID:/YrVDE/LogicGate/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/debug -IC:/Qt/6.7.1/mingw_64/include -IC:/Qt/6.7.1/mingw_64/include/QtWidgets -IC:/Qt/6.7.1/mingw_64/include/QtGui -IC:/Qt/6.7.1/mingw_64/include/QtCore -I. -IC:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++ -IC:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32 -IC:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/backward -IC:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include -IC:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed -IC:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include ..\..\mainwindow.h -o release\moc_mainwindow.cpp
@@ -568,6 +573,9 @@ release/main.o: ../../main.cpp ../../mainwindow.h \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qframe.h \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/QGraphicsScene \
+		C:/Qt/6.7.1/mingw_64/include/QtWidgets/QToolBar \
+		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qtoolbar.h \
+		C:/Qt/6.7.1/mingw_64/include/QtGui/QAction \
 		../../workspace.h \
 		C:/Qt/6.7.1/mingw_64/include/QtGui/QWheelEvent \
 		C:/Qt/6.7.1/mingw_64/include/QtGui/QPainter \
@@ -596,9 +604,11 @@ release/main.o: ../../main.cpp ../../mainwindow.h \
 		C:/Qt/6.7.1/mingw_64/include/QtCore/QPointF \
 		C:/Qt/6.7.1/mingw_64/include/QtCore/QLineF \
 		C:/Qt/6.7.1/mingw_64/include/QtGui/QPainterPath \
+		../../../LogicGate/and_gate.h \
 		../../../LogicGate/logicgate.h \
 		../../../LogicGate/LogicGate_global.h \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/QGraphicsItem \
+		C:/Qt/6.7.1/mingw_64/include/QtGui/QCursor \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/QApplication \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qapplication.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\main.o ..\..\main.cpp
@@ -802,6 +812,9 @@ release/mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qframe.h \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/QGraphicsScene \
+		C:/Qt/6.7.1/mingw_64/include/QtWidgets/QToolBar \
+		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qtoolbar.h \
+		C:/Qt/6.7.1/mingw_64/include/QtGui/QAction \
 		../../workspace.h \
 		C:/Qt/6.7.1/mingw_64/include/QtGui/QWheelEvent \
 		C:/Qt/6.7.1/mingw_64/include/QtGui/QPainter \
@@ -830,9 +843,11 @@ release/mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
 		C:/Qt/6.7.1/mingw_64/include/QtCore/QPointF \
 		C:/Qt/6.7.1/mingw_64/include/QtCore/QLineF \
 		C:/Qt/6.7.1/mingw_64/include/QtGui/QPainterPath \
+		../../../LogicGate/and_gate.h \
 		../../../LogicGate/logicgate.h \
 		../../../LogicGate/LogicGate_global.h \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/QGraphicsItem \
+		C:/Qt/6.7.1/mingw_64/include/QtGui/QCursor \
 		ui_mainwindow.h \
 		C:/Qt/6.7.1/mingw_64/include/QtCore/QVariant \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/QApplication \
@@ -1067,7 +1082,12 @@ release/workspace.o: ../../workspace.cpp ../../workspace.h \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qgraphicssceneevent.h \
 		C:/Qt/6.7.1/mingw_64/include/QtCore/QPointF \
 		C:/Qt/6.7.1/mingw_64/include/QtCore/QLineF \
-		C:/Qt/6.7.1/mingw_64/include/QtGui/QPainterPath
+		C:/Qt/6.7.1/mingw_64/include/QtGui/QPainterPath \
+		../../../LogicGate/and_gate.h \
+		../../../LogicGate/logicgate.h \
+		../../../LogicGate/LogicGate_global.h \
+		C:/Qt/6.7.1/mingw_64/include/QtWidgets/QGraphicsItem \
+		C:/Qt/6.7.1/mingw_64/include/QtGui/QCursor
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\workspace.o ..\..\workspace.cpp
 
 release/moc_mainwindow.o: release/moc_mainwindow.cpp 

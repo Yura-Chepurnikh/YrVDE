@@ -34,6 +34,7 @@ else:unix: LIBS += -L$$PWD/../BondingWire/build/Desktop_Qt_6_7_1_MinGW_64_bit-De
 INCLUDEPATH += $$PWD/../BondingWire/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/debug
 DEPENDPATH += $$PWD/../BondingWire/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/debug
 
+
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../LogicGate/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/release/ -lLogicGate
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../LogicGate/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/debug/ -lLogicGate
 else:unix: LIBS += -L$$PWD/../LogicGate/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/ -lLogicGate

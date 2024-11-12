@@ -4,10 +4,11 @@
 #include <QtCore/qglobal.h>
 #include <QtWidgets/QGraphicsItem>
 #include <QtWidgets/QGraphicsScene>
+#include <QGraphicsSceneMouseEvent>
 #include <QtGui/QPainterPath>
 #include <QtGui/QPainter>
 #include <QPoint>
-#include <QObject>
+#include <QCursor>
 
 #if defined(LOGICGATE_LIBRARY)
 #define LOGICGATE_EXPORT Q_DECL_EXPORT

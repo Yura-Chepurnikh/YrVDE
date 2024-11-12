@@ -7,17 +7,27 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    m_menu = this->menuBar()->addMenu("File");
+    menuBar()->setStyleSheet("background-color: #181818");
+
     m_scene = new QGraphicsScene();
     m_view = new QGraphicsView(m_scene);
     m_view->setScene(m_scene);
 
-    m_xorGate = new XORGate();
-    m_scene->addItem(m_xorGate);
-
     workspace = new WorkSpace(m_scene);
     setCentralWidget(workspace);
 
-    QObject::connect(workspace, &WorkSpace::SendPoint, m_xorGate, &XORGate::GetPoint);
+    m_toolbar = addToolBar("Main toolbar");
+    m_toolbar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    m_toolbar->setStyleSheet("background-color: #181818");
+
+    QToolButton *button = new QToolButton();
+    button->setIcon(QIcon("D://YrVDE//Resources//Icons//logic-gates.png"));
+    button->setText("Gates");
+    button->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    button->setStyleSheet("color: white");
+
+    m_toolbar->addWidget(button);
 }
 
 MainWindow::~MainWindow()

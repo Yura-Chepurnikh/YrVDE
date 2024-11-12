@@ -2,9 +2,12 @@
 
 ANDGate::ANDGate() { }
 
+// ANDGate::~ANDGate() { }
+
 void ANDGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
     Q_UNUSED(option);
     Q_UNUSED(widget);
+    painter->setPen(QPen(QColor{ "#23A9F2" }, 2));
 
     QPainterPath path;
 
