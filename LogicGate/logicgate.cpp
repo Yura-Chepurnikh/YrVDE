@@ -7,20 +7,21 @@ LogicGate::LogicGate()  {
 }
 
 void LogicGate::mousePressEvent(QGraphicsSceneMouseEvent *event) {
-    qDebug() << "mouseMoveEvent !!!" << '\n';
-    if (event->buttons() && Qt::LeftButton) {
-        setPos(mapToScene(event->pos()));
-    }
+    setCursor(Qt::ClosedHandCursor);
     QGraphicsItem::mousePressEvent(event);
 }
 
 void LogicGate::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
+    QPointF currentPoint = event->scenePos();
+    QPointF  connectToGridPoint = ConnectToGrid(currentPoint, 30);
+    setPos(connectToGridPoint);
+
+    QGraphicsItem::mousePressEvent(event);
 }
 
 void LogicGate::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
-    qDebug() << "mouseReleaseEvent !!!" << '\n';
-    setCursor(Qt::OpenHandCursor);
-    QGraphicsItem::mousePressEvent(event);
+    setCursor(Qt::CustomCursor);
+    QGraphicsItem::mouseReleaseEvent(event);
 }
 
 QPointF LogicGate::ConnectToGrid(const QPointF& pos, int gridGap) {
@@ -32,10 +33,7 @@ QPointF LogicGate::ConnectToGrid(const QPointF& pos, int gridGap) {
 void LogicGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
     Q_UNUSED(option);
     Q_UNUSED(widget);
-    Q_UNUSED(painter);
-
-    painter->setBrush(Qt::blue);
-    painter->drawRect(boundingRect());
+    painter->setPen({Qt::blue, 4});
 }
 
 QRectF LogicGate::boundingRect() const {

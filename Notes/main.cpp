@@ -24,16 +24,17 @@ SchemeObjectFront
     INPUT
     OUTPUT
 
-
-
-
-
-
-
-
-
-
-
+И так на данный момент я хочу реализовать методы drug and drop
+для класса LogicGate
 */
+
+/*
+ * И так сегодня я намерен
+ * 1. Изменить структуру logic gate так чтобы он был пропорционален grid gap а также drag and drop
+ * 2. Добавить в основной проект Bonding wire
+ * 3. Добавить inputs и outputs
+ */
+
+
 
 

@@ -2,8 +2,6 @@
 
 ANDGate::ANDGate() { }
 
-// ANDGate::~ANDGate() { }
-
 void ANDGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
     Q_UNUSED(option);
     Q_UNUSED(widget);
@@ -17,6 +15,7 @@ void ANDGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
     path.closeSubpath();
 
     painter->drawPath(path);
+    setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
 }
 
 QRectF ANDGate::boundingRect() const {

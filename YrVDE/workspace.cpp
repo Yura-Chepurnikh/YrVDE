@@ -4,13 +4,19 @@ int WorkSpace::m_gap = 30;
 
 WorkSpace::WorkSpace(QGraphicsScene* scene) : QGraphicsView(scene)
 {
-    setMouseTracking(true);
+    this->setInteractive(true);
+    this->setMouseTracking(true);
+    this->setDragMode(QGraphicsView::ScrollHandDrag);
+    this->setRenderHint(QPainter::Antialiasing);
+    this->setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
     this->setStyleSheet("background-color: #1F1F1F");
+
     m_gap = 30;
     m_mergeDistance = m_gap / 2;
 
     m_andGate = new ANDGate();
     scene->addItem(m_andGate);
+
 
     wire = new BondingWire();
     scene->addItem(wire);
@@ -42,7 +48,8 @@ void WorkSpace::drawBackground(QPainter *painter, const QRectF &rect) {
     }
 
     painter->setPen({Qt::red, 5});
-    painter->drawPoint(m_highlightPoint);
+    update();
+    //painter->drawPoint(m_highlightPoint);
 }
 
 void WorkSpace::wheelEvent(QWheelEvent* event) {
@@ -55,23 +62,23 @@ void WorkSpace::wheelEvent(QWheelEvent* event) {
     }
 }
 
-void WorkSpace::mouseMoveEvent(QMouseEvent *event) {
-    QPointF scenePos = mapToScene(event->pos());
+// void WorkSpace::mouseMoveEvent(QMouseEvent *event) {
+//     QPointF scenePos = mapToScene(event->pos());
 
-    qreal scaleFactor = transform().m11();
-    int scaledMergeDistance = static_cast<int>(scaleFactor * m_mergeDistance);
+//     qreal scaleFactor = transform().m11();
+//     int scaledMergeDistance = static_cast<int>(scaleFactor * m_mergeDistance);
 
-    for (size_t i = 0; i < m_gridPoints.size(); ++i) {
-        for (size_t j = 0; j < m_gridPoints[i].size(); ++j) {
-            if (std::abs(scenePos.x() - m_gridPoints[i][j].x()) < scaledMergeDistance &&
-                std::abs(scenePos.y() - m_gridPoints[i][j].y()) < scaledMergeDistance)
-            {
-                m_highlightPoint = m_gridPoints[i][j];
-                update();
-                return;
-            }
-        }
-    }
-}
+//     for (size_t i = 0; i < m_gridPoints.size(); ++i) {
+//         for (size_t j = 0; j < m_gridPoints[i].size(); ++j) {
+//             if (std::abs(scenePos.x() - m_gridPoints[i][j].x()) < scaledMergeDistance &&
+//                 std::abs(scenePos.y() - m_gridPoints[i][j].y()) < scaledMergeDistance)
+//             {
+//                 m_highlightPoint = m_gridPoints[i][j];
+//                 update();
+//                 return;
+//             }
+//         }
+//     }
+// }
 
 
