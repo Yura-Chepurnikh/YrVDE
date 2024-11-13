@@ -2,6 +2,9 @@
 
 ANDGate::ANDGate() { }
 
+ANDGate::~ANDGate() { }
+
+
 void ANDGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
     Q_UNUSED(option);
     Q_UNUSED(widget);
@@ -10,8 +13,8 @@ void ANDGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
     QPainterPath path;
 
     path.moveTo(m_pos);
-    path.arcTo(m_pos.x(), m_pos.y(), 10, 10, 90, -180);
-    path.lineTo(m_pos.x(), m_pos.y() + 10);
+    path.arcTo(m_pos.x(), m_pos.y(), m_gap, m_gap, 90, -180);
+    path.lineTo(m_pos.x(), m_pos.y() + m_gap);
     path.closeSubpath();
 
     painter->drawPath(path);

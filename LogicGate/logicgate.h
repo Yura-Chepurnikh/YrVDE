@@ -3,10 +3,16 @@
 
 #include "LogicGate_global.h"
 
-class LOGICGATE_EXPORT LogicGate : public QGraphicsItem {
+class LOGICGATE_EXPORT LogicGate : public QObject, public QGraphicsItem {
+    Q_OBJECT
+
 public:
     LogicGate();
+    ~LogicGate() = default;
     QPointF ConnectToGrid(const QPointF& pos, int gridGap);
+
+public slots:
+    void GetGridGap(int gap);
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
@@ -16,6 +22,7 @@ protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
     QRectF boundingRect() const override;
 
+    int m_gap;
     bool m_isDrag;
     QPointF m_pos;
 };

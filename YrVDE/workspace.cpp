@@ -9,6 +9,7 @@ WorkSpace::WorkSpace(QGraphicsScene* scene) : QGraphicsView(scene)
     this->setDragMode(QGraphicsView::ScrollHandDrag);
     this->setRenderHint(QPainter::Antialiasing);
     this->setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
+
     this->setStyleSheet("background-color: #1F1F1F");
 
     m_gap = 30;
@@ -17,31 +18,31 @@ WorkSpace::WorkSpace(QGraphicsScene* scene) : QGraphicsView(scene)
     m_andGate = new ANDGate();
     scene->addItem(m_andGate);
 
-
     wire = new BondingWire();
     scene->addItem(wire);
+
+    QObject::connect(this, &WorkSpace::SendGap, m_andGate, &LogicGate::GetGridGap);
+    emit this->SendGap(m_gap);
 }
+
+WorkSpace::~WorkSpace() { }
 
 void WorkSpace::drawBackground(QPainter *painter, const QRectF &rect) {
     painter->setPen({QColor{"#404040"}, 1});
 
-    qreal scaleFactor = transform().m11();
-
-    int scaledGap = static_cast<int>(m_gap * scaleFactor);
-
-    for (auto x = static_cast<int>(rect.left()); x < rect.right(); x += scaledGap) {
+    for (auto x = static_cast<int>(rect.left()); x < rect.right(); x += m_gap) {
         painter->drawLine(x, rect.top(), x, rect.bottom());
     }
 
-    for (auto y = static_cast<int>(rect.top()); y < rect.bottom(); y += scaledGap) {
+    for (auto y = static_cast<int>(rect.top()); y < rect.bottom(); y += m_gap) {
         painter->drawLine(rect.right(), y, rect.left(), y);
     }
 
     m_gridPoints.clear();
 
-    for (auto x = static_cast<int>(rect.left()); x < rect.right(); x += scaledGap) {
+    for (auto x = static_cast<int>(rect.left()); x < rect.right(); x += m_gap) {
         std::vector<QPoint> points;
-        for (auto y = static_cast<int>(rect.top()); y < rect.bottom(); y += scaledGap) {
+        for (auto y = static_cast<int>(rect.top()); y < rect.bottom(); y += m_gap) {
             points.push_back(QPoint(x, y));
         }
         m_gridPoints.push_back(points);

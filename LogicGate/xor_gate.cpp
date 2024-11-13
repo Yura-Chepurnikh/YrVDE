@@ -2,7 +2,7 @@
 
 XORGate::XORGate() { }
 
-// XORGate::~XORGate() { }
+XORGate::~XORGate() { }
 
 void XORGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
     Q_UNUSED(option);

@@ -10,18 +10,24 @@
 #include <QMouseEvent>
 
 #include "../BondingWire/bondingwire.h"
+#include "../LogicGate/logicgate.h"
 #include "../LogicGate/and_gate.h"
 #include "../LogicGate/xnor_gate.h"
 
 class WorkSpace : public QGraphicsView {
+    Q_OBJECT
+
 public:
     WorkSpace(QGraphicsScene* scene);
-
-// signals:
-//     void SendPoint(QPoint point);
-//     void EmitSendPoint(); // I'm writing this for clarity
-
+    virtual ~WorkSpace();
     LogicGate* m_andGate;
+
+signals:
+    //void SendPoint(QPoint point);
+    //void EmitSendPoint();
+
+    void SendGap(int gap);
+    void EmitSendGap(int gap);
 
 protected:
     void wheelEvent(QWheelEvent* event) override;

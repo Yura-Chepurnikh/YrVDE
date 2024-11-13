@@ -4,10 +4,10 @@
 #include "./logicgate.h"
 
 class LOGICGATE_EXPORT NOTGate : public LogicGate {
-
+Q_OBJECT
 public:
     NOTGate();
-    //~NOTGate() override;
+    ~NOTGate() override;
 
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;

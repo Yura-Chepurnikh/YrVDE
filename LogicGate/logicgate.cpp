@@ -6,6 +6,11 @@ LogicGate::LogicGate()  {
     m_isDrag = false;
 }
 
+void LogicGate::GetGridGap(int gap) {
+    m_gap = gap;
+    qDebug() << "gap: " << m_gap << '\n';
+}
+
 void LogicGate::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     setCursor(Qt::ClosedHandCursor);
     QGraphicsItem::mousePressEvent(event);

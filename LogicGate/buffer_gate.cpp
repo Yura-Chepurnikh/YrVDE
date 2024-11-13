@@ -2,7 +2,7 @@
 
 BUFFERGate::BUFFERGate() { }
 
-// BUFFERGate::~BUFFERGate() { }
+BUFFERGate::~BUFFERGate() { }
 
 void BUFFERGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
     Q_UNUSED(option);

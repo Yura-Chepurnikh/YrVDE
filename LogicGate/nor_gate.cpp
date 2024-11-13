@@ -2,7 +2,7 @@
 
 NORGate::NORGate() { }
 
-// NORGate::~NORGate() { }
+NORGate::~NORGate() { }
 
 void NORGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
     Q_UNUSED(option);

@@ -2,7 +2,7 @@
 
 ORGate::ORGate() { }
 
-// ORGate::~ORGate() { }
+ORGate::~ORGate() { }
 
 void ORGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
     Q_UNUSED(option);

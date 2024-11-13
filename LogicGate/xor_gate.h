@@ -4,10 +4,10 @@
 #include "./logicgate.h"
 
 class LOGICGATE_EXPORT XORGate : public LogicGate {
-
+Q_OBJECT
 public:
     XORGate();
-    //virtual ~XORGate();
+    ~XORGate() override;
 
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
