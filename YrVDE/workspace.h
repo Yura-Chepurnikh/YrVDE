@@ -8,6 +8,7 @@
 #include <QGraphicsLineItem>
 #include <QPoint>
 #include <QMouseEvent>
+#include <QApplication>
 
 #include "../BondingWire/bondingwire.h"
 #include "../LogicGate/logicgate.h"
@@ -23,21 +24,18 @@ public:
     LogicGate* m_andGate;
 
 signals:
-    //void SendPoint(QPoint point);
-    //void EmitSendPoint();
-
+    void SendPoint(QPoint point);
     void SendGap(int gap);
-    void EmitSendGap(int gap);
 
 protected:
     void wheelEvent(QWheelEvent* event) override;
     void drawBackground(QPainter* painter, const QRectF& rect) override;
-    //void mouseMoveEvent(QMouseEvent* event) override;
+    void mouseMoveEvent(QMouseEvent* event) override;
 
 private:
     static int m_gap;
     int m_mergeDistance;
-    //QPoint m_highlightPoint;
+    QPoint m_highlightPoint;
     std::vector<std::vector<QPoint>> m_gridPoints;
     BondingWire* wire;
 };

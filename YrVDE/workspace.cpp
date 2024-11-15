@@ -23,6 +23,11 @@ WorkSpace::WorkSpace(QGraphicsScene* scene) : QGraphicsView(scene)
 
     QObject::connect(this, &WorkSpace::SendGap, m_andGate, &LogicGate::GetGridGap);
     emit this->SendGap(m_gap);
+
+    QObject::connect(this, &WorkSpace::SendPoint, m_andGate, &LogicGate::GetGridPos);
+    emit this->SendPoint(m_highlightPoint);
+
+    update();
 }
 
 WorkSpace::~WorkSpace() { }
@@ -30,27 +35,26 @@ WorkSpace::~WorkSpace() { }
 void WorkSpace::drawBackground(QPainter *painter, const QRectF &rect) {
     painter->setPen({QColor{"#404040"}, 1});
 
-    for (auto x = static_cast<int>(rect.left()); x < rect.right(); x += m_gap) {
+    for (auto x = static_cast<int>(rect.left()) - static_cast<int>(rect.left()) % m_gap; x < rect.right(); x += m_gap) {
         painter->drawLine(x, rect.top(), x, rect.bottom());
     }
 
-    for (auto y = static_cast<int>(rect.top()); y < rect.bottom(); y += m_gap) {
+    for (auto y = static_cast<int>(rect.top()) - static_cast<int>(rect.top()) % m_gap; y < rect.bottom(); y += m_gap) {
         painter->drawLine(rect.right(), y, rect.left(), y);
     }
 
     m_gridPoints.clear();
 
-    for (auto x = static_cast<int>(rect.left()); x < rect.right(); x += m_gap) {
+    for (auto x = static_cast<int>(rect.left()) - static_cast<int>(rect.left()) % m_gap; x < rect.right(); x += m_gap) {
         std::vector<QPoint> points;
-        for (auto y = static_cast<int>(rect.top()); y < rect.bottom(); y += m_gap) {
+        for (auto y = static_cast<int>(rect.top()) - static_cast<int>(rect.top()) % m_gap; y < rect.bottom(); y += m_gap) {
             points.push_back(QPoint(x, y));
         }
         m_gridPoints.push_back(points);
     }
 
     painter->setPen({Qt::red, 5});
-    update();
-    //painter->drawPoint(m_highlightPoint);
+    painter->drawPoint(m_highlightPoint);
 }
 
 void WorkSpace::wheelEvent(QWheelEvent* event) {
@@ -63,23 +67,25 @@ void WorkSpace::wheelEvent(QWheelEvent* event) {
     }
 }
 
-// void WorkSpace::mouseMoveEvent(QMouseEvent *event) {
-//     QPointF scenePos = mapToScene(event->pos());
+void WorkSpace::mouseMoveEvent(QMouseEvent *event) {
+    QPointF scenePos = mapToScene(event->pos());
 
-//     qreal scaleFactor = transform().m11();
-//     int scaledMergeDistance = static_cast<int>(scaleFactor * m_mergeDistance);
+    qreal scaleFactor = transform().m11();
+    int scaledMergeDistance = static_cast<int>(scaleFactor * m_mergeDistance);
 
-//     for (size_t i = 0; i < m_gridPoints.size(); ++i) {
-//         for (size_t j = 0; j < m_gridPoints[i].size(); ++j) {
-//             if (std::abs(scenePos.x() - m_gridPoints[i][j].x()) < scaledMergeDistance &&
-//                 std::abs(scenePos.y() - m_gridPoints[i][j].y()) < scaledMergeDistance)
-//             {
-//                 m_highlightPoint = m_gridPoints[i][j];
-//                 update();
-//                 return;
-//             }
-//         }
-//     }
-// }
+    for (size_t i = 0; i < m_gridPoints.size(); ++i) {
+        for (size_t j = 0; j < m_gridPoints[i].size(); ++j) {
+            if (std::abs(scenePos.x() - m_gridPoints[i][j].x()) < scaledMergeDistance &&
+                std::abs(scenePos.y() - m_gridPoints[i][j].y()) < scaledMergeDistance)
+            {
+                m_highlightPoint = m_gridPoints[i][j];
+                emit this->SendPoint(m_highlightPoint);
+
+                update();
+                return;
+            }
+        }
+    }
+}
 
 

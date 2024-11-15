@@ -8,24 +8,31 @@ LogicGate::LogicGate()  {
 
 void LogicGate::GetGridGap(int gap) {
     m_gap = gap;
-    qDebug() << "gap: " << m_gap << '\n';
+}
+
+void LogicGate::GetGridPos(QPointF pos) {
+    m_pos = pos;
 }
 
 void LogicGate::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     setCursor(Qt::ClosedHandCursor);
+    m_isDrag = true;
     QGraphicsItem::mousePressEvent(event);
 }
 
 void LogicGate::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
+    if (m_isDrag) {
     QPointF currentPoint = event->scenePos();
     QPointF  connectToGridPoint = ConnectToGrid(currentPoint, 30);
     setPos(connectToGridPoint);
 
     QGraphicsItem::mousePressEvent(event);
+    }
 }
 
 void LogicGate::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
     setCursor(Qt::CustomCursor);
+    m_isDrag = false;
     QGraphicsItem::mouseReleaseEvent(event);
 }
 

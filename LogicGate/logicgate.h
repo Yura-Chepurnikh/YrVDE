@@ -13,6 +13,7 @@ public:
 
 public slots:
     void GetGridGap(int gap);
+    void GetGridPos(QPointF pos);
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
@@ -22,9 +23,9 @@ protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
     QRectF boundingRect() const override;
 
+    QPointF m_pos;
     int m_gap;
     bool m_isDrag;
-    QPointF m_pos;
 };
 
 #endif // LOGICGATE_H
