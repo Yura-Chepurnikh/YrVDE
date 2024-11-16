@@ -25,7 +25,6 @@ void LogicGate::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
     QPointF currentPoint = event->scenePos();
     QPointF  connectToGridPoint = ConnectToGrid(currentPoint, 30);
     setPos(connectToGridPoint);
-
     QGraphicsItem::mousePressEvent(event);
     }
 }

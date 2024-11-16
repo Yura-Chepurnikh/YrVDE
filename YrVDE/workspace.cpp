@@ -35,19 +35,19 @@ WorkSpace::~WorkSpace() { }
 void WorkSpace::drawBackground(QPainter *painter, const QRectF &rect) {
     painter->setPen({QColor{"#404040"}, 1});
 
-    for (auto x = static_cast<int>(rect.left()) - static_cast<int>(rect.left()) % m_gap; x < rect.right(); x += m_gap) {
+    for (auto x = static_cast<int>(rect.left()) - static_cast<int>(rect.left()) % m_gap; x < rect.right(); x += m_gap / 2) {
         painter->drawLine(x, rect.top(), x, rect.bottom());
     }
 
-    for (auto y = static_cast<int>(rect.top()) - static_cast<int>(rect.top()) % m_gap; y < rect.bottom(); y += m_gap) {
+    for (auto y = static_cast<int>(rect.top()) - static_cast<int>(rect.top()) % m_gap; y < rect.bottom(); y += m_gap / 2) {
         painter->drawLine(rect.right(), y, rect.left(), y);
     }
 
     m_gridPoints.clear();
 
-    for (auto x = static_cast<int>(rect.left()) - static_cast<int>(rect.left()) % m_gap; x < rect.right(); x += m_gap) {
+    for (auto x = static_cast<int>(rect.left()) - static_cast<int>(rect.left()) % m_gap; x < rect.right(); x += m_gap / 2) {
         std::vector<QPoint> points;
-        for (auto y = static_cast<int>(rect.top()) - static_cast<int>(rect.top()) % m_gap; y < rect.bottom(); y += m_gap) {
+        for (auto y = static_cast<int>(rect.top()) - static_cast<int>(rect.top()) % m_gap; y < rect.bottom(); y += m_gap / 2) {
             points.push_back(QPoint(x, y));
         }
         m_gridPoints.push_back(points);

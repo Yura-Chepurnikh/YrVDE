@@ -26,6 +26,9 @@ protected:
     QPointF m_pos;
     int m_gap;
     bool m_isDrag;
+
+    std::vector<QPointF> m_inputs;
+    QPointF m_output;
 };
 
 #endif // LOGICGATE_H
