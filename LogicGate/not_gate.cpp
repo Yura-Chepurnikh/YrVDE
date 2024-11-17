@@ -8,7 +8,7 @@ void NOTGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    int edge = 40;
+    int edge = m_gap;
     QPainterPath path;
 
     path.moveTo(m_pos);
@@ -17,8 +17,8 @@ void NOTGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
     path.closeSubpath();
 
     QPainterPath bubble;
-    QPoint center { m_pos.x() + std::sqrt(3) / 2 * edge + 3, m_pos.y() + edge / 2 };
-    bubble.addEllipse(center, 3, 3);
+    QPoint center { m_pos.x() + m_gap + m_gap/10, m_pos.y() + m_gap/2 };
+    bubble.addEllipse(center, m_gap/10, m_gap/10);
 
     painter->drawPath(path);
     painter->drawPath(bubble);

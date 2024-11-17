@@ -1,9 +1,8 @@
 #include "./and_gate.h"
 
-ANDGate::ANDGate() { }
+ANDGate::ANDGate() : LogicGate() {}
 
 ANDGate::~ANDGate() { }
-
 
 void ANDGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
     Q_UNUSED(option);
@@ -17,18 +16,6 @@ void ANDGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
     path.lineTo(m_pos.x(), m_pos.y());
 
     painter->drawPath(path);
-
-    painter->setPen(QPen(Qt::red, 2));
-    QPainterPath inputsLine;
-    inputsLine.addEllipse(m_pos.x(), m_pos.y() + 2, 1, 1);
-    inputsLine.addEllipse(m_pos.x(), m_pos.y() + 4, 1, 1);
-    inputsLine.addEllipse(m_pos.x(), m_pos.y() + m_gap - 4, 1, 1);
-    inputsLine.addEllipse(m_pos.x(), m_pos.y() + m_gap - 2, 1, 1);
-    painter->drawPath(inputsLine);
-
-    QPainterPath outputPoint;
-    outputPoint.addEllipse(m_pos.x() + m_gap, m_pos.y()  + m_gap / 2, 1, 1);
-    painter->drawPath(outputPoint);
 
     setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
 }

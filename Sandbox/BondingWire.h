@@ -13,15 +13,13 @@ class Grid;
 
 class BondingWire : public QGraphicsItem {
 public:
-    BondingWire(Grid* gridData);
+    BondingWire();
 
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
     void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
     void mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;
     void mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override;
-
-    QPointF MergeToPoints(QPointF cursorCurrentPos);
 
     QRectF boundingRect() const override;
 

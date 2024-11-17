@@ -24,6 +24,7 @@ protected:
     QRectF boundingRect() const override;
 
     QPointF m_pos;
+    int m_min_dis;
     int m_gap;
     bool m_isDrag;
 

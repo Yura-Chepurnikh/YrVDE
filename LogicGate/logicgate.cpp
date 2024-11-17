@@ -1,13 +1,16 @@
 #include "logicgate.h"
 
-LogicGate::LogicGate()  {
+LogicGate::LogicGate() {
     setFlag(QGraphicsItem::ItemIsMovable);
     setFlag(QGraphicsItem::ItemIsSelectable);
+    setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
     m_isDrag = false;
 }
 
 void LogicGate::GetGridGap(int gap) {
+    qDebug() << m_gap << '\n';
     m_gap = gap;
+    m_min_dis =  m_gap / 10;
 }
 
 void LogicGate::GetGridPos(QPointF pos) {
@@ -16,22 +19,18 @@ void LogicGate::GetGridPos(QPointF pos) {
 
 void LogicGate::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     setCursor(Qt::ClosedHandCursor);
-    m_isDrag = true;
     QGraphicsItem::mousePressEvent(event);
 }
 
 void LogicGate::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
-    if (m_isDrag) {
     QPointF currentPoint = event->scenePos();
-    QPointF  connectToGridPoint = ConnectToGrid(currentPoint, 30);
-    setPos(connectToGridPoint);
+    m_pos = ConnectToGrid(currentPoint, m_min_dis);
+    update();
     QGraphicsItem::mousePressEvent(event);
-    }
 }
 
 void LogicGate::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
     setCursor(Qt::CustomCursor);
-    m_isDrag = false;
     QGraphicsItem::mouseReleaseEvent(event);
 }
 
@@ -44,7 +43,7 @@ QPointF LogicGate::ConnectToGrid(const QPointF& pos, int gridGap) {
 void LogicGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
     Q_UNUSED(option);
     Q_UNUSED(widget);
-    painter->setPen({Qt::blue, 4});
+    painter->setPen(QPen(QColor{ "#777777"}, 2));
 }
 
 QRectF LogicGate::boundingRect() const {

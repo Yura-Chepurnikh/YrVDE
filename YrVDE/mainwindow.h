@@ -10,6 +10,7 @@
 #include <QMenu>
 #include <QToolButton>
 #include "./workspace.h"
+#include "../BondingWire/bondingwire.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -24,6 +25,7 @@ public:
     ~MainWindow();
 
 private:
+    BondingWire* wire;
     QToolBar* m_toolbar;
     QMenu* m_menu;
     QGraphicsView* m_view;

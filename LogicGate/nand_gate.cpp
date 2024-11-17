@@ -9,15 +9,14 @@ void NANDGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
     Q_UNUSED(widget);
 
     QPainterPath path;
-
     path.moveTo(m_pos);
-    path.arcTo(m_pos.x(), m_pos.y(), 10, 10, 90, -180);
-    path.lineTo(m_pos.x(), m_pos.y() + 10);
-    path.closeSubpath();
+    path.arcTo(m_pos.x(), m_pos.y(), m_gap, m_gap, 90, -180);
+    path.lineTo(m_pos.x(), m_pos.y() + m_gap);
+    path.lineTo(m_pos.x(), m_pos.y());
 
     QPainterPath bubble;
-    QPoint center { m_pos.x() + 10 + 1, m_pos.y() + 5 };
-    bubble.addEllipse(center, 1, 1);
+    QPoint center { m_pos.x() + m_gap + m_gap/10, m_pos.y() + m_gap/2 };
+    bubble.addEllipse(center, m_gap/10, m_gap/10);
 
     painter->drawPath(path);
     painter->drawPath(bubble);

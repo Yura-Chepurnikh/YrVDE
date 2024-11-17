@@ -13,13 +13,14 @@ void NORGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
     path.moveTo(m_pos);
     path.closeSubpath();
 
-    path.quadTo(m_pos.x() + 40, m_pos.y() , m_pos.x() + 60, m_pos.y() + 40);
-    path.quadTo(m_pos.x() + 40, m_pos.y() + 80, m_pos.x(), m_pos.y() + 80);
-    path.quadTo(m_pos.x() + 30, m_pos.y() + 40, m_pos.x(), m_pos.y());
+    int gap = m_gap/2;
+    path.quadTo(m_pos.x() + gap, m_pos.y(), m_pos.x() + 1.5 * gap, m_pos.y() + gap);
+    path.quadTo(m_pos.x() + gap, m_pos.y() + 2*gap, m_pos.x(), m_pos.y() + 2*gap);
+    path.quadTo(m_pos.x() + gap, m_pos.y() + gap, m_pos.x(), m_pos.y());
 
     QPainterPath bubble;
-    QPoint center { m_pos.x() + 60 + 10, m_pos.y() + 40 };
-    bubble.addEllipse(center, 10, 10);
+    QPoint center { m_pos.x() + 1.5 * gap + gap / 10, m_pos.y() + gap };
+    bubble.addEllipse(center, gap / 10, gap / 10);
 
     painter->drawPath(path);
     painter->drawPath(bubble);

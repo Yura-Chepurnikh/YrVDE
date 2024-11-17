@@ -8,7 +8,7 @@ void BUFFERGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    int edge = 40;
+    int edge = m_gap;
     QPainterPath path;
 
     path.moveTo(m_pos);
@@ -17,6 +17,7 @@ void BUFFERGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
     path.closeSubpath();
 
     painter->drawPath(path);
+    setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
 }
 
 QRectF BUFFERGate::boundingRect() const {
