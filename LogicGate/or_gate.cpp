@@ -8,6 +8,8 @@ void ORGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
+    painter->setPen(QPen(QColor{ "#777777"}, 1));
+
     QPainterPath path;
 
     path.moveTo(m_pos);
@@ -22,5 +24,5 @@ void ORGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
 }
 
 QRectF ORGate::boundingRect() const {
-    return QRectF(m_pos.x(), m_pos.y(), 30, 30);
+    return QRectF(m_pos.x(), m_pos.y(), m_gap, m_gap);
 }

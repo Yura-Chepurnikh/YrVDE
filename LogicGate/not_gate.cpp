@@ -8,6 +8,8 @@ void NOTGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
+    painter->setPen(QPen(QColor{ "#777777"}, 1));
+
     int edge = m_gap;
     QPainterPath path;
 
@@ -17,13 +19,14 @@ void NOTGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
     path.closeSubpath();
 
     QPainterPath bubble;
-    QPoint center { m_pos.x() + m_gap + m_gap/10, m_pos.y() + m_gap/2 };
-    bubble.addEllipse(center, m_gap/10, m_gap/10);
+    int radius = m_gap / 20;
+    QPoint center { m_pos.x() + std::sqrt(3) / 2 * edge + radius, m_pos.y() + edge / 2 };
+    bubble.addEllipse(center, radius, radius);;
 
     painter->drawPath(path);
     painter->drawPath(bubble);
 }
 
 QRectF NOTGate::boundingRect() const {
-    return QRectF(m_pos.x(), m_pos.y(), 30, 30);
+    return QRectF(m_pos.x(), m_pos.y(), m_gap, m_gap);
 }

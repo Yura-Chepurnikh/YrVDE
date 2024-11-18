@@ -20,6 +20,7 @@
 #include "../LogicGate/not_gate.h"
 #include "../LogicGate/and_gate.h"
 #include "../LogicGate/xor_gate.h"
+#include "../LogicGate/input.h"
 
 class WorkSpace : public QGraphicsView {
     Q_OBJECT
@@ -31,13 +32,13 @@ public:
     LogicGate* m_buffer;
     BondingWire* m_wire;
 
-// signals:
-//     void SendPoint(QPoint point);
-//     void SendGap(int gap);
+signals:
+    void SendPoint(QPoint point);
+    void SendGap(int gap);
 
 protected:
-    //void wheelEvent(QWheelEvent* event) override;
-    //void drawBackground(QPainter* painter, const QRectF& rect) override;
+    void wheelEvent(QWheelEvent* event) override;
+    void drawBackground(QPainter* painter, const QRectF& rect) override;
 
 private:
     static int m_minDis;

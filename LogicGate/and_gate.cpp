@@ -7,7 +7,8 @@ ANDGate::~ANDGate() { }
 void ANDGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
     Q_UNUSED(option);
     Q_UNUSED(widget);
-    painter->setPen(QPen(QColor{ "#23A9F2" }, 2));
+
+    painter->setPen(QPen(QColor{ "#777777"}, 1));
 
     QPainterPath path;
     path.moveTo(m_pos);
@@ -16,10 +17,10 @@ void ANDGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
     path.lineTo(m_pos.x(), m_pos.y());
 
     painter->drawPath(path);
-
+    update();
     setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
 }
 
 QRectF ANDGate::boundingRect() const {
-    return QRectF(m_pos.x(), m_pos.y(), 30, 30);
+    return QRectF(m_pos.x(), m_pos.y(), m_gap, m_gap);
 }

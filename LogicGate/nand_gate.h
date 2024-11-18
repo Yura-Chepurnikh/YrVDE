@@ -10,13 +10,9 @@ public:
     NANDGate();
     ~NANDGate() override;
 
-
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
     QRectF boundingRect() const override;
-
-private:
-
 };
 
 #endif // NAND_GATE_H

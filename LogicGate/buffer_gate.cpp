@@ -8,6 +8,8 @@ void BUFFERGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
+    painter->setPen(QPen(QColor{ "#777777"}, 1));
+
     int edge = m_gap;
     QPainterPath path;
 
@@ -21,5 +23,6 @@ void BUFFERGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
 }
 
 QRectF BUFFERGate::boundingRect() const {
-    return QRectF(m_pos.x(), m_pos.y(), 30, 30);
+    return QRectF(m_pos.x(), m_pos.y(), m_gap, m_gap);
 }
+

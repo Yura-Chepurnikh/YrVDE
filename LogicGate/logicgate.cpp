@@ -43,10 +43,11 @@ QPointF LogicGate::ConnectToGrid(const QPointF& pos, int gridGap) {
 void LogicGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
     Q_UNUSED(option);
     Q_UNUSED(widget);
-    painter->setPen(QPen(QColor{ "#777777"}, 2));
+    painter->setPen(QPen(QColor{ "#777777"}, 1));
 }
 
 QRectF LogicGate::boundingRect() const {
-    return QRectF(m_pos.x(), m_pos.y(), 30, 30);
+    return QRectF(m_pos.x(), m_pos.y(), m_gap, m_gap);
 }
+
 

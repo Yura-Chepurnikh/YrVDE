@@ -8,6 +8,8 @@ void XORGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
+    painter->setPen(QPen(QColor{ "#777777"}, 1));
+
     QPainterPath path;
 
     path.moveTo(m_pos);
@@ -29,5 +31,5 @@ void XORGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
 }
 
 QRectF XORGate::boundingRect() const {
-    return QRectF(m_pos.x(), m_pos.y(), 30, 30);
+    return QRectF(m_pos.x(), m_pos.y(), m_gap, m_gap);
 }

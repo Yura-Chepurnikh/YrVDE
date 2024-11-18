@@ -10,13 +10,13 @@ MainWindow::MainWindow(QWidget *parent)
     m_menu = this->menuBar()->addMenu("File");
     menuBar()->setStyleSheet("background-color: #181818");
 
-    wire = new BondingWire();
+    // wire = new BondingWire();
 
     m_scene = new QGraphicsScene();
     m_view = new QGraphicsView(m_scene);
     m_view->setScene(m_scene);
 
-    m_scene->addItem(wire);
+    //m_scene->addItem(wire);
 
     workspace = new WorkSpace(m_scene);
     setCentralWidget(workspace);

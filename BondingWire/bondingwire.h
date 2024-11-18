@@ -3,7 +3,7 @@
 
 #include "BondingWire_global.h"
 
-class BONDINGWIRE_EXPORT BondingWire : public QGraphicsPathItem {
+class BONDINGWIRE_EXPORT BondingWire : public QGraphicsItem {
 public:
     BondingWire();
 

@@ -12,9 +12,6 @@ public:
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
     QRectF boundingRect() const override;
-
-private:
-
 };
 
 #endif // NOR_GATE_H

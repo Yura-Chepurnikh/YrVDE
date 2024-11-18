@@ -8,6 +8,8 @@ void NANDGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
+    painter->setPen(QPen(QColor{ "#777777"}, 1));
+
     QPainterPath path;
     path.moveTo(m_pos);
     path.arcTo(m_pos.x(), m_pos.y(), m_gap, m_gap, 90, -180);
@@ -15,13 +17,15 @@ void NANDGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
     path.lineTo(m_pos.x(), m_pos.y());
 
     QPainterPath bubble;
-    QPoint center { m_pos.x() + m_gap + m_gap/10, m_pos.y() + m_gap/2 };
-    bubble.addEllipse(center, m_gap/10, m_gap/10);
+    int radius = m_gap / 20;
+    QPoint center { m_pos.x() + m_gap + radius, m_pos.y() + m_gap/2 };
+    bubble.addEllipse(center, radius, radius);
 
     painter->drawPath(path);
     painter->drawPath(bubble);
 }
 
 QRectF NANDGate::boundingRect() const {
-    return QRectF(m_pos.x(), m_pos.y(), 30, 30);
+    return QRectF(m_pos.x(), m_pos.y(), m_gap, m_gap);
 }
+

@@ -8,6 +8,8 @@ void XNORGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
+    painter->setPen(QPen(QColor{ "#777777"}, 1));
+
     QPainterPath path;
 
     path.moveTo(m_pos);
@@ -28,8 +30,9 @@ void XNORGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
     painter->drawPath(path2);
 
     QPainterPath bubble;
-    QPoint center { m_pos.x() + 1.5*gap + m_gap/10, m_pos.y() + gap };
-    bubble.addEllipse(center, m_gap/10, m_gap/10);
+    int radius = m_gap / 20;
+    QPoint center { m_pos.x() + 1.5*gap + radius, m_pos.y() + gap };
+    bubble.addEllipse(center, radius, radius);
 
     painter->drawPath(path);
     painter->drawPath(path2);
@@ -37,5 +40,5 @@ void XNORGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
 }
 
 QRectF XNORGate::boundingRect() const {
-    return QRectF(m_pos.x(), m_pos.y(), 30, 30);
+    return QRectF(m_pos.x(), m_pos.y(), m_gap, m_gap);
 }
