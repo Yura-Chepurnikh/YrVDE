@@ -10,6 +10,7 @@
 #include <QtCore/QPointF>
 #include <QtCore/QLineF>
 #include <QtGui/QPainterPath>
+#include <QObject>
 
 #if defined(BONDINGWIRE_LIBRARY)
 #define BONDINGWIRE_EXPORT Q_DECL_EXPORT

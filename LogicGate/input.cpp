@@ -8,7 +8,7 @@ void Input::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    painter->setPen(QPen(QColor{ "#777777"}, 1));
+    painter->setPen(QPen(QColor{ "#23A9F2"}, 1));
 
     QPainterPath path;
     path.addRect(m_pos.x(), m_pos.y(), m_min_dis, m_min_dis);

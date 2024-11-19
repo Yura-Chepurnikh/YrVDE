@@ -8,7 +8,7 @@ void XNORGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    painter->setPen(QPen(QColor{ "#777777"}, 1));
+    painter->setPen(QPen(QColor{ "#23A9F2"}, 1));
 
     QPainterPath path;
 

@@ -8,7 +8,6 @@ LogicGate::LogicGate() {
 }
 
 void LogicGate::GetGridGap(int gap) {
-    qDebug() << m_gap << '\n';
     m_gap = gap;
     m_min_dis =  m_gap / 10;
 }

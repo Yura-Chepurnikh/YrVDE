@@ -43,6 +43,15 @@ SchemeObjectFront
  *  3. Added main logic
  */
 
+// 11.19.2024
+
+/*
+ * 1. Привести в порядок логику Logic gate
+ * 2. Добавить основную логику, чтобы можно было соединять logic gate-ы
+ * 3. Toolbar
+ * 4. Общое review проекта
+ */
+
 
 
 

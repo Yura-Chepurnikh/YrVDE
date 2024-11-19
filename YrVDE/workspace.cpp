@@ -17,9 +17,13 @@ WorkSpace::WorkSpace(QGraphicsScene* scene) : QGraphicsView(scene)
 
 
 
-    // m_wire = new BondingWire();
-    // m_wire->setPos(0, 0);
-    // scene->addItem(m_wire);
+    m_wire = new BondingWire();
+    m_wire->setPos(0, 0);
+    scene->addItem(m_wire);
+
+
+    QObject::connect(this, &WorkSpace::SendGap, m_wire, &BondingWire::GetGridGap);
+    emit this->SendGap(m_gap);
 
     m_gap = 30;
     m_mergeDistance = m_gap / 2;
@@ -94,19 +98,19 @@ void WorkSpace::drawBackground(QPainter *painter, const QRectF &rect) {
 
     m_minDis = m_gap / 10;
 
-    for (auto x = static_cast<int>(rect.left()) - static_cast<int>(rect.left()) % m_minDis; x < rect.right(); x += m_minDis) {
+    for (auto x = static_cast<int>(rect.left()) - static_cast<int>(rect.left()) % m_gap; x < rect.right(); x += m_gap) {
         painter->drawLine(x, rect.top(), x, rect.bottom());
     }
 
-    for (auto y = static_cast<int>(rect.top()) - static_cast<int>(rect.top()) % m_minDis; y < rect.bottom(); y += m_minDis) {
+    for (auto y = static_cast<int>(rect.top()) - static_cast<int>(rect.top()) % m_gap; y < rect.bottom(); y += m_gap) {
         painter->drawLine(rect.right(), y, rect.left(), y);
     }
 
     m_gridPoints.clear();
 
-    for (auto x = static_cast<int>(rect.left()) - static_cast<int>(rect.left()) % m_minDis; x < rect.right(); x += m_minDis) {
+    for (auto x = static_cast<int>(rect.left()) - static_cast<int>(rect.left()) % m_gap; x < rect.right(); x += m_gap) {
         std::vector<QPoint> points;
-        for (auto y = static_cast<int>(rect.top()) - static_cast<int>(rect.top()) % m_minDis; y < rect.bottom(); y += m_minDis) {
+        for (auto y = static_cast<int>(rect.top()) - static_cast<int>(rect.top()) % m_gap; y < rect.bottom(); y += m_gap) {
             points.push_back(QPoint(x, y));
         }
         m_gridPoints.push_back(points);
