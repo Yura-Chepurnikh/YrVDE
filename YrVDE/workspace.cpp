@@ -5,32 +5,37 @@ int WorkSpace::m_minDis = m_gap / 10;
 
 WorkSpace::WorkSpace(QGraphicsScene* scene) : QGraphicsView(scene)
 {
-    // this->setInteractive(true);
-     this->setMouseTracking(true);
-
+    this->setMouseTracking(true);
     this->setDragMode(QGraphicsView::NoDrag);
     this->setRenderHint(QPainter::Antialiasing);
     this->setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
-
     this->setStyleSheet("background-color: #1F1F1F");
 
-
-
+    scene->setSceneRect(this->viewport()->rect().x(),
+                                       this->viewport()->rect().y(),
+                                       this->viewport()->rect().width(),
+                                       this->viewport()->rect().height());
 
     m_wire = new BondingWire();
-    m_wire->setPos(0, 0);
     scene->addItem(m_wire);
-
 
     QObject::connect(this, &WorkSpace::SendGap, m_wire, &BondingWire::GetGridGap);
     emit this->SendGap(m_gap);
 
+    LogicGate* and_gate = new ANDGate;
+    scene->addItem(and_gate);
+
+    QObject::connect(this, &WorkSpace::SendGap, and_gate, &LogicGate::GetGridGap);
+    emit this->SendGap(m_gap);
+
+    if (false) {
     m_gap = 30;
     m_mergeDistance = m_gap / 2;
 
     LogicGate* input = new Input;
     scene->addItem(input);
-
+    QObject::connect(this, &WorkSpace::SendGap, input, &LogicGate::GetGridGap);
+    emit this->SendGap(m_gap);
 
     LogicGate* nand_gate = new NANDGate;
     scene->addItem(nand_gate);
@@ -44,8 +49,6 @@ WorkSpace::WorkSpace(QGraphicsScene* scene) : QGraphicsView(scene)
     LogicGate* xor_gate = new XORGate();
     scene->addItem(xor_gate);
 
-    QObject::connect(this, &WorkSpace::SendGap, input, &LogicGate::GetGridGap);
-    emit this->SendGap(m_gap);
 
     QObject::connect(this, &WorkSpace::SendGap, nand_gate, &LogicGate::GetGridGap);
     emit this->SendGap(m_gap);
@@ -64,6 +67,7 @@ WorkSpace::WorkSpace(QGraphicsScene* scene) : QGraphicsView(scene)
 
     LogicGate* buffer = new BUFFERGate();
     scene->addItem(buffer);
+
 
     LogicGate* nor_gate = new NORGate();
     scene->addItem(nor_gate);
@@ -85,16 +89,15 @@ WorkSpace::WorkSpace(QGraphicsScene* scene) : QGraphicsView(scene)
 
     QObject::connect(this, &WorkSpace::SendGap, xnor_gate, &LogicGate::GetGridGap);
     emit this->SendGap(m_gap);
+    }
 
     setScene(scene);
 }
 
 WorkSpace::~WorkSpace() { }
 
-
-
 void WorkSpace::drawBackground(QPainter *painter, const QRectF &rect) {
-    painter->setPen({QColor{"#404040"}, 0.1});
+    painter->setPen({QColor{"#404040"}, 1});
 
     m_minDis = m_gap / 10;
 

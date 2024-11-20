@@ -26,7 +26,6 @@ private:
     bool m_isDrag = false;
     QPointF m_startPos;
     std::vector<QPointF> m_points;
-    std::vector<std::vector<QPointF>> m_all_Points;
 };
 
 #endif // BONDINGWIRE_H

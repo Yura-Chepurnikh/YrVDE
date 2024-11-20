@@ -1,6 +1,20 @@
 #include "./and_gate.h"
 
-ANDGate::ANDGate() : LogicGate() {}
+ANDGate::ANDGate() : LogicGate()
+{
+    m_addInputs = new AddInput();
+
+    QObject::connect(this, &LogicGate::SendFirstCordinate, m_addInputs, &AddInput::GetFirstCordinate);
+    emit SendFirstCordinate(m_pos);
+
+    qDebug() << "m_gap" << m_gap;
+
+    QObject::connect(this, &LogicGate::SendSecondCordinate, m_addInputs, &AddInput::GetSecondCordinate);
+    emit SendSecondCordinate({m_pos.x(), m_pos.y() + 1000});
+
+    QObject::connect(this, &LogicGate::SendInputsDistance, m_addInputs, &AddInput::GetInputsDistance);
+    emit SendInputsDistance(100);
+}
 
 ANDGate::~ANDGate() { }
 
@@ -8,15 +22,35 @@ void ANDGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    painter->setPen(QPen(QColor{ "#23A9F2"}, 1));
+    painter->setPen(QPen(QColor{ "#23A9F2"}, 5));
 
-    QPainterPath path;
-    path.moveTo(m_pos);
-    path.arcTo(m_pos.x(), m_pos.y(), m_gap, m_gap, 90, -180);
-    path.lineTo(m_pos.x(), m_pos.y() + m_gap);
-    path.lineTo(m_pos.x(), m_pos.y());
+    painter->translate(boundingRect().center());
+    painter->rotate(90);
+    painter->translate(-boundingRect().center());
 
-    painter->drawPath(path);
+    // QPainterPath path;
+    // path.moveTo(m_pos);
+    // path.arcTo(m_pos.x(), m_pos.y(), m_gap, m_gap, 90, -180);
+    // path.lineTo(m_pos.x(), m_pos.y() + m_gap);
+    // path.lineTo(m_pos.x(), m_pos.y());
+
+    std::vector<QPointF> vec;
+    vec = m_addInputs->Points();
+
+    for (size_t i = 0; i < vec.size(); ++i) {
+        qDebug() << vec[i] << "\n";
+    }
+
+    QPainterPath a;
+
+    if (!vec.empty()) {
+        qDebug() << "asd";
+        a.moveTo(vec[0]);
+        for (size_t i = 1; i < vec.size(); ++i)
+            a.lineTo(vec[i]);
+    }
+    //painter->drawPath(path);
+    painter->drawPath(a);
     update();
     setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
 }

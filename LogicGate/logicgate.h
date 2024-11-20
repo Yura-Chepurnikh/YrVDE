@@ -2,6 +2,7 @@
 #define LOGICGATE_H
 
 #include "LogicGate_global.h"
+#include "./add_inputs.h"
 
 class LOGICGATE_EXPORT LogicGate : public QObject, public QGraphicsItem {
     Q_OBJECT
@@ -14,6 +15,11 @@ public:
 public slots:
     void GetGridGap(int gap);
     void GetGridPos(QPointF pos);
+
+signals:
+    void SendFirstCordinate(QPointF first);
+    void SendSecondCordinate(QPointF second);
+    void SendInputsDistance(int dis);
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent* event) override;

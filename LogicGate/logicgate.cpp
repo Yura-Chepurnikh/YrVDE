@@ -10,6 +10,8 @@ LogicGate::LogicGate() {
 void LogicGate::GetGridGap(int gap) {
     m_gap = gap;
     m_min_dis =  m_gap / 10;
+    qDebug() << "LogicGate m_gap" << m_gap << '\n';
+
 }
 
 void LogicGate::GetGridPos(QPointF pos) {
@@ -23,7 +25,7 @@ void LogicGate::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 
 void LogicGate::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
     QPointF currentPoint = event->scenePos();
-    m_pos = ConnectToGrid(currentPoint, m_min_dis);
+    m_pos = ConnectToGrid(currentPoint, m_gap);
     update();
     QGraphicsItem::mousePressEvent(event);
 }

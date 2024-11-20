@@ -6,6 +6,7 @@
 #include <QtWidgets/QWidget>
 #include <QtWidgets/QStyleOptionGraphicsItem>
 #include <QtGui/QPainter>
+#include <QtWidgets/QGraphicsScene>
 #include <QtWidgets/QGraphicsSceneMouseEvent>
 #include <QtCore/QPointF>
 #include <QtCore/QLineF>

@@ -21,6 +21,7 @@
 #include "../LogicGate/and_gate.h"
 #include "../LogicGate/xor_gate.h"
 #include "../LogicGate/input.h"
+#include "../LogicGate/add_inputs.h"
 
 class WorkSpace : public QGraphicsView {
     Q_OBJECT
