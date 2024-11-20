@@ -9,6 +9,8 @@
 #include <QtGui/QPainter>
 #include <QPushButton>
 #include <QTransform>
+#include <QMenu>
+#include <QAction>
 #include <QBitmap>
 #include <QtWidgets/QGraphicsProxyWidget>
 #include <QPoint>

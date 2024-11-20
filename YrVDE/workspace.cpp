@@ -1,6 +1,6 @@
 #include "./workspace.h"
 
-int WorkSpace::m_gap = 1000;
+int WorkSpace::m_gap = 10;
 int WorkSpace::m_minDis = m_gap / 10;
 
 WorkSpace::WorkSpace(QGraphicsScene* scene) : QGraphicsView(scene)
@@ -22,10 +22,19 @@ WorkSpace::WorkSpace(QGraphicsScene* scene) : QGraphicsView(scene)
     QObject::connect(this, &WorkSpace::SendGap, m_wire, &BondingWire::GetGridGap);
     emit this->SendGap(m_gap);
 
-    LogicGate* and_gate = new ANDGate;
-    scene->addItem(and_gate);
+    // LogicGate* and_gate = new ANDGate;
+    // scene->addItem(and_gate);
 
-    QObject::connect(this, &WorkSpace::SendGap, and_gate, &LogicGate::GetGridGap);
+    // QObject::connect(this, &WorkSpace::SendGap, and_gate, &LogicGate::GetGridGap);
+    // emit this->SendGap(m_gap);
+
+
+
+
+    LogicGate* or_gate = new ORGate();
+    scene->addItem(or_gate);
+
+    QObject::connect(this, &WorkSpace::SendGap, or_gate, &LogicGate::GetGridGap);
     emit this->SendGap(m_gap);
 
     if (false) {

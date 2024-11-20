@@ -28,29 +28,30 @@ void ANDGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
     painter->rotate(90);
     painter->translate(-boundingRect().center());
 
-    // QPainterPath path;
-    // path.moveTo(m_pos);
-    // path.arcTo(m_pos.x(), m_pos.y(), m_gap, m_gap, 90, -180);
-    // path.lineTo(m_pos.x(), m_pos.y() + m_gap);
-    // path.lineTo(m_pos.x(), m_pos.y());
+    QPainterPath path;
+    path.moveTo(m_pos);
+    path.arcTo(m_pos.x(), m_pos.y(), m_gap, m_gap, 90, -180);
+    path.lineTo(m_pos.x(), m_pos.y() + m_gap);
+    path.lineTo(m_pos.x(), m_pos.y());
 
     std::vector<QPointF> vec;
     vec = m_addInputs->Points();
 
-    for (size_t i = 0; i < vec.size(); ++i) {
-        qDebug() << vec[i] << "\n";
-    }
+    // for (size_t i = 0; i < vec.size(); ++i) {
+    //     qDebug() << vec[i] << "\n";
+    // }
 
     QPainterPath a;
 
-    if (!vec.empty()) {
-        qDebug() << "asd";
-        a.moveTo(vec[0]);
-        for (size_t i = 1; i < vec.size(); ++i)
-            a.lineTo(vec[i]);
-    }
-    //painter->drawPath(path);
-    painter->drawPath(a);
+
+    // if (!vec.empty()) {
+    //     qDebug() << "asd";
+    //     a.moveTo(vec[0]);
+    //     for (size_t i = 1; i < vec.size(); ++i)
+    //         a.lineTo(vec[i]);
+    // }
+    painter->drawPath(path);
+    //painter->drawPath(a);
     update();
     setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
 }
