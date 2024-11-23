@@ -16,97 +16,17 @@ WorkSpace::WorkSpace(QGraphicsScene* scene) : QGraphicsView(scene)
                                        this->viewport()->rect().width(),
                                        this->viewport()->rect().height());
 
-    m_wire = new BondingWire();
-    scene->addItem(m_wire);
-
-    QObject::connect(this, &WorkSpace::SendGap, m_wire, &BondingWire::GetGridGap);
-    emit this->SendGap(m_gap);
-
-    // LogicGate* and_gate = new ANDGate;
-    // scene->addItem(and_gate);
-
-    // QObject::connect(this, &WorkSpace::SendGap, and_gate, &LogicGate::GetGridGap);
-    // emit this->SendGap(m_gap);
-
-
-
-
-    LogicGate* or_gate = new ORGate();
-    scene->addItem(or_gate);
-
-    QObject::connect(this, &WorkSpace::SendGap, or_gate, &LogicGate::GetGridGap);
-    emit this->SendGap(m_gap);
-
-    if (false) {
-    m_gap = 30;
-    m_mergeDistance = m_gap / 2;
-
-    LogicGate* input = new Input;
-    scene->addItem(input);
-    QObject::connect(this, &WorkSpace::SendGap, input, &LogicGate::GetGridGap);
-    emit this->SendGap(m_gap);
-
-    LogicGate* nand_gate = new NANDGate;
-    scene->addItem(nand_gate);
-
-    LogicGate* not_gate = new NOTGate();
-    scene->addItem(not_gate);
-
-    LogicGate* or_gate = new ORGate();
-    scene->addItem(or_gate);
-
-    LogicGate* xor_gate = new XORGate();
-    scene->addItem(xor_gate);
-
-
-    QObject::connect(this, &WorkSpace::SendGap, nand_gate, &LogicGate::GetGridGap);
-    emit this->SendGap(m_gap);
-
-    QObject::connect(this, &WorkSpace::SendGap, not_gate, &LogicGate::GetGridGap);
-    emit this->SendGap(m_gap);
-
-    QObject::connect(this, &WorkSpace::SendGap, or_gate, &LogicGate::GetGridGap);
-    emit this->SendGap(m_gap);
-
-    QObject::connect(this, &WorkSpace::SendGap, xor_gate, &LogicGate::GetGridGap);
-    emit this->SendGap(m_gap);
-
-    LogicGate* and_gate = new ANDGate;
-    scene->addItem(and_gate);
-
-    LogicGate* buffer = new BUFFERGate();
-    scene->addItem(buffer);
-
-
-    LogicGate* nor_gate = new NORGate();
-    scene->addItem(nor_gate);
-
-    LogicGate* xnor_gate = new XNORGate();
-    scene->addItem(xnor_gate);
-
-    QObject::connect(this, &WorkSpace::SendGap, and_gate, &LogicGate::GetGridGap);
-    emit this->SendGap(m_gap);
-
-    QObject::connect(this, &WorkSpace::SendGap, buffer, &LogicGate::GetGridGap);
-    emit this->SendGap(m_gap);
-
-    QObject::connect(this, &WorkSpace::SendGap, nor_gate, &LogicGate::GetGridGap);
-    emit this->SendGap(m_gap);
-
-    QObject::connect(this, &WorkSpace::SendGap, xnor_gate, &LogicGate::GetGridGap);
-    emit this->SendGap(m_gap);
-
-    QObject::connect(this, &WorkSpace::SendGap, xnor_gate, &LogicGate::GetGridGap);
-    emit this->SendGap(m_gap);
-    }
+ // if (m_gate)
+ //    qDebug() << "m_gate is null !!!";
 
     setScene(scene);
+    update();
 }
 
 WorkSpace::~WorkSpace() { }
 
 void WorkSpace::drawBackground(QPainter *painter, const QRectF &rect) {
-    painter->setPen({QColor{"#404040"}, 1});
+    painter->setPen({QColor{"#404040"}, 0.1});
 
     m_minDis = m_gap / 10;
 
@@ -127,6 +47,16 @@ void WorkSpace::drawBackground(QPainter *painter, const QRectF &rect) {
         }
         m_gridPoints.push_back(points);
     }
+    update();
+}
+
+void WorkSpace::GetLogicGate(LogicGate* gate) {
+    m_gate = gate;
+    qDebug() << (m_gate != nullptr);
+    scene()->addItem(m_gate);
+
+    QObject::connect(this, WorkSpace::SendGap, m_gate, LogicGate::GetGridGap);
+    emit this->SendGap(m_gap);
     update();
 }
 

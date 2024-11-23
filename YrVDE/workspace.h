@@ -29,13 +29,17 @@ class WorkSpace : public QGraphicsView {
 public:
     WorkSpace(QGraphicsScene* scene);
     virtual ~WorkSpace();
-    LogicGate* m_andGate;
+    LogicGate* m_gate;
     LogicGate* m_buffer;
     BondingWire* m_wire;
+
+public slots:
+    void GetLogicGate(LogicGate* gate);
 
 signals:
     void SendPoint(QPoint point);
     void SendGap(int gap);
+    void SendScene(WorkSpace* workSpace);
 
 protected:
     void wheelEvent(QWheelEvent* event) override;

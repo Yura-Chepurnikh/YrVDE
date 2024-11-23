@@ -17,18 +17,14 @@ MainWindow::MainWindow(QWidget *parent)
 
     workspace = new WorkSpace(m_scene);
     setCentralWidget(workspace);
+    m_toolBar = new ToolBar();
+    addToolBar(m_toolBar);
 
-    m_toolbar = addToolBar("Main toolbar");
-    m_toolbar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-    m_toolbar->setStyleSheet("background-color: #181818");
+    QObject::connect(workspace, &WorkSpace::SendScene, m_toolBar, &ToolBar::GetWorkSpace);
 
-    QToolButton *button = new QToolButton();
-    button->setIcon(QIcon("D://YrVDE//Resources//Icons//logic-gates.png"));
-    button->setText("Gates");
-    button->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-    button->setStyleSheet("color: white");
+    QObject::connect(m_toolBar, &ToolBar::createLogicGate, workspace, &WorkSpace::GetLogicGate);
+    emit workspace->SendScene(workspace);
 
-    m_toolbar->addWidget(button);
 }
 
 MainWindow::~MainWindow()

@@ -9,12 +9,16 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    logic_gate_factory.cpp \
     main.cpp \
     mainwindow.cpp \
+    tool_bar.cpp \
     workspace.cpp
 
 HEADERS += \
+    logic_gate_factory.h \
     mainwindow.h \
+    tool_bar.h \
     workspace.h
 
 FORMS += \

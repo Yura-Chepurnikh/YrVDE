@@ -37,21 +37,8 @@ void ANDGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
     std::vector<QPointF> vec;
     vec = m_addInputs->Points();
 
-    // for (size_t i = 0; i < vec.size(); ++i) {
-    //     qDebug() << vec[i] << "\n";
-    // }
-
-    QPainterPath a;
-
-
-    // if (!vec.empty()) {
-    //     qDebug() << "asd";
-    //     a.moveTo(vec[0]);
-    //     for (size_t i = 1; i < vec.size(); ++i)
-    //         a.lineTo(vec[i]);
-    // }
     painter->drawPath(path);
-    //painter->drawPath(a);
+
     update();
     setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
 }

@@ -11,6 +11,7 @@
 #include <QToolButton>
 #include "./workspace.h"
 #include "../BondingWire/bondingwire.h"
+#include "./tool_bar.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -24,10 +25,13 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+signals:
+    void CreateGate(const std::string& type);
+
 private:
     BondingWire* wire;
-    QToolBar* m_toolbar;
     QMenu* m_menu;
+    ToolBar* m_toolBar;
     QGraphicsView* m_view;
     QGraphicsScene* m_scene;
     WorkSpace* workspace;
