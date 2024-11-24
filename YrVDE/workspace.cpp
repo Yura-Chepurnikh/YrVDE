@@ -11,13 +11,7 @@ WorkSpace::WorkSpace(QGraphicsScene* scene) : QGraphicsView(scene)
     this->setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
     this->setStyleSheet("background-color: #1F1F1F");
 
-    scene->setSceneRect(this->viewport()->rect().x(),
-                                       this->viewport()->rect().y(),
-                                       this->viewport()->rect().width(),
-                                       this->viewport()->rect().height());
-
- // if (m_gate)
- //    qDebug() << "m_gate is null !!!";
+    scene->setSceneRect(this->viewport()->rect());
 
     setScene(scene);
     update();
@@ -70,5 +64,30 @@ void WorkSpace::wheelEvent(QWheelEvent* event) {
     }
 }
 
+void WorkSpace::mousePressEvent(QMouseEvent *event) {
+    if (event->button() == Qt::MiddleButton) {
+        qDebug() << "mousePressEvent !!!";
+        m_lastPosOfScene = event->pos();
+        m_is_Drag = true;
+    }
+    QGraphicsView::mousePressEvent(event);
+}
 
+void WorkSpace::mouseMoveEvent(QMouseEvent *event) {
+    if (m_is_Drag && (event->buttons() & Qt::MiddleButton)) {
+        qDebug() << "mouseMoveEvent !!!";
+        QPointF delta = event->pos() - m_lastPosOfScene;
+        this->setSceneRect(m_lastPosOfScene.x(), m_lastPosOfScene.y(),  delta.x(), delta.y());
+        m_lastPosOfScene = event->pos();
+    }
+    QGraphicsView::mouseMoveEvent(event);
+}
+
+void WorkSpace::mouseReleaseEvent(QMouseEvent *event) {
+    if (event->button() == Qt::MiddleButton) {
+        qDebug() << "mouseReleaseEvent !!!";
+        m_is_Drag = false;
+    }
+    QGraphicsView::mouseReleaseEvent(event);
+}
 
