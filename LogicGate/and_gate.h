@@ -6,8 +6,6 @@
 class LOGICGATE_EXPORT ANDGate : public LogicGate {
     Q_OBJECT
 public:
-    AddInput* m_addInputs;
-
     ANDGate();
     ~ANDGate() override;
 

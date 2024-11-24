@@ -25,6 +25,14 @@ protected:
     void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
+    void hoverMoveEvent(QGraphicsSceneHoverEvent* event) override;
+
+    void AddInput();
+    int m_inputsCount = 2;
+
+    std::vector<QPointF> CreateInputPoints(QPainterPath path);
+
+    QPointF m_highlightPoint;
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) = 0;
     QRectF boundingRect() const override;

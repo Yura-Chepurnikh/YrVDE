@@ -1,6 +1,12 @@
 #include "./or_gate.h"
 
-ORGate::ORGate() { }
+ORGate::ORGate() {
+    AddInput();
+    AddInput();
+    AddInput();
+    AddInput();
+    AddInput();
+}
 
 ORGate::~ORGate() { }
 
@@ -29,16 +35,12 @@ void ORGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
     back.quadTo(m_pos.x() + gap, m_pos.y() + gap, m_pos.x(), m_pos.y());
     painter->drawPath(back);
 
-    painter->setPen(QPen(Qt::red, 1));
+    painter->setPen(QPen(Qt::red, 0.4));
 
-    for (int i = 0; i <= 5; ++i) {
-        qreal t = static_cast<qreal>(i) / 5;
-        QPointF point = back.pointAtPercent(t);
-        painter->drawPoint(point);
-        //qDebug << point.x <<;
+    std::vector<QPointF> points = CreateInputPoints(back);
+    for (auto item : points) {
+        painter->drawPoint(item);
     }
-
-    painter->drawPoint(m_pos.x(), m_pos.y() - m_min_dis);
 }
 
 QRectF ORGate::boundingRect() const {

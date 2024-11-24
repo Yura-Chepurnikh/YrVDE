@@ -1,20 +1,6 @@
 #include "./and_gate.h"
 
-ANDGate::ANDGate() : LogicGate()
-{
-    m_addInputs = new AddInput();
-
-    QObject::connect(this, &LogicGate::SendFirstCordinate, m_addInputs, &AddInput::GetFirstCordinate);
-    emit SendFirstCordinate(m_pos);
-
-    qDebug() << "m_gap" << m_gap;
-
-    QObject::connect(this, &LogicGate::SendSecondCordinate, m_addInputs, &AddInput::GetSecondCordinate);
-    emit SendSecondCordinate({m_pos.x(), m_pos.y() + 1000});
-
-    QObject::connect(this, &LogicGate::SendInputsDistance, m_addInputs, &AddInput::GetInputsDistance);
-    emit SendInputsDistance(100);
-}
+ANDGate::ANDGate() : LogicGate() { }
 
 ANDGate::~ANDGate() { }
 
@@ -33,9 +19,6 @@ void ANDGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
     path.arcTo(m_pos.x(), m_pos.y(), m_gap, m_gap, 90, -180);
     path.lineTo(m_pos.x(), m_pos.y() + m_gap);
     path.lineTo(m_pos.x(), m_pos.y());
-
-    std::vector<QPointF> vec;
-    vec = m_addInputs->Points();
 
     painter->drawPath(path);
 

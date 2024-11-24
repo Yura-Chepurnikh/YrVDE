@@ -66,7 +66,6 @@ void WorkSpace::wheelEvent(QWheelEvent* event) {
 
 void WorkSpace::mousePressEvent(QMouseEvent *event) {
     if (event->button() == Qt::MiddleButton) {
-        qDebug() << "mousePressEvent !!!";
         m_lastPosOfScene = event->pos();
         m_is_Drag = true;
     }
@@ -75,7 +74,6 @@ void WorkSpace::mousePressEvent(QMouseEvent *event) {
 
 void WorkSpace::mouseMoveEvent(QMouseEvent *event) {
     if (m_is_Drag && (event->buttons() & Qt::MiddleButton)) {
-        qDebug() << "mouseMoveEvent !!!";
         QPointF delta = event->pos() - m_lastPosOfScene;
         this->setSceneRect(m_lastPosOfScene.x(), m_lastPosOfScene.y(),  delta.x(), delta.y());
         m_lastPosOfScene = event->pos();
@@ -85,7 +83,6 @@ void WorkSpace::mouseMoveEvent(QMouseEvent *event) {
 
 void WorkSpace::mouseReleaseEvent(QMouseEvent *event) {
     if (event->button() == Qt::MiddleButton) {
-        qDebug() << "mouseReleaseEvent !!!";
         m_is_Drag = false;
     }
     QGraphicsView::mouseReleaseEvent(event);

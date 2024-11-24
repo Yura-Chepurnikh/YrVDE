@@ -13,6 +13,7 @@
 #include <QAction>
 #include <QBitmap>
 #include <QtWidgets/QGraphicsProxyWidget>
+#include <QtWidgets/QGraphicsSceneHoverEvent>
 #include <QPoint>
 #include <QCursor>
 #include <QtWidgets/QCheckBox>
