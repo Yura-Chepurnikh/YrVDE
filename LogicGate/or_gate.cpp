@@ -41,6 +41,11 @@ void ORGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
     for (auto item : points) {
         painter->drawPoint(item);
     }
+
+    painter->setPen({Qt::blue, 0.6});
+    painter->drawPoint(m_highlightPoint);
+
+
 }
 
 QRectF ORGate::boundingRect() const {

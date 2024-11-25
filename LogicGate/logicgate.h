@@ -20,30 +20,34 @@ signals:
     void SendFirstCordinate(QPointF first);
     void SendSecondCordinate(QPointF second);
     void SendInputsDistance(int dis);
+    void SendPointToWireTrue();
+    void SendPointToWireFalse();
 
 protected:
-    void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
-    void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
-    void hoverMoveEvent(QGraphicsSceneHoverEvent* event) override;
-
-    void AddInput();
-    int m_inputsCount = 2;
-
-    std::vector<QPointF> CreateInputPoints(QPainterPath path);
-
-    QPointF m_highlightPoint;
-
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) = 0;
     QRectF boundingRect() const override;
 
+    void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
+
+    void hoverMoveEvent(QGraphicsSceneHoverEvent* event) override;
+
+    std::vector<QPointF> CreateInputPoints(QPainterPath path);
+    void AddInput();
+
+    bool m_sendPointToWire { false };
+
+    int m_inputsCount = 2;
+    QPointF m_highlightPoint;
     QPointF m_pos {101,200};
-    int m_min_dis;
+    int m_inputsGap;
     int m_gap;
     bool m_isDrag;
-
     std::vector<QPointF> m_inputs;
     QPointF m_output;
+
+    BondingWire* m_wire;
 };
 
 #endif // LOGICGATE_H

@@ -5,12 +5,13 @@ LogicGate::LogicGate() {
     setFlag(QGraphicsItem::ItemIsMovable);
     setFlag(QGraphicsItem::ItemIsSelectable);
     setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
+
     m_isDrag = false;
 }
 
 void LogicGate::GetGridGap(int gap) {
     m_gap = gap;
-    m_min_dis =  m_gap;
+    m_inputsGap =  m_gap;
     qDebug() << "LogicGate m_gap" << m_gap << '\n';
 
 }
@@ -44,7 +45,20 @@ void LogicGate::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
 }
 
 void LogicGate::hoverMoveEvent(QGraphicsSceneHoverEvent *event) {
-
+    qDebug() << "hoverMoveEvent";
+    QPointF currentPos = event->pos();
+    for (size_t i = 0; i < m_inputs.size(); ++i) {
+        if (std::abs(currentPos.x() - m_inputs[i].x()) < m_inputsGap / 2 &&
+            std::abs(currentPos.y() - m_inputs[i].y()) < m_inputsGap / 2) {
+            qDebug() << "hoverMoveEvent if";
+            emit this->SendPointToWireTrue();
+            m_highlightPoint = m_inputs[i];
+            update();
+        }
+        else {
+            emit this->SendPointToWireFalse();
+        }
+    }
     QGraphicsItem::hoverMoveEvent(event);
 }
 
@@ -59,23 +73,22 @@ void LogicGate::AddInput() {
 }
 
 std::vector<QPointF> LogicGate::CreateInputPoints(QPainterPath path) {
-    std::vector<QPointF> points;
+    m_inputs.clear();
     QPointF begin = path.pointAtPercent(0);
     QPointF end = path.pointAtPercent(1);
 
-    for (qreal i = 0; i < 0.4; i += 0.5/3)
-        points.push_back(path.pointAtPercent(i));
-
-    for (qreal i = 1; i > 0.6; i -= 0.5/3)
-        points.push_back(path.pointAtPercent(i));
+    m_inputs.push_back(path.pointAtPercent(0));
+    m_inputs.push_back(path.pointAtPercent(1));
+    m_inputs.push_back(path.pointAtPercent(1/m_inputsGap));
+    m_inputs.push_back(path.pointAtPercent(1/2*m_inputsGap));
+    m_inputs.push_back(path.pointAtPercent(1/(1-m_inputsGap)));
+    m_inputs.push_back(path.pointAtPercent(1/(1-2*m_inputsGap)));
 
     for (size_t i = 0; i < m_inputsCount; ++i) {
-        points.push_back({begin.x(), begin.y() + i * m_min_dis});
-        points.push_back({end.x(), end.y() - i * m_min_dis});
+        m_inputs.push_back({begin.x(), begin.y() + i * m_inputsGap});
+        m_inputs.push_back({end.x(), end.y() - i * m_inputsGap});
     }
-
-
-    return points;
+    return m_inputs;
 }
 
 QRectF LogicGate::boundingRect() const {

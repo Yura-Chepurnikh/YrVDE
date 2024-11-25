@@ -12,6 +12,8 @@ public:
 
 public slots:
     void GetGridGap(int gap);
+    void GetInputPointTrue();
+    void GetInputPointFalse();
 
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
@@ -22,6 +24,7 @@ protected:
     QRectF boundingRect() const override;
 
 private:
+    bool m_flag { false };
     int m_offset;
     bool m_isDrag = false;
     QPointF m_startPos;

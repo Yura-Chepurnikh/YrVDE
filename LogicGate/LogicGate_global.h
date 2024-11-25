@@ -17,6 +17,7 @@
 #include <QPoint>
 #include <QCursor>
 #include <QtWidgets/QCheckBox>
+#include "../BondingWire/bondingwire.h"
 
 #if defined(LOGICGATE_LIBRARY)
 #define LOGICGATE_EXPORT Q_DECL_EXPORT

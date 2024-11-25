@@ -11,6 +11,12 @@ WorkSpace::WorkSpace(QGraphicsScene* scene) : QGraphicsView(scene)
     this->setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
     this->setStyleSheet("background-color: #1F1F1F");
 
+    m_wire = new BondingWire();
+    scene->addItem(m_wire);
+
+    QObject::connect(this, &WorkSpace::SendGap, m_wire, &BondingWire::GetGridGap);
+    emit this->SendGap(m_gap);
+
     scene->setSceneRect(this->viewport()->rect());
 
     setScene(scene);
@@ -51,6 +57,14 @@ void WorkSpace::GetLogicGate(LogicGate* gate) {
 
     QObject::connect(this, WorkSpace::SendGap, m_gate, LogicGate::GetGridGap);
     emit this->SendGap(m_gap);
+
+    if (m_wire && m_gate) {
+        qDebug() << "asd";
+        bool connected = QObject::connect(m_gate, &LogicGate::SendPointToWireTrue, m_wire, &BondingWire::GetInputPointTrue);
+        bool connected2 = QObject::connect(m_gate, &LogicGate::SendPointToWireFalse, m_wire, &BondingWire::GetInputPointFalse);
+
+    }
+
     update();
 }
 

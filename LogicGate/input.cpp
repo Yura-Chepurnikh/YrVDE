@@ -11,7 +11,7 @@ void Input::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
     painter->setPen(QPen(QColor{ "#23A9F2"}, 1));
 
     QPainterPath path;
-    path.addRect(m_pos.x(), m_pos.y(), m_min_dis, m_min_dis);
+    path.addRect(m_pos.x(), m_pos.y(), m_inputsGap, m_inputsGap);
     painter->drawPath(path);
     setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
 }

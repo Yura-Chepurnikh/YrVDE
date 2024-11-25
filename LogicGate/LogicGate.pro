@@ -43,3 +43,10 @@ unix {
     target.path = /usr/lib
 }
 !isEmpty(target.path): INSTALLS += target
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../BondingWire/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/release/ -lBondingWire
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../BondingWire/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/debug/ -lBondingWire
+else:unix: LIBS += -L$$PWD/../BondingWire/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/ -lBondingWire
+
+INCLUDEPATH += $$PWD/../BondingWire/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/debug
+DEPENDPATH += $$PWD/../BondingWire/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/debug
