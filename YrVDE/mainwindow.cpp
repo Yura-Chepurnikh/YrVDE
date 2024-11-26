@@ -8,8 +8,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     m_menu = this->menuBar()->addMenu("File");
-    menuBar()->setStyleSheet("background-color: #181818");
-
+    menuBar()->setStyleSheet("background-color: #181818; color: white");
 
     m_scene = new QGraphicsScene();
     m_view = new QGraphicsView(m_scene);
@@ -18,13 +17,15 @@ MainWindow::MainWindow(QWidget *parent)
     workspace = new WorkSpace(m_scene);
     setCentralWidget(workspace);
     m_toolBar = new ToolBar();
+
+    m_toolBar->setStyleSheet("background-color: #181818");
+
     addToolBar(m_toolBar);
 
     QObject::connect(workspace, &WorkSpace::SendScene, m_toolBar, &ToolBar::GetWorkSpace);
 
     QObject::connect(m_toolBar, &ToolBar::createLogicGate, workspace, &WorkSpace::GetLogicGate);
     emit workspace->SendScene(workspace);
-
 }
 
 MainWindow::~MainWindow()

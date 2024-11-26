@@ -39,6 +39,8 @@ constexpr auto qt_meta_stringdata_CLASSWorkSpaceENDCLASS = QtMocHelpers::stringD
     "SendPoint",
     "",
     "point",
+    "SendIsShow",
+    "isShow",
     "SendGap",
     "gap",
     "SendScene",
@@ -59,28 +61,30 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSWorkSpaceENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-       4,   14, // methods
+       5,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       3,       // signalCount
+       4,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    1,   38,    2, 0x06,    1 /* Public */,
-       4,    1,   41,    2, 0x06,    3 /* Public */,
-       6,    1,   44,    2, 0x06,    5 /* Public */,
+       1,    1,   44,    2, 0x06,    1 /* Public */,
+       4,    1,   47,    2, 0x06,    3 /* Public */,
+       6,    1,   50,    2, 0x06,    5 /* Public */,
+       8,    1,   53,    2, 0x06,    7 /* Public */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       9,    1,   47,    2, 0x0a,    7 /* Public */,
+      11,    1,   56,    2, 0x0a,    9 /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QPoint,    3,
-    QMetaType::Void, QMetaType::Int,    5,
-    QMetaType::Void, 0x80000000 | 7,    8,
+    QMetaType::Void, QMetaType::Bool,    5,
+    QMetaType::Void, QMetaType::Int,    7,
+    QMetaType::Void, 0x80000000 | 9,   10,
 
  // slots: parameters
-    QMetaType::Void, 0x80000000 | 10,   11,
+    QMetaType::Void, 0x80000000 | 12,   13,
 
        0        // eod
 };
@@ -97,6 +101,9 @@ Q_CONSTINIT const QMetaObject WorkSpace::staticMetaObject = { {
         // method 'SendPoint'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<QPoint, std::false_type>,
+        // method 'SendIsShow'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<bool, std::false_type>,
         // method 'SendGap'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<int, std::false_type>,
@@ -117,22 +124,23 @@ void WorkSpace::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         (void)_t;
         switch (_id) {
         case 0: _t->SendPoint((*reinterpret_cast< std::add_pointer_t<QPoint>>(_a[1]))); break;
-        case 1: _t->SendGap((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 2: _t->SendScene((*reinterpret_cast< std::add_pointer_t<WorkSpace*>>(_a[1]))); break;
-        case 3: _t->GetLogicGate((*reinterpret_cast< std::add_pointer_t<LogicGate*>>(_a[1]))); break;
+        case 1: _t->SendIsShow((*reinterpret_cast< std::add_pointer_t<bool>>(_a[1]))); break;
+        case 2: _t->SendGap((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 3: _t->SendScene((*reinterpret_cast< std::add_pointer_t<WorkSpace*>>(_a[1]))); break;
+        case 4: _t->GetLogicGate((*reinterpret_cast< std::add_pointer_t<LogicGate*>>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         switch (_id) {
         default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
-        case 2:
+        case 3:
             switch (*reinterpret_cast<int*>(_a[1])) {
             default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
             case 0:
                 *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType::fromType< WorkSpace* >(); break;
             }
             break;
-        case 3:
+        case 4:
             switch (*reinterpret_cast<int*>(_a[1])) {
             default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
             case 0:
@@ -150,16 +158,23 @@ void WorkSpace::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
             }
         }
         {
+            using _t = void (WorkSpace::*)(bool );
+            if (_t _q_method = &WorkSpace::SendIsShow; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+                *result = 1;
+                return;
+            }
+        }
+        {
             using _t = void (WorkSpace::*)(int );
             if (_t _q_method = &WorkSpace::SendGap; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
-                *result = 1;
+                *result = 2;
                 return;
             }
         }
         {
             using _t = void (WorkSpace::*)(WorkSpace * );
             if (_t _q_method = &WorkSpace::SendScene; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
-                *result = 2;
+                *result = 3;
                 return;
             }
         }
@@ -185,13 +200,13 @@ int WorkSpace::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 4)
+        if (_id < 5)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 4;
+        _id -= 5;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 4)
+        if (_id < 5)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 4;
+        _id -= 5;
     }
     return _id;
 }
@@ -204,16 +219,23 @@ void WorkSpace::SendPoint(QPoint _t1)
 }
 
 // SIGNAL 1
-void WorkSpace::SendGap(int _t1)
+void WorkSpace::SendIsShow(bool _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
     QMetaObject::activate(this, &staticMetaObject, 1, _a);
 }
 
 // SIGNAL 2
-void WorkSpace::SendScene(WorkSpace * _t1)
+void WorkSpace::SendGap(int _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
     QMetaObject::activate(this, &staticMetaObject, 2, _a);
+}
+
+// SIGNAL 3
+void WorkSpace::SendScene(WorkSpace * _t1)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
+    QMetaObject::activate(this, &staticMetaObject, 3, _a);
 }
 QT_WARNING_POP

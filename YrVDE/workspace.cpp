@@ -1,7 +1,6 @@
 #include "./workspace.h"
 
 int WorkSpace::m_gap = 10;
-int WorkSpace::m_minDis = m_gap / 10;
 
 WorkSpace::WorkSpace(QGraphicsScene* scene) : QGraphicsView(scene)
 {
@@ -13,6 +12,8 @@ WorkSpace::WorkSpace(QGraphicsScene* scene) : QGraphicsView(scene)
 
     m_wire = new BondingWire();
     scene->addItem(m_wire);
+
+    QObject::connect(this, &WorkSpace::SendIsShow, m_gate, &LogicGate::GetIsShow);
 
     QObject::connect(this, &WorkSpace::SendGap, m_wire, &BondingWire::GetGridGap);
     emit this->SendGap(m_gap);
@@ -26,9 +27,10 @@ WorkSpace::WorkSpace(QGraphicsScene* scene) : QGraphicsView(scene)
 WorkSpace::~WorkSpace() { }
 
 void WorkSpace::drawBackground(QPainter *painter, const QRectF &rect) {
-    painter->setPen({QColor{"#404040"}, 0.1});
+    if (!m_showGrid)
+        return;
 
-    m_minDis = m_gap / 10;
+    painter->setPen({QColor{"#404040"}, 0.1});
 
     for (auto x = static_cast<int>(rect.left()) - static_cast<int>(rect.left()) % m_gap; x < rect.right(); x += m_gap) {
         painter->drawLine(x, rect.top(), x, rect.bottom());
@@ -59,12 +61,9 @@ void WorkSpace::GetLogicGate(LogicGate* gate) {
     emit this->SendGap(m_gap);
 
     if (m_wire && m_gate) {
-        qDebug() << "asd";
-        bool connected = QObject::connect(m_gate, &LogicGate::SendPointToWireTrue, m_wire, &BondingWire::GetInputPointTrue);
-        bool connected2 = QObject::connect(m_gate, &LogicGate::SendPointToWireFalse, m_wire, &BondingWire::GetInputPointFalse);
-
+        QObject::connect(m_gate, &LogicGate::SendPointToWireTrue, m_wire, &BondingWire::GetInputPointTrue);
+        QObject::connect(m_gate, &LogicGate::SendPointToWireFalse, m_wire, &BondingWire::GetInputPointFalse);
     }
-
     update();
 }
 
@@ -100,5 +99,14 @@ void WorkSpace::mouseReleaseEvent(QMouseEvent *event) {
         m_is_Drag = false;
     }
     QGraphicsView::mouseReleaseEvent(event);
+}
+
+void WorkSpace::keyPressEvent(QKeyEvent *event) {
+    if (event->key() == Qt::Key_G) {
+        m_showGrid = !m_showGrid;
+        emit this->SendIsShow(m_showGrid);
+        update();
+    }
+    QGraphicsView::keyPressEvent(event);
 }
 

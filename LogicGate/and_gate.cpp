@@ -8,7 +8,7 @@ void ANDGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    painter->setPen(QPen(QColor{ "#23A9F2"}, 5));
+    painter->setPen(QPen(QColor{ "#23A9F2"}, 0.5));
 
     painter->translate(boundingRect().center());
     painter->rotate(90);

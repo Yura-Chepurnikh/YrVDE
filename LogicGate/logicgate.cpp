@@ -12,24 +12,19 @@ LogicGate::LogicGate() {
 void LogicGate::GetGridGap(int gap) {
     m_gap = gap;
     m_inputsGap =  m_gap;
-    qDebug() << "LogicGate m_gap" << m_gap << '\n';
-
 }
 
 void LogicGate::GetGridPos(QPointF pos) {
     m_pos = pos;
 }
 
+void LogicGate::GetIsShow(bool isShow) {
+    m_showGrid = isShow;
+}
+
 void LogicGate::mousePressEvent(QGraphicsSceneMouseEvent *event) {
-    if (event->button() == Qt::RightButton) {
-        QMenu menu;
-        QAction* action_1 = menu.addAction("Hello World");
-        menu.exec(event->screenPos());
-    }
-    else {
-        setCursor(Qt::ClosedHandCursor);
-        QGraphicsItem::mousePressEvent(event);
-    }
+    setCursor(Qt::ClosedHandCursor);
+    QGraphicsItem::mousePressEvent(event);
 }
 
 void LogicGate::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
@@ -45,12 +40,12 @@ void LogicGate::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
 }
 
 void LogicGate::hoverMoveEvent(QGraphicsSceneHoverEvent *event) {
-    qDebug() << "hoverMoveEvent";
     QPointF currentPos = event->pos();
+
     for (size_t i = 0; i < m_inputs.size(); ++i) {
         if (std::abs(currentPos.x() - m_inputs[i].x()) < m_inputsGap / 2 &&
-            std::abs(currentPos.y() - m_inputs[i].y()) < m_inputsGap / 2) {
-            qDebug() << "hoverMoveEvent if";
+            std::abs(currentPos.y() - m_inputs[i].y()) < m_inputsGap / 2)
+        {
             emit this->SendPointToWireTrue();
             m_highlightPoint = m_inputs[i];
             update();
@@ -59,10 +54,14 @@ void LogicGate::hoverMoveEvent(QGraphicsSceneHoverEvent *event) {
             emit this->SendPointToWireFalse();
         }
     }
+    update();
     QGraphicsItem::hoverMoveEvent(event);
 }
 
 QPointF LogicGate::ConnectToGrid(const QPointF& pos, int gridGap) {
+    if (m_showGrid == false)
+        return QPointF { pos.x(), pos.y() };
+
     qreal x = qRound(pos.x() / gridGap) * gridGap;
     qreal y = qRound(pos.y() / gridGap) * gridGap;
     return QPointF { x, y };

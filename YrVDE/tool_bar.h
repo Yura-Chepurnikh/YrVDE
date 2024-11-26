@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <string>
+#include <QPropertyAnimation>
 #include <QToolBar>
 #include <QToolButton>
 #include "./logic_gate_factory.h"

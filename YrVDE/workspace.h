@@ -38,6 +38,7 @@ public slots:
 
 signals:
     void SendPoint(QPoint point);
+    void SendIsShow(bool isShow);
     void SendGap(int gap);
     void SendScene(WorkSpace* workSpace);
 
@@ -45,17 +46,17 @@ protected:
     void wheelEvent(QWheelEvent* event) override;
     void drawBackground(QPainter* painter, const QRectF& rect) override;
 
+    void keyPressEvent(QKeyEvent* event) override;
+
     void mousePressEvent(QMouseEvent* event) override;
     void mouseMoveEvent(QMouseEvent* event) override;
     void mouseReleaseEvent(QMouseEvent* event) override;
 
 private:
+    bool m_showGrid { true };
     bool m_is_Drag { false };
     QPointF m_lastPosOfScene;
-
-    static int m_minDis;
     static int m_gap;
-    int m_mergeDistance;
     std::vector<std::vector<QPoint>> m_gridPoints;
     BondingWire* wire;
 };

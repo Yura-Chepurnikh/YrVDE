@@ -15,6 +15,7 @@ public:
 public slots:
     void GetGridGap(int gap);
     void GetGridPos(QPointF pos);
+    void GetIsShow(bool isShow);
 
 signals:
     void SendFirstCordinate(QPointF first);
@@ -37,6 +38,8 @@ protected:
     void AddInput();
 
     bool m_sendPointToWire { false };
+
+    bool m_showGrid;
 
     int m_inputsCount = 2;
     QPointF m_highlightPoint;
