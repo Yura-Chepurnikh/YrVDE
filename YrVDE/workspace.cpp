@@ -13,8 +13,6 @@ WorkSpace::WorkSpace(QGraphicsScene* scene) : QGraphicsView(scene)
     m_wire = new BondingWire();
     scene->addItem(m_wire);
 
-    QObject::connect(this, &WorkSpace::SendIsShow, m_gate, &LogicGate::GetIsShow);
-
     QObject::connect(this, &WorkSpace::SendGap, m_wire, &BondingWire::GetGridGap);
     emit this->SendGap(m_gap);
 
@@ -27,9 +25,6 @@ WorkSpace::WorkSpace(QGraphicsScene* scene) : QGraphicsView(scene)
 WorkSpace::~WorkSpace() { }
 
 void WorkSpace::drawBackground(QPainter *painter, const QRectF &rect) {
-    if (!m_showGrid)
-        return;
-
     painter->setPen({QColor{"#404040"}, 0.1});
 
     for (auto x = static_cast<int>(rect.left()) - static_cast<int>(rect.left()) % m_gap; x < rect.right(); x += m_gap) {
@@ -59,11 +54,6 @@ void WorkSpace::GetLogicGate(LogicGate* gate) {
 
     QObject::connect(this, WorkSpace::SendGap, m_gate, LogicGate::GetGridGap);
     emit this->SendGap(m_gap);
-
-    if (m_wire && m_gate) {
-        QObject::connect(m_gate, &LogicGate::SendPointToWireTrue, m_wire, &BondingWire::GetInputPointTrue);
-        QObject::connect(m_gate, &LogicGate::SendPointToWireFalse, m_wire, &BondingWire::GetInputPointFalse);
-    }
     update();
 }
 
@@ -101,12 +91,4 @@ void WorkSpace::mouseReleaseEvent(QMouseEvent *event) {
     QGraphicsView::mouseReleaseEvent(event);
 }
 
-void WorkSpace::keyPressEvent(QKeyEvent *event) {
-    if (event->key() == Qt::Key_G) {
-        m_showGrid = !m_showGrid;
-        emit this->SendIsShow(m_showGrid);
-        update();
-    }
-    QGraphicsView::keyPressEvent(event);
-}
 

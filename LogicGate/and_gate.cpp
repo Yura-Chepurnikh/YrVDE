@@ -20,10 +20,10 @@ void ANDGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
     path.lineTo(m_pos.x(), m_pos.y() + m_gap);
     path.lineTo(m_pos.x(), m_pos.y());
 
-    painter->drawPath(path);
+    for (auto item : m_inputs)
+        painter->drawPoint(item);
 
-    update();
-    setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
+    painter->drawPath(path);
 }
 
 QRectF ANDGate::boundingRect() const {

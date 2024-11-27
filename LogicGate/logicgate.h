@@ -15,14 +15,11 @@ public:
 public slots:
     void GetGridGap(int gap);
     void GetGridPos(QPointF pos);
-    void GetIsShow(bool isShow);
 
 signals:
     void SendFirstCordinate(QPointF first);
     void SendSecondCordinate(QPointF second);
     void SendInputsDistance(int dis);
-    void SendPointToWireTrue();
-    void SendPointToWireFalse();
 
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) = 0;
@@ -35,11 +32,6 @@ protected:
     void hoverMoveEvent(QGraphicsSceneHoverEvent* event) override;
 
     std::vector<QPointF> CreateInputPoints(QPainterPath path);
-    void AddInput();
-
-    bool m_sendPointToWire { false };
-
-    bool m_showGrid;
 
     int m_inputsCount = 2;
     QPointF m_highlightPoint;

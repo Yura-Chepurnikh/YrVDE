@@ -12,8 +12,6 @@ public:
 
 public slots:
     void GetGridGap(int gap);
-    void GetInputPointTrue();
-    void GetInputPointFalse();
 
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;

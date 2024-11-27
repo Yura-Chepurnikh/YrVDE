@@ -19,7 +19,6 @@ void BUFFERGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
     path.closeSubpath();
 
     painter->drawPath(path);
-    setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
 }
 
 QRectF BUFFERGate::boundingRect() const {

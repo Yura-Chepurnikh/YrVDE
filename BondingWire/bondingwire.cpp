@@ -21,7 +21,7 @@ void BondingWire::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
 }
 
 void BondingWire::mousePressEvent(QGraphicsSceneMouseEvent *event) {
-    if (event->button() == Qt::LeftButton && m_flag) {
+    if (event->button() == Qt::LeftButton) {
         m_startPos = ConnectToGrid(event->pos(), m_offset);
         m_points.push_back(m_startPos);
         m_isDrag = true;
@@ -30,7 +30,7 @@ void BondingWire::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 }
 
 void BondingWire::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
-    if (m_isDrag && (event->buttons() & Qt::LeftButton) && m_flag) {
+    if (m_isDrag && (event->buttons() & Qt::LeftButton)) {
         qDebug() << "BondingWire  + mouseMoveEvent";
         m_points.clear();
         m_points.push_back(m_startPos);
@@ -43,7 +43,7 @@ void BondingWire::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
 }
 
 void BondingWire::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
-    if (m_isDrag && event->button() == Qt::LeftButton && m_flag) {
+    if (m_isDrag && event->button() == Qt::LeftButton) {
         m_isDrag = false;
         m_flag = false;
         update();
@@ -67,14 +67,4 @@ QPointF BondingWire::ConnectToGrid(const QPointF& pos, int m_offset) {
     return QPointF { x, y };
 }
 
-void BondingWire::GetInputPointTrue() {
-    m_flag = true;
-    //this->setZValue(1);
-    qDebug() << "true flag";
-}
-
-void BondingWire::GetInputPointFalse() {
-    this->setZValue(0);
-    qDebug() << "false flag";
-}
 
