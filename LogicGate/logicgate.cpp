@@ -11,7 +11,7 @@ LogicGate::LogicGate() {
 
 void LogicGate::GetGridGap(int gap) {
     m_gap = gap;
-    m_inputsGap =  m_gap;
+    m_inputsGap =  m_gap / 5;
 }
 
 void LogicGate::GetGridPos(QPointF pos) {
@@ -26,6 +26,7 @@ void LogicGate::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 void LogicGate::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
     QPointF currentPoint = event->scenePos();
     m_pos = ConnectToGrid(currentPoint, m_gap);
+
     update();
     QGraphicsItem::mousePressEvent(event);
 }
@@ -59,6 +60,13 @@ QPointF LogicGate::ConnectToGrid(const QPointF& pos, int gridGap) {
 std::vector<QPointF> LogicGate::CreateInputPoints(QPainterPath path) {
     m_inputs.clear();
 
+    // for (qreal t = 0; t <= 1; t += 0.1) {
+    //     if (path.pointAtPercent(t).y() == m_pos.y() + m_inputsGap) {
+    //         m_inputs.push_back(path.pointAtPercent(t));
+    //     }
+    // }
+    m_inputs.push_back(path.pointAtPercent(0.2));
+    m_inputs.push_back(path.pointAtPercent(0.8));
 
     return m_inputs;
 }

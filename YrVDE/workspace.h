@@ -43,7 +43,7 @@ signals:
     void SendScene(WorkSpace* workSpace);
 
 protected:
-    void wheelEvent(QWheelEvent* event) override;
+    //void wheelEvent(QWheelEvent* event) override;
     void drawBackground(QPainter* painter, const QRectF& rect) override;
 
     void mousePressEvent(QMouseEvent* event) override;
@@ -54,6 +54,8 @@ private:
     bool m_is_Drag { false };
     QPointF m_lastPosOfScene;
     static int m_gap;
+    static int m_inputsDistance;
+
     std::vector<std::vector<QPoint>> m_gridPoints;
     BondingWire* wire;
 };

@@ -20,8 +20,10 @@ signals:
     void SendFirstCordinate(QPointF first);
     void SendSecondCordinate(QPointF second);
     void SendInputsDistance(int dis);
+    void SendInputsPoints(std::vector<QPointF> inputPoints);
 
-protected:
+// protected:
+public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) = 0;
     QRectF boundingRect() const override;
 
@@ -35,12 +37,14 @@ protected:
 
     int m_inputsCount = 2;
     QPointF m_highlightPoint;
-    QPointF m_pos {101,200};
+    QPointF m_pos {5,5};
     int m_inputsGap;
     int m_gap;
     bool m_isDrag;
     std::vector<QPointF> m_inputs;
     QPointF m_output;
+
+    QPainterPath m_backSide;
 
     BondingWire* m_wire;
 };

@@ -1,6 +1,7 @@
 #include "./workspace.h"
 
-int WorkSpace::m_gap = 10;
+int WorkSpace::m_gap = 300;
+int WorkSpace::m_inputsDistance = m_gap / 5;
 
 WorkSpace::WorkSpace(QGraphicsScene* scene) : QGraphicsView(scene)
 {
@@ -27,19 +28,19 @@ WorkSpace::~WorkSpace() { }
 void WorkSpace::drawBackground(QPainter *painter, const QRectF &rect) {
     painter->setPen({QColor{"#404040"}, 0.1});
 
-    for (auto x = static_cast<int>(rect.left()) - static_cast<int>(rect.left()) % m_gap; x < rect.right(); x += m_gap) {
+    for (auto x = static_cast<int>(rect.left()) - static_cast<int>(rect.left()) % m_inputsDistance; x < rect.right(); x += m_inputsDistance) {
         painter->drawLine(x, rect.top(), x, rect.bottom());
     }
 
-    for (auto y = static_cast<int>(rect.top()) - static_cast<int>(rect.top()) % m_gap; y < rect.bottom(); y += m_gap) {
+    for (auto y = static_cast<int>(rect.top()) - static_cast<int>(rect.top()) % m_inputsDistance; y < rect.bottom(); y += m_inputsDistance) {
         painter->drawLine(rect.right(), y, rect.left(), y);
     }
 
     m_gridPoints.clear();
 
-    for (auto x = static_cast<int>(rect.left()) - static_cast<int>(rect.left()) % m_gap; x < rect.right(); x += m_gap) {
+    for (auto x = static_cast<int>(rect.left()) - static_cast<int>(rect.left()) % m_inputsDistance; x < rect.right(); x += m_inputsDistance) {
         std::vector<QPoint> points;
-        for (auto y = static_cast<int>(rect.top()) - static_cast<int>(rect.top()) % m_gap; y < rect.bottom(); y += m_gap) {
+        for (auto y = static_cast<int>(rect.top()) - static_cast<int>(rect.top()) % m_inputsDistance; y < rect.bottom(); y += m_inputsDistance) {
             points.push_back(QPoint(x, y));
         }
         m_gridPoints.push_back(points);
@@ -52,20 +53,33 @@ void WorkSpace::GetLogicGate(LogicGate* gate) {
     qDebug() << (m_gate != nullptr);
     scene()->addItem(m_gate);
 
-    QObject::connect(this, WorkSpace::SendGap, m_gate, LogicGate::GetGridGap);
+    QObject::connect(this, &WorkSpace::SendGap, m_gate, &LogicGate::GetGridGap);
     emit this->SendGap(m_gap);
-    update();
+
+    QObject::connect(m_gate, &LogicGate::SendInputsPoints, m_wire, &BondingWire::GetInputsPoints);
+    if (m_gate->m_inputs.empty())
+
+    emit m_gate->SendInputsPoints(m_gate->m_inputs);
+
+    if (m_gate->m_inputs.empty())
+        qDebug() << "empty";
+
+    for (size_t i = 0; i < m_gate->m_inputs.size(); ++i)
+        qDebug() << "asd" << m_gate->m_inputs[i];
+    qDebug() << "aaaaaaaaaaaaaaaaaaaaaa";
+
 }
 
-void WorkSpace::wheelEvent(QWheelEvent* event) {
-    qreal scaleFactor = 1.1;
+// void WorkSpace::wheelEvent(QWheelEvent* event) {
+//     qreal scaleFactor = 1.1;
 
-    if (event->angleDelta().y() > 0) {
-        scale (scaleFactor, scaleFactor);
-    } else {
-        scale (1/scaleFactor, 1/scaleFactor);
-    }
-}
+//     if (event->angleDelta().y() > 0) {
+//         scale (scaleFactor, scaleFactor);
+//     } else {
+//         scale (1/scaleFactor, 1/scaleFactor);
+//     }
+//     emit this->SendGap(m_gap);
+// }
 
 void WorkSpace::mousePressEvent(QMouseEvent *event) {
     if (event->button() == Qt::MiddleButton) {
