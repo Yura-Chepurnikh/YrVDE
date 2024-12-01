@@ -5,6 +5,8 @@ ORGate::ORGate() {
     m_backSide.moveTo(m_pos.x(), m_pos.y() + 2*gap);
     m_backSide.quadTo(m_pos.x() + gap, m_pos.y() + gap, m_pos.x(), m_pos.y());
     m_inputs = CreateInputPoints(m_backSide);
+    QPointF out(m_pos.x() + 1.5 * gap, m_pos.y() + gap);
+    m_output = QSharedPointer<InputPoint>::create(out, GateState::LOGIC_Z);
     //m_inputs = {{1, 2},{3, 4}};
 }
 
@@ -60,6 +62,10 @@ void ORGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
     //painter->drawPoint(m_highlightPoint->m_point);
     qDebug() << "END!!!";
 
+    QPainterPath output;
+     inputs.addEllipse(m_output->m_point, 1, 1);
+
+    painter->drawPath(output);
 }
 
 QRectF ORGate::boundingRect() const {

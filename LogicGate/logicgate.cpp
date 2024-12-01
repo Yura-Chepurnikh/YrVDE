@@ -61,13 +61,18 @@ QPointF LogicGate::ConnectToGrid(const QPointF& pos, int gridGap) {
 std::vector<QSharedPointer<InputPoint>> LogicGate::CreateInputPoints(QPainterPath path) {
     m_inputs.clear();
 
-    // for (qreal t = 0; t <= 1; t += 0.1) {
-    //     if (path.pointAtPercent(t).y() == m_pos.y() + m_inputsGap) {
-    //         m_inputs.push_back(path.pointAtPercent(t));
-    //     }
-    // }
-    QPointF p1 = path.pointAtPercent(0.2);
-    QPointF p2 = path.pointAtPercent(0.8);
+    QPointF p1 = {0,0}, p2{0,0};
+
+    for (qreal t = 0; t <= 1; t += 0.1) {
+        if (path.pointAtPercent(t).y() == m_pos.y() + m_inputsGap) {
+            p1 = path.pointAtPercent(t);
+        }
+        if (path.pointAtPercent(t).y() == m_pos.y() + m_gap - m_inputsGap) {
+            p2 = path.pointAtPercent(t);
+        }
+    }
+    // QPointF p1 = path.pointAtPercent(0.2);
+    // QPointF p2 = path.pointAtPercent(0.8);
 
     QSharedPointer<InputPoint> in1 = QSharedPointer<InputPoint>::create(p1, GateState::LOGIC_Z);
     QSharedPointer<InputPoint> in2 = QSharedPointer<InputPoint>::create(p2, GateState::LOGIC_Z);

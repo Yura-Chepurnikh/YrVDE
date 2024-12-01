@@ -14,7 +14,7 @@ void BondingWire::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
 
     painter->setPen(QPen(QColor{"#23A9F2"}, 0.3));
 
-    if (m_points.size() >= 3) {
+    if (m_points.size() >= 2) {
         painter->drawLine(m_points[0], m_points[1]);
         painter->drawLine(m_points[1], m_points[2]);
     }
@@ -29,7 +29,7 @@ void BondingWire::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
 
 void BondingWire::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     if (event->button() == Qt::LeftButton) {
-        m_startPos = ConnectToGrid(event->pos(), m_offset);
+        m_startPos = event->pos();
         m_points.push_back(m_startPos);
         m_isDrag = true;
         update();
@@ -61,7 +61,8 @@ void BondingWire::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
         }
 
         QPointF intersectionPoint = QPointF { currentPoint.x(), m_startPos.y() };
-        m_points.push_back(intersectionPoint);
+        if (currentPoint != intersectionPoint)
+            m_points.push_back(intersectionPoint);
         m_points.push_back(currentPoint);
         update();
     }
