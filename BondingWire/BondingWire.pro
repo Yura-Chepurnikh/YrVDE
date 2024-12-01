@@ -28,3 +28,10 @@ else:unix: LIBS += -L$$OUT_PWD/./ -lBondingWire
 
 INCLUDEPATH += $$PWD/.
 DEPENDPATH += $$PWD/.
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/release/ -lBondingWire
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/debug/ -lBondingWire
+else:unix: LIBS += -L$$PWD/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/ -lBondingWire
+
+INCLUDEPATH += $$PWD/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/debug
+DEPENDPATH += $$PWD/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/debug

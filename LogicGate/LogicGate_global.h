@@ -1,6 +1,8 @@
 #ifndef LOGICGATE_GLOBAL_H
 #define LOGICGATE_GLOBAL_H
 
+#include "./input_point.h"
+
 #include <QtCore/qglobal.h>
 #include <QtWidgets/QGraphicsItem>
 #include <QtWidgets/QGraphicsScene>
@@ -17,6 +19,8 @@
 #include <QPoint>
 #include <QCursor>
 #include <QtWidgets/QCheckBox>
+#include <QSharedPointer>
+
 #include "../BondingWire/bondingwire.h"
 
 #if defined(LOGICGATE_LIBRARY)

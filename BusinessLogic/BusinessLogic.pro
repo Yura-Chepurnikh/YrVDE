@@ -14,6 +14,7 @@ SOURCES += \
 
 HEADERS += \
     BusinessLogic_global.h \
+    GateState.h \
     businesslogic.h \
     gate_logic.h
 

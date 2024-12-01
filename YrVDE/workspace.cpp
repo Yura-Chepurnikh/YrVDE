@@ -1,6 +1,6 @@
 #include "./workspace.h"
 
-int WorkSpace::m_gap = 300;
+int WorkSpace::m_gap = 30;
 int WorkSpace::m_inputsDistance = m_gap / 5;
 
 WorkSpace::WorkSpace(QGraphicsScene* scene) : QGraphicsView(scene)
@@ -50,7 +50,7 @@ void WorkSpace::drawBackground(QPainter *painter, const QRectF &rect) {
 
 void WorkSpace::GetLogicGate(LogicGate* gate) {
     m_gate = gate;
-    qDebug() << (m_gate != nullptr);
+    qDebug() << "m_gate not exist: " << (m_gate == nullptr);
     scene()->addItem(m_gate);
 
     QObject::connect(this, &WorkSpace::SendGap, m_gate, &LogicGate::GetGridGap);
@@ -59,27 +59,27 @@ void WorkSpace::GetLogicGate(LogicGate* gate) {
     QObject::connect(m_gate, &LogicGate::SendInputsPoints, m_wire, &BondingWire::GetInputsPoints);
     if (m_gate->m_inputs.empty())
 
-    emit m_gate->SendInputsPoints(m_gate->m_inputs);
-
     if (m_gate->m_inputs.empty())
         qDebug() << "empty";
 
     for (size_t i = 0; i < m_gate->m_inputs.size(); ++i)
-        qDebug() << "asd" << m_gate->m_inputs[i];
+        qDebug() << "asd" << m_gate->m_inputs[i]->m_point;
     qDebug() << "aaaaaaaaaaaaaaaaaaaaaa";
+    emit m_gate->SendInputsPoints(m_gate->m_inputs);
+
 
 }
 
-// void WorkSpace::wheelEvent(QWheelEvent* event) {
-//     qreal scaleFactor = 1.1;
+void WorkSpace::wheelEvent(QWheelEvent* event) {
+    qreal scaleFactor = 1.1;
 
-//     if (event->angleDelta().y() > 0) {
-//         scale (scaleFactor, scaleFactor);
-//     } else {
-//         scale (1/scaleFactor, 1/scaleFactor);
-//     }
-//     emit this->SendGap(m_gap);
-// }
+    if (event->angleDelta().y() > 0) {
+        scale (scaleFactor, scaleFactor);
+    } else {
+        scale (1/scaleFactor, 1/scaleFactor);
+    }
+    emit this->SendGap(m_gap);
+}
 
 void WorkSpace::mousePressEvent(QMouseEvent *event) {
     if (event->button() == Qt::MiddleButton) {

@@ -43,7 +43,7 @@ signals:
     void SendScene(WorkSpace* workSpace);
 
 protected:
-    //void wheelEvent(QWheelEvent* event) override;
+    void wheelEvent(QWheelEvent* event) override;
     void drawBackground(QPainter* painter, const QRectF& rect) override;
 
     void mousePressEvent(QMouseEvent* event) override;

@@ -12,7 +12,7 @@ public:
 
 public slots:
     void GetGridGap(int gap);
-    void GetInputsPoints(std::vector<QPointF> points);
+    void GetInputsPoints(std::vector<QSharedPointer<InputPoint>> points);
 
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
@@ -27,8 +27,8 @@ private:
     int m_offset;
     bool m_isDrag = false;
     QPointF m_startPos;
-    std::vector<std::vector<QPointF>> m_allGatePoints;
-    std::vector<QPointF> m_inputsPoints;
+    std::vector<std::vector<QSharedPointer<InputPoint>>> m_allGatePoints;
+    QSharedPointer<InputPoint> m_inputsPoints;
     std::vector<QPointF> m_points;
 };
 

@@ -20,7 +20,7 @@ signals:
     void SendFirstCordinate(QPointF first);
     void SendSecondCordinate(QPointF second);
     void SendInputsDistance(int dis);
-    void SendInputsPoints(std::vector<QPointF> inputPoints);
+    void SendInputsPoints(const std::vector<QSharedPointer<InputPoint>>& inputPoints);
 
 // protected:
 public:
@@ -33,16 +33,16 @@ public:
 
     void hoverMoveEvent(QGraphicsSceneHoverEvent* event) override;
 
-    std::vector<QPointF> CreateInputPoints(QPainterPath path);
+    std::vector<QSharedPointer<InputPoint>> CreateInputPoints(QPainterPath path);
 
     int m_inputsCount = 2;
-    QPointF m_highlightPoint;
+    QSharedPointer<InputPoint> m_highlightPoint;
     QPointF m_pos {5,5};
     int m_inputsGap;
     int m_gap;
     bool m_isDrag;
-    std::vector<QPointF> m_inputs;
-    QPointF m_output;
+    std::vector<QSharedPointer<InputPoint>> m_inputs;
+    QSharedPointer<InputPoint> m_output;
 
     QPainterPath m_backSide;
 

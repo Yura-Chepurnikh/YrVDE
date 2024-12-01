@@ -26,6 +26,7 @@ void LogicGate::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 void LogicGate::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
     QPointF currentPoint = event->scenePos();
     m_pos = ConnectToGrid(currentPoint, m_gap);
+    emit this->SendInputsPoints(m_inputs);
 
     update();
     QGraphicsItem::mousePressEvent(event);
@@ -40,8 +41,8 @@ void LogicGate::hoverMoveEvent(QGraphicsSceneHoverEvent *event) {
     QPointF currentPos = event->pos();
 
     for (size_t i = 0; i < m_inputs.size(); ++i) {
-        if (std::abs(currentPos.x() - m_inputs[i].x()) < m_inputsGap / 2 &&
-            std::abs(currentPos.y() - m_inputs[i].y()) < m_inputsGap / 2)
+        if (std::abs(currentPos.x() - m_inputs[i]->m_point.x()) < m_inputsGap / 2 &&
+            std::abs(currentPos.y() - m_inputs[i]->m_point.y()) < m_inputsGap / 2)
         {
             m_highlightPoint = m_inputs[i];
             update();
@@ -57,7 +58,7 @@ QPointF LogicGate::ConnectToGrid(const QPointF& pos, int gridGap) {
     return QPointF { x, y };
 }
 
-std::vector<QPointF> LogicGate::CreateInputPoints(QPainterPath path) {
+std::vector<QSharedPointer<InputPoint>> LogicGate::CreateInputPoints(QPainterPath path) {
     m_inputs.clear();
 
     // for (qreal t = 0; t <= 1; t += 0.1) {
@@ -65,8 +66,14 @@ std::vector<QPointF> LogicGate::CreateInputPoints(QPainterPath path) {
     //         m_inputs.push_back(path.pointAtPercent(t));
     //     }
     // }
-    m_inputs.push_back(path.pointAtPercent(0.2));
-    m_inputs.push_back(path.pointAtPercent(0.8));
+    QPointF p1 = path.pointAtPercent(0.2);
+    QPointF p2 = path.pointAtPercent(0.8);
+
+    QSharedPointer<InputPoint> in1 = QSharedPointer<InputPoint>::create(p1, GateState::LOGIC_Z);
+    QSharedPointer<InputPoint> in2 = QSharedPointer<InputPoint>::create(p2, GateState::LOGIC_Z);
+
+    m_inputs.push_back(in1);
+    m_inputs.push_back(in2);
 
     return m_inputs;
 }

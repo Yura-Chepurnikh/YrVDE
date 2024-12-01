@@ -12,17 +12,17 @@ void BondingWire::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    painter->setPen(QPen(QColor{"#23A9F2"}, 8));
+    painter->setPen(QPen(QColor{"#23A9F2"}, 0.3));
 
     if (m_points.size() >= 3) {
         painter->drawLine(m_points[0], m_points[1]);
         painter->drawLine(m_points[1], m_points[2]);
     }
 
-    painter->setPen(QPen(QColor{"#23A9F2"}, 0.2));
+    painter->setPen(QPen(Qt::yellow, 0.2));
     for (size_t i = 0; i < m_allGatePoints.size(); ++i) {
         for (size_t j = 0; j < m_allGatePoints[i].size(); ++j) {
-            painter->drawPoint(m_allGatePoints[i][j]);
+            painter->drawPoint(m_allGatePoints[i][j]->m_point);
         }
     }
 }
@@ -45,16 +45,16 @@ void BondingWire::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
 
         for (size_t i = 0; i < m_allGatePoints.size(); ++i) {
             for (size_t j = 0; j < m_allGatePoints[i].size(); ++j) {
-                qDebug() << "points: " << m_allGatePoints[i][j];
+                qDebug() << "points: " << m_allGatePoints[i][j]->m_point;
 
-                qreal dis = std::sqrt(std::pow((m_allGatePoints[i][j].y() - event->pos().y()), 2) +
-                                       std::pow((m_allGatePoints[i][j].x() - event->pos().x()), 2));
+                qreal dis = std::sqrt(std::pow((m_allGatePoints[i][j]->m_point.y() - event->pos().y()), 2) +
+                                       std::pow((m_allGatePoints[i][j]->m_point.x() - event->pos().x()), 2));
 
                 if (dis < m_offset)
                 {
                     qDebug() << "BondingWire  + mouseReleaseEvent + iggggg + setPos" << m_allGatePoints[i][j];
 
-                    currentPoint = m_allGatePoints[i][j];
+                    currentPoint = m_allGatePoints[i][j]->m_point;
                     qDebug() << "BondingWire  + mouseReleaseEvent + if + setPos" << event->pos();
                 }
             }
@@ -93,10 +93,14 @@ QPointF BondingWire::ConnectToGrid(const QPointF& pos, int m_offset) {
     return QPointF { x, y };
 }
 
-void BondingWire::GetInputsPoints(std::vector<QPointF> points) {
+void BondingWire::GetInputsPoints(std::vector<QSharedPointer<InputPoint>> points) {
+    qInfo() << "BondingWire GetInputsPoints";
+
     for (size_t j = 0; j < points.size(); ++j) {
-        qDebug() << points[j];
+        qDebug() << points[j]->m_point;
     }
+    if (!m_allGatePoints.empty())
+        m_allGatePoints.clear();
 
     qInfo() << "BondingWire GetInputsPoints";
     m_allGatePoints.push_back(points);
