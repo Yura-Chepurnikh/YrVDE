@@ -5,7 +5,7 @@ ORGate::ORGate() {
     m_backSide.moveTo(m_pos.x(), m_pos.y() + 2*gap);
     m_backSide.quadTo(m_pos.x() + gap, m_pos.y() + gap, m_pos.x(), m_pos.y());
     m_inputs = CreateInputPoints(m_backSide);
-    QPointF out(m_pos.x() + 1.5 * gap, m_pos.y() + gap);
+    QPointF out(m_pos);
     m_output = QSharedPointer<InputPoint>::create(out, GateState::LOGIC_Z);
     //m_inputs = {{1, 2},{3, 4}};
 }
@@ -13,13 +13,13 @@ ORGate::ORGate() {
 ORGate::~ORGate() { }
 
 void ORGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
-    qDebug() << "START!!!";
+    //qDebug() << "START!!!";
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
     painter->setPen(QPen(QColor{ "#23A9F2"}, 0.5));
 
-    qDebug() << "START1!!!";
+    //qDebug() << "START1!!!";
 
     QPainterPath path;
 
@@ -31,7 +31,7 @@ void ORGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
     path.quadTo(m_pos.x() + gap, m_pos.y() + 2*gap, m_pos.x(), m_pos.y() + 2*gap);
     painter->drawPath(path);
 
-    qDebug() << "START2!!!";
+    //qDebug() << "START2!!!";
 
     QPainterPath back;
     back.moveTo(m_pos.x(), m_pos.y() + 2*gap);
@@ -43,7 +43,7 @@ void ORGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
 
     m_inputs = CreateInputPoints(back);
 
-    qDebug() << "START3!!!";
+    //qDebug() << "START3!!!";
 
     QPainterPath inputs;
 
@@ -52,20 +52,21 @@ void ORGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
     }
     painter->drawPath(inputs);
 
-    qDebug() << "START4!!!";
+    //qDebug() << "START4!!!";
 
 
     painter->setPen({Qt::blue, 0.4});
 
-    qDebug() << "START5!!!";
+    //qDebug() << "START5!!!";
 
     //painter->drawPoint(m_highlightPoint->m_point);
-    qDebug() << "END!!!";
+    //qDebug() << "END!!!";
 
     QPainterPath output;
-     inputs.addEllipse(m_output->m_point, 1, 1);
+    output.addEllipse(m_output->m_point, 1, 1);
 
     painter->drawPath(output);
+    //painter->drawPoint(m_output->m_point);
 }
 
 QRectF ORGate::boundingRect() const {

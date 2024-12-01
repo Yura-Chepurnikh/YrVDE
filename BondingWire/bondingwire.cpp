@@ -29,14 +29,24 @@ void BondingWire::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
 
 void BondingWire::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     if (event->button() == Qt::LeftButton) {
-        m_startPos = event->pos();
-        m_points.push_back(m_startPos);
-        m_isDrag = true;
-        update();
+        for (size_t i = 0; i < m_allGatePoints.size(); ++i) {
+            for (size_t j = 0; j < m_allGatePoints[i].size(); ++j) {
+                qreal dis =
+                    std::sqrt(std::pow((m_allGatePoints[i][j]->m_point.y() - event->pos().y()), 2) +
+                    std::pow((m_allGatePoints[i][j]->m_point.x() - event->pos().x()), 2));
+                if (dis < m_offset) {
+                    m_startPos = m_allGatePoints[i][j]->m_point;
+                    m_points.push_back(m_startPos);
+                    m_isDrag = true;
+                    update();
+                }
+            }
+        }
     }
 }
 
 void BondingWire::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
+    //qDebug() << "omega";
     if (m_isDrag && (event->buttons() & Qt::LeftButton)) {
         m_points.clear();
         m_points.push_back(m_startPos);
@@ -61,7 +71,7 @@ void BondingWire::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
         }
 
         QPointF intersectionPoint = QPointF { currentPoint.x(), m_startPos.y() };
-        if (currentPoint != intersectionPoint)
+       // if (currentPoint != intersectionPoint)
             m_points.push_back(intersectionPoint);
         m_points.push_back(currentPoint);
         update();

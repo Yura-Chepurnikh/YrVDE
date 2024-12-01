@@ -19,17 +19,31 @@ void LogicGate::GetGridPos(QPointF pos) {
 }
 
 void LogicGate::mousePressEvent(QGraphicsSceneMouseEvent *event) {
+    QPointF currentPoint = event->scenePos();
+    auto dis = std::sqrt(std::pow(currentPoint.x() - m_output->m_point.x(), 2) + std::pow(currentPoint.y() - m_output->m_point.y(), 2));
+    if (dis <= m_inputsGap) {
+        qDebug() << "pppppppppppppppppppppppppppppppp";
+
+        m_wire->mousePressEvent(event);
+    }
     setCursor(Qt::ClosedHandCursor);
     QGraphicsItem::mousePressEvent(event);
 }
 
 void LogicGate::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
     QPointF currentPoint = event->scenePos();
-    m_pos = ConnectToGrid(currentPoint, m_gap);
-    emit this->SendInputsPoints(m_inputs);
+    auto dis = std::sqrt(std::pow(currentPoint.x() - m_output->m_point.x(), 2) + std::pow(currentPoint.y() - m_output->m_point.y(), 2));
+    if (dis <= m_inputsGap) {
+        qDebug() << "mmmmmmmmmmmmmmmmmmmmmmmmmm";
+        m_wire->mouseMoveEvent(event);
+    }
+    else {
+        m_pos = ConnectToGrid(currentPoint, m_gap);
+        emit this->SendInputsPoints(m_inputs);
 
-    update();
-    QGraphicsItem::mousePressEvent(event);
+        update();
+        QGraphicsItem::mousePressEvent(event);
+    }
 }
 
 void LogicGate::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {

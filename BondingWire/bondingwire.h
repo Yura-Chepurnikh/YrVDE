@@ -14,7 +14,7 @@ public slots:
     void GetGridGap(int gap);
     void GetInputsPoints(std::vector<QSharedPointer<InputPoint>> points);
 
-protected:
+public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
     void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
     void mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;

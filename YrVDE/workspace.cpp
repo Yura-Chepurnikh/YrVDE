@@ -1,7 +1,7 @@
 #include "./workspace.h"
 
-int WorkSpace::m_gap = 30;
-int WorkSpace::m_inputsDistance = m_gap / 5;
+int WorkSpace::m_gap = 60;
+int WorkSpace::m_inputsDistance = m_gap / 10;
 
 WorkSpace::WorkSpace(QGraphicsScene* scene) : QGraphicsView(scene)
 {

@@ -42,7 +42,7 @@ public:
     int m_gap;
     bool m_isDrag;
     std::vector<QSharedPointer<InputPoint>> m_inputs;
-    QSharedPointer<InputPoint> m_output;
+    QSharedPointer<InputPoint> m_output = QSharedPointer<InputPoint>::create(QPointF{1, 1}, GateState::LOGIC_Z);
 
     QPainterPath m_backSide;
 
