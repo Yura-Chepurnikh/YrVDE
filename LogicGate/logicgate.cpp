@@ -91,8 +91,12 @@ std::vector<QSharedPointer<InputPoint>> LogicGate::CreateInputPoints(QPainterPat
     QSharedPointer<InputPoint> in1 = QSharedPointer<InputPoint>::create(p1, GateState::LOGIC_Z);
     QSharedPointer<InputPoint> in2 = QSharedPointer<InputPoint>::create(p2, GateState::LOGIC_Z);
 
+    QPointF a = QPointF {m_pos.x() + m_gap, m_pos.y() + m_gap / 2};
+    m_output = QSharedPointer<InputPoint>::create(a, GateState::LOGIC_Z);
+
     m_inputs.push_back(in1);
     m_inputs.push_back(in2);
+    m_inputs.push_back(m_output);
 
     return m_inputs;
 }

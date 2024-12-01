@@ -6,7 +6,7 @@ ORGate::ORGate() {
     m_backSide.quadTo(m_pos.x() + gap, m_pos.y() + gap, m_pos.x(), m_pos.y());
     m_inputs = CreateInputPoints(m_backSide);
     QPointF out(m_pos);
-    m_output = QSharedPointer<InputPoint>::create(out, GateState::LOGIC_Z);
+    m_output = QSharedPointer<InputPoint>::create(QPointF{m_pos.x() +  m_gap, m_pos.y() + gap}, GateState::LOGIC_Z);
     //m_inputs = {{1, 2},{3, 4}};
 }
 
@@ -27,7 +27,7 @@ void ORGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
     path.closeSubpath();
 
     int gap = m_gap/2;
-    path.quadTo(m_pos.x() + gap, m_pos.y(), m_pos.x() + 1.5 * gap, m_pos.y() + gap);
+    path.quadTo(m_pos.x() + gap, m_pos.y(), m_pos.x() +  m_gap, m_pos.y() + gap);
     path.quadTo(m_pos.x() + gap, m_pos.y() + 2*gap, m_pos.x(), m_pos.y() + 2*gap);
     painter->drawPath(path);
 
@@ -62,10 +62,10 @@ void ORGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
     //painter->drawPoint(m_highlightPoint->m_point);
     //qDebug() << "END!!!";
 
-    QPainterPath output;
-    output.addEllipse(m_output->m_point, 1, 1);
+    // QPainterPath output;
+    // output.addEllipse(m_output->m_point, 1, 1);
 
-    painter->drawPath(output);
+    // painter->drawPath(output);
     //painter->drawPoint(m_output->m_point);
 }
 
