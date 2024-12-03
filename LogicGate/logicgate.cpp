@@ -5,8 +5,11 @@ LogicGate::LogicGate() {
     setFlag(QGraphicsItem::ItemIsMovable);
     setFlag(QGraphicsItem::ItemIsSelectable);
     setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
-
     m_isDrag = false;
+
+    m_pos = ConnectToGrid(m_pos, m_gap);
+    emit this->SendInputsPoints(m_inputs);
+
 }
 
 void LogicGate::GetGridGap(int gap) {
@@ -19,36 +22,28 @@ void LogicGate::GetGridPos(QPointF pos) {
 }
 
 void LogicGate::mousePressEvent(QGraphicsSceneMouseEvent *event) {
-    QPointF currentPoint = event->scenePos();
-    auto dis = std::sqrt(std::pow(currentPoint.x() - m_output->m_point.x(), 2) + std::pow(currentPoint.y() - m_output->m_point.y(), 2));
-    if (dis <= m_inputsGap) {
-        qDebug() << "pppppppppppppppppppppppppppppppp";
+    if (event->button() == Qt::LeftButton && shape().contains(event->pos())) {
+        setCursor(Qt::ClosedHandCursor);
+        emit this->SendInputsPoints(m_inputs);
 
-        m_wire->mousePressEvent(event);
+        QGraphicsItem::mousePressEvent(event);
     }
-    setCursor(Qt::ClosedHandCursor);
-    QGraphicsItem::mousePressEvent(event);
 }
 
 void LogicGate::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
-    QPointF currentPoint = event->scenePos();
-    auto dis = std::sqrt(std::pow(currentPoint.x() - m_output->m_point.x(), 2) + std::pow(currentPoint.y() - m_output->m_point.y(), 2));
-    if (dis <= m_inputsGap) {
-        qDebug() << "mmmmmmmmmmmmmmmmmmmmmmmmmm";
-        m_wire->mouseMoveEvent(event);
-    }
-    else {
+    if (event->buttons() & Qt::LeftButton && shape().contains(event->pos())) {
+        QPointF currentPoint = event->scenePos();
         m_pos = ConnectToGrid(currentPoint, m_gap);
-        emit this->SendInputsPoints(m_inputs);
-
         update();
         QGraphicsItem::mousePressEvent(event);
     }
 }
 
 void LogicGate::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
-    setCursor(Qt::CustomCursor);
-    QGraphicsItem::mouseReleaseEvent(event);
+    if (event->button() == Qt::LeftButton && shape().contains(event->pos())) {
+        setCursor(Qt::CustomCursor);
+        QGraphicsItem::mouseReleaseEvent(event);
+    }
 }
 
 void LogicGate::hoverMoveEvent(QGraphicsSceneHoverEvent *event) {
@@ -56,8 +51,8 @@ void LogicGate::hoverMoveEvent(QGraphicsSceneHoverEvent *event) {
 
     for (size_t i = 0; i < m_inputs.size(); ++i) {
         if (std::abs(currentPos.x() - m_inputs[i]->m_point.x()) < m_inputsGap / 2 &&
-            std::abs(currentPos.y() - m_inputs[i]->m_point.y()) < m_inputsGap / 2)
-        {
+            std::abs(currentPos.y() - m_inputs[i]->m_point.y()) < m_inputsGap / 2) {
+
             m_highlightPoint = m_inputs[i];
             update();
         }
@@ -85,13 +80,10 @@ std::vector<QSharedPointer<InputPoint>> LogicGate::CreateInputPoints(QPainterPat
             p2 = path.pointAtPercent(t);
         }
     }
-    // QPointF p1 = path.pointAtPercent(0.2);
-    // QPointF p2 = path.pointAtPercent(0.8);
-
     QSharedPointer<InputPoint> in1 = QSharedPointer<InputPoint>::create(p1, GateState::LOGIC_Z);
     QSharedPointer<InputPoint> in2 = QSharedPointer<InputPoint>::create(p2, GateState::LOGIC_Z);
 
-    QPointF a = QPointF {m_pos.x() + m_gap, m_pos.y() + m_gap / 2};
+    QPointF a = QPointF { m_pos.x() + m_gap, m_pos.y() + m_gap / 2 };
     m_output = QSharedPointer<InputPoint>::create(a, GateState::LOGIC_Z);
 
     m_inputs.push_back(in1);

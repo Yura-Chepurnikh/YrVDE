@@ -11,19 +11,51 @@ WorkSpace::WorkSpace(QGraphicsScene* scene) : QGraphicsView(scene)
     this->setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
     this->setStyleSheet("background-color: #1F1F1F");
 
-    m_wire = new BondingWire();
-    scene->addItem(m_wire);
+    // m_wire = new BondingWire();
+    // scene->addItem(m_wire);
 
-    QObject::connect(this, &WorkSpace::SendGap, m_wire, &BondingWire::GetGridGap);
-    emit this->SendGap(m_gap);
+    // QObject::connect(this, &WorkSpace::SendGap, m_wire, &BondingWire::GetGridGap);
+    // emit this->SendGap(m_gap);
 
     scene->setSceneRect(this->viewport()->rect());
+
+   // this->setStyleSheet("background-color: green");
 
     setScene(scene);
     update();
 }
 
 WorkSpace::~WorkSpace() { }
+
+void WorkSpace::GetWire(BondingWire* wire)
+{
+    qDebug() << "tatatatatatatat";
+
+    m_wire = wire;
+    m_wire->setZValue(100);
+    scene()->addItem(m_wire);
+
+    if (m_wire)
+        qDebug() << "m_wire exist";
+
+    // m_gate = gate;
+    // qDebug() << "m_gate not exist: " << (m_gate == nullptr);
+    // scene()->addItem(m_gate);
+
+    // QObject::connect(this, &WorkSpace::SendGap, m_gate, &LogicGate::GetGridGap);
+    // emit this->SendGap(m_gap);
+
+    // QObject::connect(m_gate, &LogicGate::SendInputsPoints, m_wire, &BondingWire::GetInputsPoints);
+    // if (m_gate->m_inputs.empty())
+
+    // if (m_gate->m_inputs.empty())
+    //     qDebug() << "empty";
+
+    // for (size_t i = 0; i < m_gate->m_inputs.size(); ++i)
+    //     qDebug() << "asd" << m_gate->m_inputs[i]->m_point;
+    // qDebug() << "aaaaaaaaaaaaaaaaaaaaaa";
+    // emit m_gate->SendInputsPoints(m_gate->m_inputs);
+}
 
 void WorkSpace::drawBackground(QPainter *painter, const QRectF &rect) {
     painter->setPen({QColor{"#404040"}, 0.1});
@@ -50,24 +82,34 @@ void WorkSpace::drawBackground(QPainter *painter, const QRectF &rect) {
 
 void WorkSpace::GetLogicGate(LogicGate* gate) {
     m_gate = gate;
+    m_gate->setZValue(4);
     qDebug() << "m_gate not exist: " << (m_gate == nullptr);
     scene()->addItem(m_gate);
 
     QObject::connect(this, &WorkSpace::SendGap, m_gate, &LogicGate::GetGridGap);
     emit this->SendGap(m_gap);
 
-    QObject::connect(m_gate, &LogicGate::SendInputsPoints, m_wire, &BondingWire::GetInputsPoints);
-    if (m_gate->m_inputs.empty())
-
-    if (m_gate->m_inputs.empty())
-        qDebug() << "empty";
+    // QObject::connect(this, &WorkSpace::SendPoint, m_gate, &LogicGate::GetGridGap);
+    // emit this->SendGap(m_gap);
 
     for (size_t i = 0; i < m_gate->m_inputs.size(); ++i)
         qDebug() << "asd" << m_gate->m_inputs[i]->m_point;
     qDebug() << "aaaaaaaaaaaaaaaaaaaaaa";
+
+
+    if (m_gate->m_inputs.empty())
+        qDebug() << "empty";
+
+    m_wire = new BondingWire();
+    scene()->addItem(m_wire);
+
+    QObject::connect(this, &WorkSpace::SendGap, m_wire, &BondingWire::GetGridGap);
+    emit this->SendGap(m_gap);
+
+    QObject::connect(m_gate, &LogicGate::SendInputsPoints, m_wire, &BondingWire::GetInputsPoints);
     emit m_gate->SendInputsPoints(m_gate->m_inputs);
 
-
+    update();
 }
 
 void WorkSpace::wheelEvent(QWheelEvent* event) {
@@ -83,6 +125,7 @@ void WorkSpace::wheelEvent(QWheelEvent* event) {
 
 void WorkSpace::mousePressEvent(QMouseEvent *event) {
     if (event->button() == Qt::MiddleButton) {
+        qDebug() << "GGG";
         m_lastPosOfScene = event->pos();
         m_is_Drag = true;
     }

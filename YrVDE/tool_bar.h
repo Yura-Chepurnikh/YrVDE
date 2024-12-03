@@ -18,8 +18,8 @@ public:
     LogicGate* CreateLogicGate(const std::string gate_type);
     LogicGate* m_gate;
 
-public slots:
-    void GetWorkSpace(WorkSpace* workspace);
+// public slots:
+//     void GetWorkSpace(WorkSpace* workspace);
 
 signals:
     void createLogicGate(LogicGate* gate);

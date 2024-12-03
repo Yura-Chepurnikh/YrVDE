@@ -15,11 +15,14 @@ public:
 public slots:
     void GetGridGap(int gap);
     void GetGridPos(QPointF pos);
+    //void GetWorkSpace(WorkSpace* workspace);
 
 signals:
+    void SendWire(BondingWire* wire);
     void SendFirstCordinate(QPointF first);
     void SendSecondCordinate(QPointF second);
     void SendInputsDistance(int dis);
+    void SendGap(int gap);
     void SendInputsPoints(const std::vector<QSharedPointer<InputPoint>>& inputPoints);
 
 // protected:
@@ -35,6 +38,8 @@ public:
 
     std::vector<QSharedPointer<InputPoint>> CreateInputPoints(QPainterPath path);
 
+    bool m_superFlag { false };
+
     int m_inputsCount = 2;
     QSharedPointer<InputPoint> m_highlightPoint;
     QPointF m_pos {5,5};
@@ -45,6 +50,8 @@ public:
     QSharedPointer<InputPoint> m_output = QSharedPointer<InputPoint>::create(QPointF{1, 1}, GateState::LOGIC_Z);
 
     QPainterPath m_backSide;
+
+    // QGraphicsScene m_scene;
 
     BondingWire* m_wire;
 };

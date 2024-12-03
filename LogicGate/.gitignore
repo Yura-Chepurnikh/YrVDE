@@ -8,7 +8,7 @@
 *.moc
 *.o
 *.obj
-*.orig
+*.orig1
 *.rej
 *.so
 *.so.*

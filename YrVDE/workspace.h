@@ -35,6 +35,7 @@ public:
 
 public slots:
     void GetLogicGate(LogicGate* gate);
+    void GetWire(BondingWire* wire);
 
 signals:
     void SendPoint(QPoint point);

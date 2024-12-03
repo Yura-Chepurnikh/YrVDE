@@ -3,6 +3,7 @@
 
 #include "./logicgate.h"
 
+
 class LOGICGATE_EXPORT NANDGate : public LogicGate {
     Q_OBJECT
 

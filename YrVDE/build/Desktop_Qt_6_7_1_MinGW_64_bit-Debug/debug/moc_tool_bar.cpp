@@ -39,10 +39,7 @@ constexpr auto qt_meta_stringdata_CLASSToolBarENDCLASS = QtMocHelpers::stringDat
     "createLogicGate",
     "",
     "LogicGate*",
-    "gate",
-    "GetWorkSpace",
-    "WorkSpace*",
-    "workspace"
+    "gate"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -55,7 +52,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSToolBarENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-       2,   14, // methods
+       1,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -63,16 +60,10 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSToolBarENDCLASS[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    1,   26,    2, 0x06,    1 /* Public */,
-
- // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       5,    1,   29,    2, 0x0a,    3 /* Public */,
+       1,    1,   20,    2, 0x06,    1 /* Public */,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3,    4,
-
- // slots: parameters
-    QMetaType::Void, 0x80000000 | 6,    7,
 
        0        // eod
 };
@@ -88,10 +79,7 @@ Q_CONSTINIT const QMetaObject ToolBar::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<ToolBar, std::true_type>,
         // method 'createLogicGate'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<LogicGate *, std::false_type>,
-        // method 'GetWorkSpace'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<WorkSpace *, std::false_type>
+        QtPrivate::TypeAndForceComplete<LogicGate *, std::false_type>
     >,
     nullptr
 } };
@@ -103,7 +91,6 @@ void ToolBar::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         (void)_t;
         switch (_id) {
         case 0: _t->createLogicGate((*reinterpret_cast< std::add_pointer_t<LogicGate*>>(_a[1]))); break;
-        case 1: _t->GetWorkSpace((*reinterpret_cast< std::add_pointer_t<WorkSpace*>>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -114,13 +101,6 @@ void ToolBar::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
             default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
             case 0:
                 *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType::fromType< LogicGate* >(); break;
-            }
-            break;
-        case 1:
-            switch (*reinterpret_cast<int*>(_a[1])) {
-            default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
-            case 0:
-                *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType::fromType< WorkSpace* >(); break;
             }
             break;
         }
@@ -155,13 +135,13 @@ int ToolBar::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 2)
+        if (_id < 1)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 1;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 2)
+        if (_id < 1)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 1;
     }
     return _id;
 }

@@ -78,8 +78,8 @@ void ToolBar::CreateButton(QToolButton*& button, const QString &icon_name, const
     );
 }
 
-void ToolBar::GetWorkSpace(WorkSpace *workspace) {
-    m_workSpace = workspace;
-}
+// void ToolBar::GetWorkSpace(WorkSpace *workspace) {
+//     m_workSpace = workspace;
+// }
 
 

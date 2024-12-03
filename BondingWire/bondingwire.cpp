@@ -25,16 +25,25 @@ void BondingWire::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
             painter->drawPoint(m_allGatePoints[i][j]->m_point);
         }
     }
+    painter->setBrush(Qt::red);
+    //painter->drawRect(boundingRect());
 }
 
 void BondingWire::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     if (event->button() == Qt::LeftButton) {
+        qDebug() << "TPU";
+
         for (size_t i = 0; i < m_allGatePoints.size(); ++i) {
             for (size_t j = 0; j < m_allGatePoints[i].size(); ++j) {
                 qreal dis =
                     std::sqrt(std::pow((m_allGatePoints[i][j]->m_point.y() - event->pos().y()), 2) +
                     std::pow((m_allGatePoints[i][j]->m_point.x() - event->pos().x()), 2));
-                if (dis < m_offset) {
+
+
+                qDebug() << "m_allGatePoints"<<  m_allGatePoints[i][j]->m_point << dis;
+
+                if (dis <= m_offset) {
+                    qDebug() << "asddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd";
                     m_startPos = m_allGatePoints[i][j]->m_point;
                     m_points.push_back(m_startPos);
                     m_isDrag = true;
@@ -42,14 +51,16 @@ void BondingWire::mousePressEvent(QGraphicsSceneMouseEvent *event) {
                 }
             }
         }
+        QGraphicsItem::mousePressEvent(event);
+
     }
 }
 
 void BondingWire::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
-    //qDebug() << "omega";
     if (m_isDrag && (event->buttons() & Qt::LeftButton)) {
         m_points.clear();
         m_points.push_back(m_startPos);
+        qDebug() << "omega";
 
         QPointF currentPoint = ConnectToGrid(event->pos(), m_offset);
 
@@ -57,8 +68,12 @@ void BondingWire::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
             for (size_t j = 0; j < m_allGatePoints[i].size(); ++j) {
                 qDebug() << "points: " << m_allGatePoints[i][j]->m_point;
 
+
                 qreal dis = std::sqrt(std::pow((m_allGatePoints[i][j]->m_point.y() - event->pos().y()), 2) +
                                        std::pow((m_allGatePoints[i][j]->m_point.x() - event->pos().x()), 2));
+
+                qDebug() << "dis" << dis;
+                qDebug() << "m_offset" << m_offset;
 
                 if (dis < m_offset)
                 {
@@ -75,6 +90,7 @@ void BondingWire::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
             m_points.push_back(intersectionPoint);
         m_points.push_back(currentPoint);
         update();
+        QGraphicsItem::mousePressEvent(event);
     }
 }
 
@@ -84,6 +100,7 @@ void BondingWire::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
         m_isDrag = false;
         m_flag = false;
         update();
+        QGraphicsItem::mouseReleaseEvent(event);
     }
 }
 
@@ -91,7 +108,7 @@ QRectF BondingWire::boundingRect() const {
     if (scene()) {
         return scene()->sceneRect();
     }
-    return QRectF { 0, 0, 0, 0 };
+    return QRectF { 0, 0, 9, 9 };
 }
 
 void BondingWire::GetGridGap(int gap) {
@@ -108,10 +125,10 @@ void BondingWire::GetInputsPoints(std::vector<QSharedPointer<InputPoint>> points
     qInfo() << "BondingWire GetInputsPoints";
 
     for (size_t j = 0; j < points.size(); ++j) {
-        qDebug() << points[j]->m_point;
+        qDebug() << "SSSSSSSSSSSS" <<  points[j]->m_point;
     }
-    if (!m_allGatePoints.empty())
-        m_allGatePoints.clear();
+    // if (!m_allGatePoints.empty())
+    //     m_allGatePoints.clear();
 
     qInfo() << "BondingWire GetInputsPoints";
     m_allGatePoints.push_back(points);

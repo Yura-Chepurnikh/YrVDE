@@ -59,7 +59,8 @@ void ORGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
 
     //qDebug() << "START5!!!";
 
-    //painter->drawPoint(m_highlightPoint->m_point);
+    if (m_highlightPoint)
+        painter->drawPoint(m_highlightPoint->m_point);
     //qDebug() << "END!!!";
 
     // QPainterPath output;
@@ -67,8 +68,23 @@ void ORGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
 
     // painter->drawPath(output);
     //painter->drawPoint(m_output->m_point);
+    //painter->setBrush(Qt::yellow);
+    //painter->drawRect(boundingRect());
+     emit this->SendInputsPoints(m_inputs);
+
 }
 
 QRectF ORGate::boundingRect() const {
     return QRectF(m_pos.x(), m_pos.y(), m_gap, m_gap);
+}
+
+QPainterPath ORGate::shape() const {
+    QPainterPath path;
+    int gap = m_gap/2;
+
+    path.quadTo(m_pos.x() + gap, m_pos.y(), m_pos.x() +  m_gap, m_pos.y() + gap);
+    path.quadTo(m_pos.x() + gap, m_pos.y() + 2*gap, m_pos.x(), m_pos.y() + 2*gap);
+    path.quadTo(m_pos.x() + gap, m_pos.y() + gap, m_pos.x(), m_pos.y());
+
+    return path;
 }
