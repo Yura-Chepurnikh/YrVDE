@@ -25,6 +25,7 @@ public:
 private:
     bool m_flag { false };
     int m_offset;
+    bool m_route { false };
     bool m_isDrag = false;
     QPointF m_startPos;
     std::vector<std::vector<QSharedPointer<InputPoint>>> m_allGatePoints;

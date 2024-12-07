@@ -9,7 +9,6 @@ LogicGate::LogicGate() {
 
     m_pos = ConnectToGrid(m_pos, m_gap);
     emit this->SendInputsPoints(m_inputs);
-
 }
 
 void LogicGate::GetGridGap(int gap) {
@@ -34,6 +33,7 @@ void LogicGate::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
     if (event->buttons() & Qt::LeftButton && shape().contains(event->pos())) {
         QPointF currentPoint = event->scenePos();
         m_pos = ConnectToGrid(currentPoint, m_gap);
+emit this->SendInputsPoints(m_inputs);
         update();
         QGraphicsItem::mousePressEvent(event);
     }
@@ -80,8 +80,8 @@ std::vector<QSharedPointer<InputPoint>> LogicGate::CreateInputPoints(QPainterPat
             p2 = path.pointAtPercent(t);
         }
     }
-    QSharedPointer<InputPoint> in1 = QSharedPointer<InputPoint>::create(p1, GateState::LOGIC_Z);
-    QSharedPointer<InputPoint> in2 = QSharedPointer<InputPoint>::create(p2, GateState::LOGIC_Z);
+    QSharedPointer<InputPoint> in1 = QSharedPointer<InputPoint>::create(path.pointAtPercent(0), GateState::LOGIC_Z);
+    QSharedPointer<InputPoint> in2 = QSharedPointer<InputPoint>::create(path.pointAtPercent(1), GateState::LOGIC_Z);
 
     QPointF a = QPointF { m_pos.x() + m_gap, m_pos.y() + m_gap / 2 };
     m_output = QSharedPointer<InputPoint>::create(a, GateState::LOGIC_Z);

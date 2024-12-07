@@ -23,7 +23,7 @@ signals:
     void SendSecondCordinate(QPointF second);
     void SendInputsDistance(int dis);
     void SendGap(int gap);
-    void SendInputsPoints(const std::vector<QSharedPointer<InputPoint>>& inputPoints);
+    void SendInputsPoints(const std::vector<QSharedPointer<InputPoint>>);
 
 // protected:
 public:
@@ -50,8 +50,6 @@ public:
     QSharedPointer<InputPoint> m_output = QSharedPointer<InputPoint>::create(QPointF{1, 1}, GateState::LOGIC_Z);
 
     QPainterPath m_backSide;
-
-    // QGraphicsScene m_scene;
 
     BondingWire* m_wire;
 };

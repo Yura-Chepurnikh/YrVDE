@@ -89,9 +89,6 @@ void WorkSpace::GetLogicGate(LogicGate* gate) {
     QObject::connect(this, &WorkSpace::SendGap, m_gate, &LogicGate::GetGridGap);
     emit this->SendGap(m_gap);
 
-    // QObject::connect(this, &WorkSpace::SendPoint, m_gate, &LogicGate::GetGridGap);
-    // emit this->SendGap(m_gap);
-
     for (size_t i = 0; i < m_gate->m_inputs.size(); ++i)
         qDebug() << "asd" << m_gate->m_inputs[i]->m_point;
     qDebug() << "aaaaaaaaaaaaaaaaaaaaaa";
@@ -100,14 +97,15 @@ void WorkSpace::GetLogicGate(LogicGate* gate) {
     if (m_gate->m_inputs.empty())
         qDebug() << "empty";
 
-    m_wire = new BondingWire();
-    scene()->addItem(m_wire);
+    // m_wire = new BondingWire();
+    // scene()->addItem(m_wire);
 
-    QObject::connect(this, &WorkSpace::SendGap, m_wire, &BondingWire::GetGridGap);
-    emit this->SendGap(m_gap);
+    // QObject::connect(this, &WorkSpace::SendGap, m_wire, &BondingWire::GetGridGap);
+    // emit this->SendGap(m_gap);
 
-    QObject::connect(m_gate, &LogicGate::SendInputsPoints, m_wire, &BondingWire::GetInputsPoints);
-    emit m_gate->SendInputsPoints(m_gate->m_inputs);
+    for (size_t i = 0; i < m_gate->m_inputs.size(); ++i)
+        m_allGatePoints.push_back(m_gate->m_inputs[i]);
+
 
     update();
 }
@@ -124,7 +122,42 @@ void WorkSpace::wheelEvent(QWheelEvent* event) {
 }
 
 void WorkSpace::mousePressEvent(QMouseEvent *event) {
-    if (event->button() == Qt::MiddleButton) {
+    if (event->button() == Qt::LeftButton) {
+        qDebug() << "ZZZX";
+
+        for (size_t i = 0; i < m_allGatePoints.size(); ++i) {
+
+                qDebug() << "all gate points in WorkSpace: " << m_allGatePoints[i]->m_point;
+                qreal dis = std::sqrt(std::pow((m_allGatePoints[i]->m_point.y() - mapToScene(event->pos()).y()), 2) +
+                                      std::pow((m_allGatePoints[i]->m_point.x() - mapToScene(event->pos()).x()), 2));
+
+                qDebug() << "dis WorkSpace: " << dis;
+                qDebug() << "m_gap WorkSpace: " << m_gap / 5;
+
+                if (dis < m_gap / 5) {
+                    qDebug() << "ZZZ";
+
+
+                    m_wire = new BondingWire();
+                    scene()->addItem(m_wire);
+
+                    QObject::connect(this, &WorkSpace::SendGap, m_wire, &BondingWire::GetGridGap);
+                    emit this->SendGap(m_gap);
+
+                    QObject::connect(this, &WorkSpace::SendAllPoints, m_wire, &BondingWire::GetInputsPoints);
+                    emit this->SendAllPoints(m_allGatePoints);
+
+
+                    auto dummyEvent = new QGraphicsSceneMouseEvent(QEvent::GraphicsSceneMousePress);
+                    dummyEvent->setScenePos(mapToScene(event->pos()));
+                    dummyEvent->setButton(Qt::LeftButton);
+                    dummyEvent->setButtons(Qt::LeftButton);
+                    dummyEvent->setModifiers(Qt::NoModifier);
+                    m_wire->mousePressEvent(dummyEvent);
+                    delete dummyEvent;
+            }
+        }
+    } else if (event->button() == Qt::MiddleButton) {
         qDebug() << "GGG";
         m_lastPosOfScene = event->pos();
         m_is_Drag = true;
@@ -135,7 +168,8 @@ void WorkSpace::mousePressEvent(QMouseEvent *event) {
 void WorkSpace::mouseMoveEvent(QMouseEvent *event) {
     if (m_is_Drag && (event->buttons() & Qt::MiddleButton)) {
         QPointF delta = event->pos() - m_lastPosOfScene;
-        this->setSceneRect(m_lastPosOfScene.x(), m_lastPosOfScene.y(),  delta.x(), delta.y());
+        this->setSceneRect(m_lastPosOfScene.x(), m_lastPosOfScene.y(), delta.x(), delta.y());
+
         m_lastPosOfScene = event->pos();
     }
     QGraphicsView::mouseMoveEvent(event);
@@ -147,5 +181,6 @@ void WorkSpace::mouseReleaseEvent(QMouseEvent *event) {
     }
     QGraphicsView::mouseReleaseEvent(event);
 }
+
 
 

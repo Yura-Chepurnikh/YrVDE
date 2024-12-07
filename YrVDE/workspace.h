@@ -42,6 +42,8 @@ signals:
     void SendIsShow(bool isShow);
     void SendGap(int gap);
     void SendScene(WorkSpace* workSpace);
+    void SendRoute(QSharedPointer<InputPoint> point);
+    void SendAllPoints(std::vector<QSharedPointer<InputPoint>> points);
 
 protected:
     void wheelEvent(QWheelEvent* event) override;
@@ -52,6 +54,10 @@ protected:
     void mouseReleaseEvent(QMouseEvent* event) override;
 
 private:
+
+    //std::vector<std::vector<QSharedPointer<InputPoint>>> m_allGatePoints;
+
+    std::vector<QSharedPointer<InputPoint>> m_allGatePoints;
     bool m_is_Drag { false };
     QPointF m_lastPosOfScene;
     static int m_gap;
