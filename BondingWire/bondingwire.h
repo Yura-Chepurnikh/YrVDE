@@ -5,14 +5,17 @@
 
 class BONDINGWIRE_EXPORT BondingWire : public QObject, public QGraphicsItem {
 Q_OBJECT
+Q_INTERFACES(QGraphicsItem)
 
 public:
     BondingWire();
     ~BondingWire();
 
+signals:
+    void SendPoint(QPointF point);
+
 public slots:
     void GetGridGap(int gap);
-    void GetInputsPoints(std::vector<QSharedPointer<InputPoint>> points);
 
 public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
@@ -23,14 +26,12 @@ public:
     QRectF boundingRect() const override;
 
 private:
-    bool m_flag { false };
     int m_offset;
-    bool m_route { false };
     bool m_isDrag = false;
     QPointF m_startPos;
-    std::vector<std::vector<QSharedPointer<InputPoint>>> m_allGatePoints;
-    QSharedPointer<InputPoint> m_inputsPoints;
+
     std::vector<QPointF> m_points;
+    std::vector<std::vector<QPointF>> m_allPoints;
 };
 
 #endif // BONDINGWIRE_H

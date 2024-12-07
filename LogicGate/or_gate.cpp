@@ -55,12 +55,16 @@ void ORGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
     //qDebug() << "START4!!!";
 
 
-    painter->setPen({Qt::blue, 0.4});
+    painter->setPen({Qt::green, 2});
 
     //qDebug() << "START5!!!";
 
-    if (m_highlightPoint)
+    if (m_highlightPoint) {
+        if (m_highlightPoint->m_state == GateState::LOGIC_1) {
+            painter->setPen({Qt::green, 2});
+        }
         painter->drawPoint(m_highlightPoint->m_point);
+    }
     //qDebug() << "END!!!";
 
     // QPainterPath output;

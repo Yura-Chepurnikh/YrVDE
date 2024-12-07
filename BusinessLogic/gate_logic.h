@@ -94,6 +94,4 @@ struct GateLogic<XNORGate> {
     }
 };
 
-
-
 #endif // GATE_LOGIC_H

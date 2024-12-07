@@ -8,12 +8,11 @@ LogicGate::LogicGate() {
     m_isDrag = false;
 
     m_pos = ConnectToGrid(m_pos, m_gap);
-    emit this->SendInputsPoints(m_inputs);
 }
 
 void LogicGate::GetGridGap(int gap) {
     m_gap = gap;
-    m_inputsGap =  m_gap / 5;
+    m_inputsGap =  m_gap / 10;
 }
 
 void LogicGate::GetGridPos(QPointF pos) {
@@ -23,17 +22,14 @@ void LogicGate::GetGridPos(QPointF pos) {
 void LogicGate::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     if (event->button() == Qt::LeftButton && shape().contains(event->pos())) {
         setCursor(Qt::ClosedHandCursor);
-        emit this->SendInputsPoints(m_inputs);
-
         QGraphicsItem::mousePressEvent(event);
     }
 }
 
 void LogicGate::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
-    if (event->buttons() & Qt::LeftButton && shape().contains(event->pos())) {
+    if (event->buttons() & Qt::LeftButton) {
         QPointF currentPoint = event->scenePos();
-        m_pos = ConnectToGrid(currentPoint, m_gap);
-emit this->SendInputsPoints(m_inputs);
+        m_pos = ConnectToGrid(currentPoint, m_inputsGap);
         update();
         QGraphicsItem::mousePressEvent(event);
     }
@@ -80,11 +76,11 @@ std::vector<QSharedPointer<InputPoint>> LogicGate::CreateInputPoints(QPainterPat
             p2 = path.pointAtPercent(t);
         }
     }
-    QSharedPointer<InputPoint> in1 = QSharedPointer<InputPoint>::create(path.pointAtPercent(0), GateState::LOGIC_Z);
-    QSharedPointer<InputPoint> in2 = QSharedPointer<InputPoint>::create(path.pointAtPercent(1), GateState::LOGIC_Z);
+    QSharedPointer<InputPoint> in1 = QSharedPointer<InputPoint>::create(path.pointAtPercent(0));
+    QSharedPointer<InputPoint> in2 = QSharedPointer<InputPoint>::create(path.pointAtPercent(1));
 
     QPointF a = QPointF { m_pos.x() + m_gap, m_pos.y() + m_gap / 2 };
-    m_output = QSharedPointer<InputPoint>::create(a, GateState::LOGIC_Z);
+    m_output = QSharedPointer<InputPoint>::create(a);
 
     m_inputs.push_back(in1);
     m_inputs.push_back(in2);
@@ -95,6 +91,10 @@ std::vector<QSharedPointer<InputPoint>> LogicGate::CreateInputPoints(QPainterPat
 
 QRectF LogicGate::boundingRect() const {
     return QRectF(m_pos.x(), m_pos.y(), m_gap, m_gap);
+}
+
+void LogicGate::GetInputPoint(QSharedPointer<InputPoint> point) {
+    m_highlightPoint = point;
 }
 
 

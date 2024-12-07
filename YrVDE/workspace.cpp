@@ -10,52 +10,12 @@ WorkSpace::WorkSpace(QGraphicsScene* scene) : QGraphicsView(scene)
     this->setRenderHint(QPainter::Antialiasing);
     this->setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
     this->setStyleSheet("background-color: #1F1F1F");
-
-    // m_wire = new BondingWire();
-    // scene->addItem(m_wire);
-
-    // QObject::connect(this, &WorkSpace::SendGap, m_wire, &BondingWire::GetGridGap);
-    // emit this->SendGap(m_gap);
-
     scene->setSceneRect(this->viewport()->rect());
-
-   // this->setStyleSheet("background-color: green");
-
     setScene(scene);
     update();
 }
 
 WorkSpace::~WorkSpace() { }
-
-void WorkSpace::GetWire(BondingWire* wire)
-{
-    qDebug() << "tatatatatatatat";
-
-    m_wire = wire;
-    m_wire->setZValue(100);
-    scene()->addItem(m_wire);
-
-    if (m_wire)
-        qDebug() << "m_wire exist";
-
-    // m_gate = gate;
-    // qDebug() << "m_gate not exist: " << (m_gate == nullptr);
-    // scene()->addItem(m_gate);
-
-    // QObject::connect(this, &WorkSpace::SendGap, m_gate, &LogicGate::GetGridGap);
-    // emit this->SendGap(m_gap);
-
-    // QObject::connect(m_gate, &LogicGate::SendInputsPoints, m_wire, &BondingWire::GetInputsPoints);
-    // if (m_gate->m_inputs.empty())
-
-    // if (m_gate->m_inputs.empty())
-    //     qDebug() << "empty";
-
-    // for (size_t i = 0; i < m_gate->m_inputs.size(); ++i)
-    //     qDebug() << "asd" << m_gate->m_inputs[i]->m_point;
-    // qDebug() << "aaaaaaaaaaaaaaaaaaaaaa";
-    // emit m_gate->SendInputsPoints(m_gate->m_inputs);
-}
 
 void WorkSpace::drawBackground(QPainter *painter, const QRectF &rect) {
     painter->setPen({QColor{"#404040"}, 0.1});
@@ -81,31 +41,23 @@ void WorkSpace::drawBackground(QPainter *painter, const QRectF &rect) {
 }
 
 void WorkSpace::GetLogicGate(LogicGate* gate) {
-    m_gate = gate;
-    m_gate->setZValue(4);
-    qDebug() << "m_gate not exist: " << (m_gate == nullptr);
-    scene()->addItem(m_gate);
+    gate->setZValue(1);
+    scene()->addItem(gate);
 
-    QObject::connect(this, &WorkSpace::SendGap, m_gate, &LogicGate::GetGridGap);
+    m_gates.push_back(gate);
+
+    QObject::connect(this, &WorkSpace::SendGap, gate, &LogicGate::GetGridGap);
     emit this->SendGap(m_gap);
 
-    for (size_t i = 0; i < m_gate->m_inputs.size(); ++i)
-        qDebug() << "asd" << m_gate->m_inputs[i]->m_point;
-    qDebug() << "aaaaaaaaaaaaaaaaaaaaaa";
+    m_wire = new BondingWire();
+    scene()->addItem(m_wire);
 
+    QObject::connect(this, &WorkSpace::SendGap, m_wire, &BondingWire::GetGridGap);
+    emit this->SendGap(m_gap);
 
-    if (m_gate->m_inputs.empty())
-        qDebug() << "empty";
+    QObject::connect(m_wire, &BondingWire::SendPoint, this, &WorkSpace::GetBondingWirePoint);
 
-    // m_wire = new BondingWire();
-    // scene()->addItem(m_wire);
-
-    // QObject::connect(this, &WorkSpace::SendGap, m_wire, &BondingWire::GetGridGap);
-    // emit this->SendGap(m_gap);
-
-    for (size_t i = 0; i < m_gate->m_inputs.size(); ++i)
-        m_allGatePoints.push_back(m_gate->m_inputs[i]);
-
+    PrintConsoleGates();
 
     update();
 }
@@ -122,42 +74,7 @@ void WorkSpace::wheelEvent(QWheelEvent* event) {
 }
 
 void WorkSpace::mousePressEvent(QMouseEvent *event) {
-    if (event->button() == Qt::LeftButton) {
-        qDebug() << "ZZZX";
-
-        for (size_t i = 0; i < m_allGatePoints.size(); ++i) {
-
-                qDebug() << "all gate points in WorkSpace: " << m_allGatePoints[i]->m_point;
-                qreal dis = std::sqrt(std::pow((m_allGatePoints[i]->m_point.y() - mapToScene(event->pos()).y()), 2) +
-                                      std::pow((m_allGatePoints[i]->m_point.x() - mapToScene(event->pos()).x()), 2));
-
-                qDebug() << "dis WorkSpace: " << dis;
-                qDebug() << "m_gap WorkSpace: " << m_gap / 5;
-
-                if (dis < m_gap / 5) {
-                    qDebug() << "ZZZ";
-
-
-                    m_wire = new BondingWire();
-                    scene()->addItem(m_wire);
-
-                    QObject::connect(this, &WorkSpace::SendGap, m_wire, &BondingWire::GetGridGap);
-                    emit this->SendGap(m_gap);
-
-                    QObject::connect(this, &WorkSpace::SendAllPoints, m_wire, &BondingWire::GetInputsPoints);
-                    emit this->SendAllPoints(m_allGatePoints);
-
-
-                    auto dummyEvent = new QGraphicsSceneMouseEvent(QEvent::GraphicsSceneMousePress);
-                    dummyEvent->setScenePos(mapToScene(event->pos()));
-                    dummyEvent->setButton(Qt::LeftButton);
-                    dummyEvent->setButtons(Qt::LeftButton);
-                    dummyEvent->setModifiers(Qt::NoModifier);
-                    m_wire->mousePressEvent(dummyEvent);
-                    delete dummyEvent;
-            }
-        }
-    } else if (event->button() == Qt::MiddleButton) {
+    if (event->button() == Qt::MiddleButton) {
         qDebug() << "GGG";
         m_lastPosOfScene = event->pos();
         m_is_Drag = true;
@@ -182,5 +99,34 @@ void WorkSpace::mouseReleaseEvent(QMouseEvent *event) {
     QGraphicsView::mouseReleaseEvent(event);
 }
 
+void WorkSpace::GetBondingWirePoint(QPointF point) {
+    qDebug() << point;
+    for (size_t i = 0; i < m_gates.size(); ++i) {
+        for (size_t j = 0; j < m_gates[i]->m_inputs.size(); ++j) {
+            if (point == m_gates[i]->m_inputs[j]->m_point) {
+                qDebug() << "aaa !!!";
+                qDebug() <<  m_gates[i]->m_inputs[j].data();
 
+                 o = m_gates[i]->m_inputs[j];
+                o->m_state = GateState::LOGIC_1;
+                qDebug() <<  m_gates[i]->m_inputs[j]->m_state;
+
+                QObject::connect(this, &WorkSpace::SendInputPoint, m_gates[i], &LogicGate::GetInputPoint);
+                emit this->SendInputPoint(m_gates[i]->m_inputs[j]);
+                update();
+            }
+        }
+    }
+    PrintConsoleGates();
+}
+
+void WorkSpace::PrintConsoleGates() {
+    qDebug() << "WorkSpace::PrintConsoleGates()";
+    for (size_t i = 0; i < m_gates.size(); ++i) {
+        for (size_t j = 0; j < m_gates[i]->m_inputs.size(); ++j) {
+            qDebug() << m_gates[i]->m_inputs[j]->m_state;
+        }
+    }
+    qDebug() << "WorkSpace::PrintConsoleGates()";
+}
 

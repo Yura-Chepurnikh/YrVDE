@@ -22,8 +22,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     addToolBar(m_toolBar);
 
-    //QObject::connect(workspace, &WorkSpace::SendScene, m_toolBar, &ToolBar::GetWorkSpace);
-
     QObject::connect(m_toolBar, &ToolBar::createLogicGate, workspace, &WorkSpace::GetLogicGate);
     emit workspace->SendScene(workspace);
 }

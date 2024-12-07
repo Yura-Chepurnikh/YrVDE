@@ -10,7 +10,6 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    add_inputs.cpp \
     and_gate.cpp \
     buffer_gate.cpp \
     input.cpp \
@@ -26,7 +25,6 @@ SOURCES += \
 
 HEADERS += \
     LogicGate_global.h \
-    add_inputs.h \
     and_gate.h \
     buffer_gate.h \
     input.h \

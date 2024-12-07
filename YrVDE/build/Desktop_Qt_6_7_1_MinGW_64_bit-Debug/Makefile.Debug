@@ -364,8 +364,7 @@ debug/moc_mainwindow.cpp: ../../mainwindow.h \
 		C:/Qt/6.7.1/mingw_64/include/QtCore/QLineF \
 		C:/Qt/6.7.1/mingw_64/include/QtGui/QPainterPath \
 		C:/Qt/6.7.1/mingw_64/include/QtCore/QSharedPointer \
-		../../../BusinessLogic/GateState.h \
-		../../../LogicGate/input_point.h \
+		../../../BusinessLogic/gate_state.h \
 		../../../LogicGate/logicgate.h \
 		../../../LogicGate/LogicGate_global.h \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/QGraphicsItem \
@@ -380,7 +379,7 @@ debug/moc_mainwindow.cpp: ../../mainwindow.h \
 		C:/Qt/6.7.1/mingw_64/include/QtGui/QCursor \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/QCheckBox \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qcheckbox.h \
-		../../../LogicGate/add_inputs.h \
+		../../../LogicGate/input_point.h \
 		../../../LogicGate/nand_gate.h \
 		../../../LogicGate/xnor_gate.h \
 		../../../LogicGate/nor_gate.h \
@@ -601,9 +600,6 @@ debug/moc_tool_bar.cpp: ../../tool_bar.h \
 		../../../LogicGate/and_gate.h \
 		../../../LogicGate/logicgate.h \
 		../../../LogicGate/LogicGate_global.h \
-		../../../LogicGate/input_point.h \
-		../../../BusinessLogic/GateState.h \
-		C:/Qt/6.7.1/mingw_64/include/QtCore/QPointF \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/QGraphicsItem \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qgraphicsitem.h \
 		C:/Qt/6.7.1/mingw_64/include/QtGui/qpainterpath.h \
@@ -632,6 +628,9 @@ debug/moc_tool_bar.cpp: ../../tool_bar.h \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/QCheckBox \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qcheckbox.h \
 		C:/Qt/6.7.1/mingw_64/include/QtCore/QSharedPointer \
+		../../../LogicGate/input_point.h \
+		C:/Qt/6.7.1/mingw_64/include/QtCore/QPointF \
+		../../../BusinessLogic/gate_state.h \
 		../../../BondingWire/bondingwire.h \
 		../../../BondingWire/BondingWire_global.h \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/QGraphicsPathItem \
@@ -650,7 +649,6 @@ debug/moc_tool_bar.cpp: ../../tool_bar.h \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qframe.h \
 		C:/Qt/6.7.1/mingw_64/include/QtCore/qabstractitemmodel.h \
 		C:/Qt/6.7.1/mingw_64/include/QtCore/QLineF \
-		../../../LogicGate/add_inputs.h \
 		../../../LogicGate/nand_gate.h \
 		../../../LogicGate/or_gate.h \
 		../../../LogicGate/nor_gate.h \
@@ -900,8 +898,7 @@ debug/moc_workspace.cpp: ../../workspace.h \
 		C:/Qt/6.7.1/mingw_64/include/QtCore/QLineF \
 		C:/Qt/6.7.1/mingw_64/include/QtGui/QPainterPath \
 		C:/Qt/6.7.1/mingw_64/include/QtCore/QSharedPointer \
-		../../../BusinessLogic/GateState.h \
-		../../../LogicGate/input_point.h \
+		../../../BusinessLogic/gate_state.h \
 		../../../LogicGate/logicgate.h \
 		../../../LogicGate/LogicGate_global.h \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/QGraphicsItem \
@@ -920,7 +917,7 @@ debug/moc_workspace.cpp: ../../workspace.h \
 		C:/Qt/6.7.1/mingw_64/include/QtGui/QCursor \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/QCheckBox \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qcheckbox.h \
-		../../../LogicGate/add_inputs.h \
+		../../../LogicGate/input_point.h \
 		../../../LogicGate/nand_gate.h \
 		../../../LogicGate/xnor_gate.h \
 		../../../LogicGate/nor_gate.h \
@@ -1199,8 +1196,7 @@ debug/main.o: ../../main.cpp ../../mainwindow.h \
 		C:/Qt/6.7.1/mingw_64/include/QtCore/QLineF \
 		C:/Qt/6.7.1/mingw_64/include/QtGui/QPainterPath \
 		C:/Qt/6.7.1/mingw_64/include/QtCore/QSharedPointer \
-		../../../BusinessLogic/GateState.h \
-		../../../LogicGate/input_point.h \
+		../../../BusinessLogic/gate_state.h \
 		../../../LogicGate/logicgate.h \
 		../../../LogicGate/LogicGate_global.h \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/QGraphicsItem \
@@ -1215,7 +1211,7 @@ debug/main.o: ../../main.cpp ../../mainwindow.h \
 		C:/Qt/6.7.1/mingw_64/include/QtGui/QCursor \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/QCheckBox \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qcheckbox.h \
-		../../../LogicGate/add_inputs.h \
+		../../../LogicGate/input_point.h \
 		../../../LogicGate/nand_gate.h \
 		../../../LogicGate/xnor_gate.h \
 		../../../LogicGate/nor_gate.h \
@@ -1476,8 +1472,7 @@ debug/mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
 		C:/Qt/6.7.1/mingw_64/include/QtCore/QLineF \
 		C:/Qt/6.7.1/mingw_64/include/QtGui/QPainterPath \
 		C:/Qt/6.7.1/mingw_64/include/QtCore/QSharedPointer \
-		../../../BusinessLogic/GateState.h \
-		../../../LogicGate/input_point.h \
+		../../../BusinessLogic/gate_state.h \
 		../../../LogicGate/logicgate.h \
 		../../../LogicGate/LogicGate_global.h \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/QGraphicsItem \
@@ -1492,7 +1487,7 @@ debug/mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
 		C:/Qt/6.7.1/mingw_64/include/QtGui/QCursor \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/QCheckBox \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qcheckbox.h \
-		../../../LogicGate/add_inputs.h \
+		../../../LogicGate/input_point.h \
 		../../../LogicGate/nand_gate.h \
 		../../../LogicGate/xnor_gate.h \
 		../../../LogicGate/nor_gate.h \
@@ -1712,9 +1707,6 @@ debug/tool_bar.o: ../../tool_bar.cpp ../../tool_bar.h \
 		../../../LogicGate/and_gate.h \
 		../../../LogicGate/logicgate.h \
 		../../../LogicGate/LogicGate_global.h \
-		../../../LogicGate/input_point.h \
-		../../../BusinessLogic/GateState.h \
-		C:/Qt/6.7.1/mingw_64/include/QtCore/QPointF \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/QGraphicsItem \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qgraphicsitem.h \
 		C:/Qt/6.7.1/mingw_64/include/QtGui/qpainterpath.h \
@@ -1743,6 +1735,9 @@ debug/tool_bar.o: ../../tool_bar.cpp ../../tool_bar.h \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/QCheckBox \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qcheckbox.h \
 		C:/Qt/6.7.1/mingw_64/include/QtCore/QSharedPointer \
+		../../../LogicGate/input_point.h \
+		C:/Qt/6.7.1/mingw_64/include/QtCore/QPointF \
+		../../../BusinessLogic/gate_state.h \
 		../../../BondingWire/bondingwire.h \
 		../../../BondingWire/BondingWire_global.h \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/QGraphicsPathItem \
@@ -1761,7 +1756,6 @@ debug/tool_bar.o: ../../tool_bar.cpp ../../tool_bar.h \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qframe.h \
 		C:/Qt/6.7.1/mingw_64/include/QtCore/qabstractitemmodel.h \
 		C:/Qt/6.7.1/mingw_64/include/QtCore/QLineF \
-		../../../LogicGate/add_inputs.h \
 		../../../LogicGate/nand_gate.h \
 		../../../LogicGate/or_gate.h \
 		../../../LogicGate/nor_gate.h \
@@ -2009,8 +2003,7 @@ debug/workspace.o: ../../workspace.cpp ../../workspace.h \
 		C:/Qt/6.7.1/mingw_64/include/QtCore/QLineF \
 		C:/Qt/6.7.1/mingw_64/include/QtGui/QPainterPath \
 		C:/Qt/6.7.1/mingw_64/include/QtCore/QSharedPointer \
-		../../../BusinessLogic/GateState.h \
-		../../../LogicGate/input_point.h \
+		../../../BusinessLogic/gate_state.h \
 		../../../LogicGate/logicgate.h \
 		../../../LogicGate/LogicGate_global.h \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/QGraphicsItem \
@@ -2029,7 +2022,7 @@ debug/workspace.o: ../../workspace.cpp ../../workspace.h \
 		C:/Qt/6.7.1/mingw_64/include/QtGui/QCursor \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/QCheckBox \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qcheckbox.h \
-		../../../LogicGate/add_inputs.h \
+		../../../LogicGate/input_point.h \
 		../../../LogicGate/nand_gate.h \
 		../../../LogicGate/xnor_gate.h \
 		../../../LogicGate/nor_gate.h \

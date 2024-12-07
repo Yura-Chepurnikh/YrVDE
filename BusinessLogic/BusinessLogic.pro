@@ -16,7 +16,8 @@ HEADERS += \
     BusinessLogic_global.h \
     GateState.h \
     businesslogic.h \
-    gate_logic.h
+    gate_logic.h \
+    gate_state.h
 
 # Default rules for deployment.
 unix {

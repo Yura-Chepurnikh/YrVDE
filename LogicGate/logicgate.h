@@ -2,7 +2,6 @@
 #define LOGICGATE_H
 
 #include "LogicGate_global.h"
-#include "./add_inputs.h"
 
 class LOGICGATE_EXPORT LogicGate : public QObject, public QGraphicsItem {
     Q_OBJECT
@@ -15,7 +14,7 @@ public:
 public slots:
     void GetGridGap(int gap);
     void GetGridPos(QPointF pos);
-    //void GetWorkSpace(WorkSpace* workspace);
+    void GetInputPoint(QSharedPointer<InputPoint> point);
 
 signals:
     void SendWire(BondingWire* wire);
@@ -25,7 +24,6 @@ signals:
     void SendGap(int gap);
     void SendInputsPoints(const std::vector<QSharedPointer<InputPoint>>);
 
-// protected:
 public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) = 0;
     QRectF boundingRect() const override;

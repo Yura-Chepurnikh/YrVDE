@@ -21,7 +21,6 @@
 #include "../LogicGate/and_gate.h"
 #include "../LogicGate/xor_gate.h"
 #include "../LogicGate/input.h"
-#include "../LogicGate/add_inputs.h"
 
 class WorkSpace : public QGraphicsView {
     Q_OBJECT
@@ -29,21 +28,20 @@ class WorkSpace : public QGraphicsView {
 public:
     WorkSpace(QGraphicsScene* scene);
     virtual ~WorkSpace();
-    LogicGate* m_gate;
-    LogicGate* m_buffer;
-    BondingWire* m_wire;
+    void ConnectBondingWireToGate();
+
+    void PrintConsoleGates();
 
 public slots:
     void GetLogicGate(LogicGate* gate);
-    void GetWire(BondingWire* wire);
+    void GetBondingWirePoint(QPointF point);
 
 signals:
     void SendPoint(QPoint point);
     void SendIsShow(bool isShow);
     void SendGap(int gap);
     void SendScene(WorkSpace* workSpace);
-    void SendRoute(QSharedPointer<InputPoint> point);
-    void SendAllPoints(std::vector<QSharedPointer<InputPoint>> points);
+    void SendInputPoint(QSharedPointer<InputPoint> point);
 
 protected:
     void wheelEvent(QWheelEvent* event) override;
@@ -54,16 +52,16 @@ protected:
     void mouseReleaseEvent(QMouseEvent* event) override;
 
 private:
-
-    //std::vector<std::vector<QSharedPointer<InputPoint>>> m_allGatePoints;
-
-    std::vector<QSharedPointer<InputPoint>> m_allGatePoints;
     bool m_is_Drag { false };
     QPointF m_lastPosOfScene;
     static int m_gap;
     static int m_inputsDistance;
 
+    BondingWire* m_wire;
+    QSharedPointer<InputPoint> o;
     std::vector<std::vector<QPoint>> m_gridPoints;
+    std::vector<LogicGate*> m_gates;
+
     BondingWire* wire;
 };
 
