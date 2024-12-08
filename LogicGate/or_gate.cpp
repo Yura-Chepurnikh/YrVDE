@@ -65,6 +65,11 @@ void ORGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
         }
         painter->drawPoint(m_highlightPoint->m_point);
     }
+
+    if (m_output->m_state == GateState::LOGIC_1) {
+        painter->setPen({Qt::green, 2});
+        painter->drawPoint(m_output->m_point);
+    }
     //qDebug() << "END!!!";
 
     // QPainterPath output;
@@ -92,3 +97,11 @@ QPainterPath ORGate::shape() const {
 
     return path;
 }
+
+// bool ORGate::CalculateOutput() {
+//     bool output = m_inputs[0]->m_state;
+//     for (size_t i = 1; i < m_inputs.size(); ++i)
+//         output |= m_inputs[i]->m_state;
+//     return output;
+// }
+

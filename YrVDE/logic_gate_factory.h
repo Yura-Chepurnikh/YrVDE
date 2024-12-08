@@ -9,7 +9,8 @@
 #include "../LogicGate/xnor_gate.h"
 #include "../LogicGate/buffer_gate.h"
 #include "../LogicGate/not_gate.h"
-
+#include "../LogicGate/input.h"
+#include "../LogicGate/output.h"
 
 template <typename T, typename = void>
 struct LogicGateFactory;
@@ -52,6 +53,16 @@ struct LogicGateFactory<BUFFERGate> {
 template <>
 struct LogicGateFactory<NOTGate> {
     static LogicGate* create() { return new NOTGate(); }
+};
+
+template <>
+struct LogicGateFactory<Input> {
+    static LogicGate* create() { return new Input(); }
+};
+
+template <>
+struct LogicGateFactory<Output> {
+    static LogicGate* create() { return new Output(); }
 };
 
 #endif // LOGIC_GATE_FACTORY_H

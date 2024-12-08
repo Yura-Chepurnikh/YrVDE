@@ -28,10 +28,7 @@ public:
 private:
     int m_offset;
     bool m_isDrag = false;
-    QPointF m_startPos;
-
-    std::vector<QPointF> m_points;
-    std::vector<std::vector<QPointF>> m_allPoints;
+    QPointF m_startPos, m_endPos;
 };
 
 #endif // BONDINGWIRE_H

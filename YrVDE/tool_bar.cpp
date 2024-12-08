@@ -10,6 +10,8 @@ ToolBar::ToolBar()
     CreateButton(m_notGate, "not", "NOT");
     CreateButton(m_xorGate, "xor", "XOR");
     CreateButton(m_xnorGate, "xnor", "XNOR");
+    CreateButton(m_input, "input", "INPUT");
+    CreateButton(m_output, "output", "OUTPUT");
 
     this->addWidget(m_andGate);
     this->addWidget(m_nandGate);
@@ -19,6 +21,8 @@ ToolBar::ToolBar()
     this->addWidget(m_notGate);
     this->addWidget(m_xorGate);
     this->addWidget(m_xnorGate);
+    this->addWidget(m_input);
+    this->addWidget(m_output);
 
     QObject::connect(m_andGate, &QToolButton::clicked, this, [this]() {
         m_gate = LogicGateFactory<ANDGate>::create();
@@ -60,6 +64,15 @@ ToolBar::ToolBar()
         emit this->createLogicGate(m_gate);
     });
 
+    QObject::connect(m_input, &QToolButton::clicked, this, [this]() {
+        m_gate = LogicGateFactory<Input>::create();
+        emit this->createLogicGate(m_gate);
+    });
+
+    QObject::connect(m_output, &QToolButton::clicked, this, [this]() {
+        m_gate = LogicGateFactory<Output>::create();
+        emit this->createLogicGate(m_gate);
+    });
 }
 
 void ToolBar::CreateButton(QToolButton*& button, const QString &icon_name, const QString &text) {
@@ -77,9 +90,5 @@ void ToolBar::CreateButton(QToolButton*& button, const QString &icon_name, const
         "}"
     );
 }
-
-// void ToolBar::GetWorkSpace(WorkSpace *workspace) {
-//     m_workSpace = workspace;
-// }
 
 

@@ -49,16 +49,14 @@ void WorkSpace::GetLogicGate(LogicGate* gate) {
     QObject::connect(this, &WorkSpace::SendGap, gate, &LogicGate::GetGridGap);
     emit this->SendGap(m_gap);
 
-    m_wire = new BondingWire();
-    scene()->addItem(m_wire);
+    BondingWire* wire = new BondingWire();
+    m_wires.push_back(wire);
+    scene()->addItem(wire);
 
-    QObject::connect(this, &WorkSpace::SendGap, m_wire, &BondingWire::GetGridGap);
+    QObject::connect(this, &WorkSpace::SendGap, wire, &BondingWire::GetGridGap);
     emit this->SendGap(m_gap);
 
-    QObject::connect(m_wire, &BondingWire::SendPoint, this, &WorkSpace::GetBondingWirePoint);
-
-    PrintConsoleGates();
-
+    QObject::connect(wire, &BondingWire::SendPoint, this, &WorkSpace::GetBondingWirePoint);
     update();
 }
 
@@ -104,29 +102,13 @@ void WorkSpace::GetBondingWirePoint(QPointF point) {
     for (size_t i = 0; i < m_gates.size(); ++i) {
         for (size_t j = 0; j < m_gates[i]->m_inputs.size(); ++j) {
             if (point == m_gates[i]->m_inputs[j]->m_point) {
-                qDebug() << "aaa !!!";
-                qDebug() <<  m_gates[i]->m_inputs[j].data();
-
-                 o = m_gates[i]->m_inputs[j];
-                o->m_state = GateState::LOGIC_1;
-                qDebug() <<  m_gates[i]->m_inputs[j]->m_state;
-
                 QObject::connect(this, &WorkSpace::SendInputPoint, m_gates[i], &LogicGate::GetInputPoint);
                 emit this->SendInputPoint(m_gates[i]->m_inputs[j]);
                 update();
             }
         }
     }
-    PrintConsoleGates();
 }
 
-void WorkSpace::PrintConsoleGates() {
-    qDebug() << "WorkSpace::PrintConsoleGates()";
-    for (size_t i = 0; i < m_gates.size(); ++i) {
-        for (size_t j = 0; j < m_gates[i]->m_inputs.size(); ++j) {
-            qDebug() << m_gates[i]->m_inputs[j]->m_state;
-        }
-    }
-    qDebug() << "WorkSpace::PrintConsoleGates()";
-}
+
 

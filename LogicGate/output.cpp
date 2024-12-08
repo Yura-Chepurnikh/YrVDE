@@ -17,5 +17,5 @@ void Output::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
 }
 
 QRectF Output::boundingRect() const {
-    return QRectF(m_pos.x(), m_pos.y(), m_gap, m_gap);
+    return QRectF(m_pos.x(), m_pos.y(), m_gap/10, m_gap/10);
 }

@@ -94,7 +94,10 @@ QRectF LogicGate::boundingRect() const {
 }
 
 void LogicGate::GetInputPoint(QSharedPointer<InputPoint> point) {
-    m_highlightPoint = point;
+    qDebug() << "LogicGate::GetInputPoint";
+    for (size_t i = 0; i < m_inputs.size(); ++i)
+        if (point->m_point == m_inputs[i]->m_point)
+            m_inputs[i]->m_state = GateState::LOGIC_1;
+    //m_highlightPoint->m_state = GateState::LOGIC_1;
 }
-
 

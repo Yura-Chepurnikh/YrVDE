@@ -31,9 +31,10 @@ private:
     WorkSpace* m_workSpace;
 
     QToolButton* m_andGate, *m_nandGate,
-        *m_orGate, *m_norGate,
-        *m_bufferGate, *m_notGate,
-        *m_xorGate, *m_xnorGate;
+                        *m_orGate, *m_norGate,
+                        *m_bufferGate, *m_notGate,
+                        *m_xorGate, *m_xnorGate,
+                        *m_input, *m_output;
 };
 
 #endif // TOOL_BAR_H

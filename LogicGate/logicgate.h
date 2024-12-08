@@ -17,6 +17,7 @@ public slots:
     void GetInputPoint(QSharedPointer<InputPoint> point);
 
 signals:
+
     void SendWire(BondingWire* wire);
     void SendFirstCordinate(QPointF first);
     void SendSecondCordinate(QPointF second);
@@ -25,6 +26,8 @@ signals:
     void SendInputsPoints(const std::vector<QSharedPointer<InputPoint>>);
 
 public:
+    // virtual bool CalculateOutput();
+
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) = 0;
     QRectF boundingRect() const override;
 

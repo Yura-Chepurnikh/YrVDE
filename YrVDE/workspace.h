@@ -30,15 +30,12 @@ public:
     virtual ~WorkSpace();
     void ConnectBondingWireToGate();
 
-    void PrintConsoleGates();
-
 public slots:
     void GetLogicGate(LogicGate* gate);
     void GetBondingWirePoint(QPointF point);
 
 signals:
     void SendPoint(QPoint point);
-    void SendIsShow(bool isShow);
     void SendGap(int gap);
     void SendScene(WorkSpace* workSpace);
     void SendInputPoint(QSharedPointer<InputPoint> point);
@@ -57,10 +54,9 @@ private:
     static int m_gap;
     static int m_inputsDistance;
 
-    BondingWire* m_wire;
-    QSharedPointer<InputPoint> o;
     std::vector<std::vector<QPoint>> m_gridPoints;
     std::vector<LogicGate*> m_gates;
+    std::vector<BondingWire*> m_wires;
 
     BondingWire* wire;
 };

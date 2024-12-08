@@ -6,6 +6,8 @@
 class BUSINESSLOGIC_EXPORT BusinessLogic {
 public:
     BusinessLogic();
+public slots:
+    void CalculateOutput();
 };
 
 #endif // BUSINESSLOGIC_H

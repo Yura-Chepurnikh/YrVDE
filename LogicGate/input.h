@@ -11,6 +11,8 @@ public:
     ~Input() override;
 
 protected:
+    QSharedPointer<InputPoint> m_input;
+    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
     QRectF boundingRect() const override;
 };
