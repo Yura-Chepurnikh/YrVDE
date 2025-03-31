@@ -6,7 +6,7 @@ ORGate::ORGate() {
     m_backSide.quadTo(m_pos.x() + gap, m_pos.y() + gap, m_pos.x(), m_pos.y());
     m_inputs = CreateInputPoints(m_backSide);
     QPointF out(m_pos);
-    m_output = QSharedPointer<InputPoint>::create(QPointF{m_pos.x() +  m_gap, m_pos.y() + gap}, GateState::LOGIC_Z);
+    m_output = QSharedPointer<Input>::create(QPointF{m_pos.x() +  m_gap, m_pos.y() + gap}, LogicState::HIGH_IMPEDANCE_STATE);
     //m_inputs = {{1, 2},{3, 4}};
 }
 
@@ -48,7 +48,7 @@ void ORGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
     QPainterPath inputs;
 
     for (const auto& item : m_inputs) {
-        inputs.addEllipse(item->m_point, 1, 1);
+        inputs.addEllipse(item->pos, 1, 1);
     }
     painter->drawPath(inputs);
 
@@ -59,11 +59,14 @@ void ORGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
 
     //qDebug() << "START5!!!";
 
-    if (m_highlightPoint) {
-        if (m_highlightPoint->m_state == GateState::LOGIC_1) {
+    if (m_activePoint) {
+        //qDebug() << "please help me";
+        if (m_activePoint->state == LogicState::LOGIC_ONE_STATE) {
             painter->setPen({Qt::green, 2});
         }
-        painter->drawPoint(m_highlightPoint->m_point);
+        painter->setPen({Qt::yellow, 2});
+
+        painter->drawPoint(m_activePoint->pos);
     }
     //qDebug() << "END!!!";
 

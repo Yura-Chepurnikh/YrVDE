@@ -10,14 +10,15 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    businesslogic.cpp
+    businesslogic.cpp \
+    logic_state.cpp
 
 HEADERS += \
     BusinessLogic_global.h \
     GateState.h \
     businesslogic.h \
     gate_logic.h \
-    gate_state.h
+    logic_state.h
 
 # Default rules for deployment.
 unix {

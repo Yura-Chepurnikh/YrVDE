@@ -13,7 +13,6 @@ SOURCES += \
     and_gate.cpp \
     buffer_gate.cpp \
     input.cpp \
-    input_point.cpp \
     logicgate.cpp \
     nand_gate.cpp \
     nor_gate.cpp \
@@ -28,7 +27,6 @@ HEADERS += \
     and_gate.h \
     buffer_gate.h \
     input.h \
-    input_point.h \
     logicgate.h \
     nand_gate.h \
     nor_gate.h \
@@ -44,16 +42,10 @@ unix {
 }
 !isEmpty(target.path): INSTALLS += target
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../BondingWire/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/release/ -lBondingWire
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../BondingWire/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/debug/ -lBondingWire
-else:unix: LIBS += -L$$PWD/../BondingWire/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/ -lBondingWire
 
-INCLUDEPATH += $$PWD/../BondingWire/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/debug
-DEPENDPATH += $$PWD/../BondingWire/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/debug
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../BusinessLogic/build/Desktop-Debug/release/ -lBusinessLogic
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../BusinessLogic/build/Desktop-Debug/debug/ -lBusinessLogic
+else:unix: LIBS += -L$$PWD/../BusinessLogic/build/Desktop-Debug/ -lBusinessLogic
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../BusinessLogic/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/release/ -lBusinessLogic
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../BusinessLogic/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/debug/ -lBusinessLogic
-else:unix: LIBS += -L$$PWD/../BusinessLogic/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/ -lBusinessLogic
-
-INCLUDEPATH += $$PWD/../BusinessLogic/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/debug
-DEPENDPATH += $$PWD/../BusinessLogic/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/debug
+INCLUDEPATH += $$PWD/../BusinessLogic/build/Desktop-Debug
+DEPENDPATH += $$PWD/../BusinessLogic/build/Desktop-Debug

@@ -2,6 +2,8 @@
 #define BONDINGWIRE_H
 
 #include "BondingWire_global.h"
+#include "../LogicGate/input.h"
+#include <utility>
 
 class BONDINGWIRE_EXPORT BondingWire : public QObject, public QGraphicsItem {
 Q_OBJECT
@@ -11,27 +13,25 @@ public:
     BondingWire();
     ~BondingWire();
 
-signals:
-    void SendPoint(QPointF point);
-
 public slots:
-    void GetGridGap(int gap);
+    void GetGridSize(int size);
+    void GetPermissionFromGate(bool isAllowed, QPointF& startPos);
 
 public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
     void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
     void mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;
     void mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override;
-    QPointF ConnectToGrid(const QPointF& pos, int gridGap);
+    QPointF StickToTheGrid(const QPointF& current_pos);
     QRectF boundingRect() const override;
 
 private:
-    int m_offset;
-    bool m_isDrag = false;
+    int m_step;
+    bool m_isDrag {false}, m_isAllowedFromGate {false};
     QPointF m_startPos;
 
-    std::vector<QPointF> m_points;
-    std::vector<std::vector<QPointF>> m_allPoints;
+    std::pair<QSharedPointer<Input>, QSharedPointer<Input>> m_inputs;
+    std::list<std::pair<QSharedPointer<QPointF>, QSharedPointer<QPointF>>> m_path;
 };
 
 #endif // BONDINGWIRE_H

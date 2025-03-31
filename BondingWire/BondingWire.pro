@@ -22,17 +22,18 @@ unix {
 }
 !isEmpty(target.path): INSTALLS += target
 
-win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/./release/ -lBondingWire
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/./debug/ -lBondingWire
-else:unix: LIBS += -L$$OUT_PWD/./ -lBondingWire
 
-INCLUDEPATH += $$PWD/.
-DEPENDPATH += $$PWD/.
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/release/ -lBondingWire
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/debug/ -lBondingWire
-else:unix: LIBS += -L$$PWD/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/ -lBondingWire
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../BusinessLogic/build/Desktop-Debug/release/ -lBusinessLogic
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../BusinessLogic/build/Desktop-Debug/debug/ -lBusinessLogic
+else:unix: LIBS += -L$$PWD/../BusinessLogic/build/Desktop-Debug/ -lBusinessLogic
 
-INCLUDEPATH += $$PWD/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/debug
-DEPENDPATH += $$PWD/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/debug
-b
+INCLUDEPATH += $$PWD/../BusinessLogic/build/Desktop-Debug
+DEPENDPATH += $$PWD/../BusinessLogic/build/Desktop-Debug
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../LogicGate/build/Desktop-Debug/release/ -lLogicGate
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../LogicGate/build/Desktop-Debug/debug/ -lLogicGate
+else:unix: LIBS += -L$$PWD/../LogicGate/build/Desktop-Debug/ -lLogicGate
+
+INCLUDEPATH += $$PWD/../LogicGate/build/Desktop-Debug
+DEPENDPATH += $$PWD/../LogicGate/build/Desktop-Debug

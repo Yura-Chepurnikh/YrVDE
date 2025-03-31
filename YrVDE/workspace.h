@@ -30,18 +30,15 @@ public:
     virtual ~WorkSpace();
     void ConnectBondingWireToGate();
 
-    void PrintConsoleGates();
-
 public slots:
     void GetLogicGate(LogicGate* gate);
-    void GetBondingWirePoint(QPointF point);
 
 signals:
     void SendPoint(QPoint point);
     void SendIsShow(bool isShow);
     void SendGap(int gap);
     void SendScene(WorkSpace* workSpace);
-    void SendInputPoint(QSharedPointer<InputPoint> point);
+    void SendInputPoint(QSharedPointer<Input> point);
 
 protected:
     void wheelEvent(QWheelEvent* event) override;
@@ -52,13 +49,13 @@ protected:
     void mouseReleaseEvent(QMouseEvent* event) override;
 
 private:
-    bool m_is_Drag { false };
+    bool m_isDrag { false };
     QPointF m_lastPosOfScene;
     static int m_gap;
     static int m_inputsDistance;
 
     BondingWire* m_wire;
-    QSharedPointer<InputPoint> o;
+    QSharedPointer<Input> o;
     std::vector<std::vector<QPoint>> m_gridPoints;
     std::vector<LogicGate*> m_gates;
 

@@ -31,17 +31,24 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../BondingWire/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/release/ -lBondingWire
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../BondingWire/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/debug/ -lBondingWire
-else:unix: LIBS += -L$$PWD/../BondingWire/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/ -lBondingWire
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../BondingWire/build/Desktop-Debug/release/ -lBondingWire
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../BondingWire/build/Desktop-Debug/debug/ -lBondingWire
+else:unix: LIBS += -L$$PWD/../BondingWire/build/Desktop-Debug/ -lBondingWire
 
-INCLUDEPATH += $$PWD/../BondingWire/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/debug
-DEPENDPATH += $$PWD/../BondingWire/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/debug
+INCLUDEPATH += $$PWD/../BondingWire/build/Desktop-Debug
+DEPENDPATH += $$PWD/../BondingWire/build/Desktop-Debug
 
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../LogicGate/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/release/ -lLogicGate
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../LogicGate/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/debug/ -lLogicGate
-else:unix: LIBS += -L$$PWD/../LogicGate/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/ -lLogicGate
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../BusinessLogic/build/Desktop-Debug/release/ -lBusinessLogic
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../BusinessLogic/build/Desktop-Debug/debug/ -lBusinessLogic
+else:unix: LIBS += -L$$PWD/../BusinessLogic/build/Desktop-Debug/ -lBusinessLogic
 
-INCLUDEPATH += $$PWD/../LogicGate/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/debug
-DEPENDPATH += $$PWD/../LogicGate/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/debug
+INCLUDEPATH += $$PWD/../BusinessLogic/build/Desktop-Debug
+DEPENDPATH += $$PWD/../BusinessLogic/build/Desktop-Debug
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../LogicGate/build/Desktop-Debug/release/ -lLogicGate
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../LogicGate/build/Desktop-Debug/debug/ -lLogicGate
+else:unix: LIBS += -L$$PWD/../LogicGate/build/Desktop-Debug/ -lLogicGate
+
+INCLUDEPATH += $$PWD/../LogicGate/build/Desktop-Debug
+DEPENDPATH += $$PWD/../LogicGate/build/Desktop-Debug

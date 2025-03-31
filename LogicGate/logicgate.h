@@ -14,15 +14,16 @@ public:
 public slots:
     void GetGridGap(int gap);
     void GetGridPos(QPointF pos);
-    void GetInputPoint(QSharedPointer<InputPoint> point);
+    void GetInputPoint(QSharedPointer<Input> point);
 
 signals:
-    void SendWire(BondingWire* wire);
+    void SendPermission(bool isAllowed, QPointF& startPos);
+
     void SendFirstCordinate(QPointF first);
     void SendSecondCordinate(QPointF second);
     void SendInputsDistance(int dis);
     void SendGap(int gap);
-    void SendInputsPoints(const std::vector<QSharedPointer<InputPoint>>);
+    void SendInputsPoints(const std::vector<QSharedPointer<Input>>);
 
 public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) = 0;
@@ -34,22 +35,22 @@ public:
 
     void hoverMoveEvent(QGraphicsSceneHoverEvent* event) override;
 
-    std::vector<QSharedPointer<InputPoint>> CreateInputPoints(QPainterPath path);
+    std::vector<QSharedPointer<Input>> CreateInputPoints(QPainterPath path);
 
     bool m_superFlag { false };
 
     int m_inputsCount = 2;
-    QSharedPointer<InputPoint> m_highlightPoint;
+    QSharedPointer<Input> m_activePoint;
     QPointF m_pos {5,5};
     int m_inputsGap;
     int m_gap;
     bool m_isDrag;
-    std::vector<QSharedPointer<InputPoint>> m_inputs;
-    QSharedPointer<InputPoint> m_output = QSharedPointer<InputPoint>::create(QPointF{1, 1}, GateState::LOGIC_Z);
+    bool m_isAllowed {false};
+    std::vector<QSharedPointer<Input>> m_inputs;
+    QSharedPointer<Input> m_output = QSharedPointer<Input>::create(QPointF{1, 1}, LogicState::HIGH_IMPEDANCE_STATE);
 
     QPainterPath m_backSide;
 
-    BondingWire* m_wire;
 };
 
 #endif // LOGICGATE_H

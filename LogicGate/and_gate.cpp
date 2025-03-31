@@ -21,7 +21,7 @@ void ANDGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
     path.lineTo(m_pos.x(), m_pos.y());
 
     for (auto& item : m_inputs)
-        painter->drawPoint(item->m_point);
+        painter->drawPoint(item->pos);
 
     painter->drawPath(path);
 }

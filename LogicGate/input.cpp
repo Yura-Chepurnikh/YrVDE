@@ -1,21 +1,20 @@
 #include "./input.h"
 
-Input::Input() { }
-
-Input::~Input() { }
+Input::Input(QPointF pos, LogicState state) {
+    this->pos = pos;
+    state = state;
+}
 
 void Input::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
     painter->setPen(QPen(QColor{ "#23A9F2"}, 0.5));
-
-    QPainterPath path;
-    path.addRect(m_pos.x(), m_pos.y(), m_inputsGap, m_inputsGap);
-    painter->drawPath(path);
-    setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
+    painter->drawEllipse(pos.x(), pos.y(), radius, radius);
 }
 
 QRectF Input::boundingRect() const {
-    return QRectF(m_pos.x(), m_pos.y(), m_gap, m_gap);
+    return QRectF {pos.x(), pos.y(), 100, 100};
 }
+
+

@@ -13,7 +13,9 @@
 #include <QtGui/QPainterPath>
 #include <QObject>
 #include <QSharedPointer>
-#include "../BusinessLogic/gate_state.h"
+#include <QDebug>
+#include "../BusinessLogic/logic_state.h"
+#include "../LogicGate/input.h"
 
 #if defined(BONDINGWIRE_LIBRARY)
 #define BONDINGWIRE_EXPORT Q_DECL_EXPORT

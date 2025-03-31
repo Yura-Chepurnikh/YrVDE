@@ -1,4 +1,5 @@
 #include "./workspace.h"
+#include <QDebug>
 
 int WorkSpace::m_gap = 60;
 int WorkSpace::m_inputsDistance = m_gap / 10;
@@ -52,13 +53,11 @@ void WorkSpace::GetLogicGate(LogicGate* gate) {
     m_wire = new BondingWire();
     scene()->addItem(m_wire);
 
-    QObject::connect(this, &WorkSpace::SendGap, m_wire, &BondingWire::GetGridGap);
+    QObject::connect(this, &WorkSpace::SendGap, m_wire, &BondingWire::GetGridSize);
     emit this->SendGap(m_gap);
 
-    QObject::connect(m_wire, &BondingWire::SendPoint, this, &WorkSpace::GetBondingWirePoint);
-
-    PrintConsoleGates();
-
+    //QObject::connect(m_wire, &BondingWire::SendPoint, this, &WorkSpace::GetBondingWirePoint);
+    connect(gate, &LogicGate::SendPermission, m_wire, &BondingWire::GetPermissionFromGate);
     update();
 }
 
@@ -68,7 +67,7 @@ void WorkSpace::wheelEvent(QWheelEvent* event) {
     if (event->angleDelta().y() > 0) {
         scale (scaleFactor, scaleFactor);
     } else {
-        scale (1/scaleFactor, 1/scaleFactor);
+        scale (1 / scaleFactor, 1 / scaleFactor);
     }
     emit this->SendGap(m_gap);
 }
@@ -77,13 +76,13 @@ void WorkSpace::mousePressEvent(QMouseEvent *event) {
     if (event->button() == Qt::MiddleButton) {
         qDebug() << "GGG";
         m_lastPosOfScene = event->pos();
-        m_is_Drag = true;
+        m_isDrag = true;
     }
     QGraphicsView::mousePressEvent(event);
 }
 
 void WorkSpace::mouseMoveEvent(QMouseEvent *event) {
-    if (m_is_Drag && (event->buttons() & Qt::MiddleButton)) {
+    if (m_isDrag && (event->buttons() & Qt::MiddleButton)) {
         QPointF delta = event->pos() - m_lastPosOfScene;
         this->setSceneRect(m_lastPosOfScene.x(), m_lastPosOfScene.y(), delta.x(), delta.y());
 
@@ -94,39 +93,8 @@ void WorkSpace::mouseMoveEvent(QMouseEvent *event) {
 
 void WorkSpace::mouseReleaseEvent(QMouseEvent *event) {
     if (event->button() == Qt::MiddleButton) {
-        m_is_Drag = false;
+        m_isDrag = false;
     }
     QGraphicsView::mouseReleaseEvent(event);
-}
-
-void WorkSpace::GetBondingWirePoint(QPointF point) {
-    qDebug() << point;
-    for (size_t i = 0; i < m_gates.size(); ++i) {
-        for (size_t j = 0; j < m_gates[i]->m_inputs.size(); ++j) {
-            if (point == m_gates[i]->m_inputs[j]->m_point) {
-                qDebug() << "aaa !!!";
-                qDebug() <<  m_gates[i]->m_inputs[j].data();
-
-                 o = m_gates[i]->m_inputs[j];
-                o->m_state = GateState::LOGIC_1;
-                qDebug() <<  m_gates[i]->m_inputs[j]->m_state;
-
-                QObject::connect(this, &WorkSpace::SendInputPoint, m_gates[i], &LogicGate::GetInputPoint);
-                emit this->SendInputPoint(m_gates[i]->m_inputs[j]);
-                update();
-            }
-        }
-    }
-    PrintConsoleGates();
-}
-
-void WorkSpace::PrintConsoleGates() {
-    qDebug() << "WorkSpace::PrintConsoleGates()";
-    for (size_t i = 0; i < m_gates.size(); ++i) {
-        for (size_t j = 0; j < m_gates[i]->m_inputs.size(); ++j) {
-            qDebug() << m_gates[i]->m_inputs[j]->m_state;
-        }
-    }
-    qDebug() << "WorkSpace::PrintConsoleGates()";
 }
 
