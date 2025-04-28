@@ -59,14 +59,14 @@ void ORGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
 
     //qDebug() << "START5!!!";
 
-    if (m_activePoint) {
-        //qDebug() << "please help me";
-        if (m_activePoint->state == LogicState::LOGIC_ONE_STATE) {
+    if (m_activeInput) {
+        qDebug() << "please help me";
+        if (m_activeInput->state == LogicState::LOGIC_ONE_STATE) {
             painter->setPen({Qt::green, 2});
         }
         painter->setPen({Qt::yellow, 2});
 
-        painter->drawPoint(m_activePoint->pos);
+        painter->drawPoint(m_activeInput->pos);
     }
     //qDebug() << "END!!!";
 
@@ -85,13 +85,13 @@ QRectF ORGate::boundingRect() const {
     return QRectF(m_pos.x(), m_pos.y(), m_gap, m_gap);
 }
 
-QPainterPath ORGate::shape() const {
-    QPainterPath path;
-    int gap = m_gap/2;
+// QPainterPath ORGate::shape() const {
+//     QPainterPath path;
+//     int gap = m_gap/2;
 
-    path.quadTo(m_pos.x() + gap, m_pos.y(), m_pos.x() +  m_gap, m_pos.y() + gap);
-    path.quadTo(m_pos.x() + gap, m_pos.y() + 2*gap, m_pos.x(), m_pos.y() + 2*gap);
-    path.quadTo(m_pos.x() + gap, m_pos.y() + gap, m_pos.x(), m_pos.y());
+//     path.quadTo(m_pos.x() + gap, m_pos.y(), m_pos.x() +  m_gap, m_pos.y() + gap);
+//     path.quadTo(m_pos.x() + gap, m_pos.y() + 2*gap, m_pos.x(), m_pos.y() + 2*gap);
+//     path.quadTo(m_pos.x() + gap, m_pos.y() + gap, m_pos.x(), m_pos.y());
 
-    return path;
-}
+//     return path;
+// }

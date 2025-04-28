@@ -55,18 +55,6 @@ void WorkSpace::wheelEvent(QWheelEvent* event) {
     emit this->SendGap(m_gap);
 }
 
-// void WorkSpace::mousePressEvent(QMouseEvent *event) {
-
-// }
-
-// void WorkSpace::mouseMoveEvent(QMouseEvent *event) {
-
-// }
-
-// void WorkSpace::mouseReleaseEvent(QMouseEvent *event) {
-
-// }
-
 void WorkSpace::mousePressEvent(QMouseEvent *event) {
     if (event->button() == Qt::MiddleButton) {
         m_lastPosOfScene = event->pos();

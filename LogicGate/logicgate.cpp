@@ -2,17 +2,14 @@
 
 LogicGate::LogicGate() {
     setAcceptHoverEvents(true);
-    setFlag(QGraphicsItem::ItemIsMovable);
-    setFlag(QGraphicsItem::ItemIsSelectable);
     setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
     m_isDrag = false;
-
     m_pos = ConnectToGrid(m_pos, m_gap);
 }
 
 void LogicGate::GetGridGap(int gap) {
     m_gap = gap;
-    m_inputsGap =  m_gap / 10;
+    m_inputsGap = m_gap / 10;
 }
 
 void LogicGate::GetGridPos(QPointF pos) {
@@ -38,38 +35,73 @@ void LogicGate::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
     }
 }
 
+qreal LogicGate::DistanceToPoints(const QPointF &from, const QPointF &to) {
+    return std::sqrt(std::pow(from.x() - to.x(), 2) + std::pow(from.y() - to.y(), 2));
+}
+
 void LogicGate::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
     if (event->button() == Qt::LeftButton && shape().contains(event->pos())) {
         setCursor(Qt::CustomCursor);
         QGraphicsItem::mouseReleaseEvent(event);
     }
-    // else if (event->button() == Qt::RightButton) {
-    //     m_isAllowed = false;
-    // }
 }
 
 void LogicGate::hoverMoveEvent(QGraphicsSceneHoverEvent *event) {
     QPointF currentPos = event->pos();
 
-    for (size_t i = 0; i < m_inputs.size(); ++i) {
-        if (std::abs(currentPos.x() - m_inputs[i]->pos.x()) < m_inputsGap / 2 &&
-            std::abs(currentPos.y() - m_inputs[i]->pos.y()) < m_inputsGap / 2) {
-            if (m_isAllowed) {
-                qDebug() << "is clicked";
-                emit this->SendPermission(m_isAllowed, m_inputs[i]->pos);
-            }
-            if (!m_isAllowed) {
-                emit this->SendPermission(!m_isAllowed, m_inputs[i]->pos);
-                qDebug() << "is not clicked";
+    QSharedPointer<Input> closestInput;
+    qreal min_distance = m_inputsGap;
 
-            }
-            m_activePoint = m_inputs[i];
-            update();
+    for (auto input : m_inputs) {
+        qreal dis = DistanceToPoints(input.data()->pos, currentPos);
+        if (dis < min_distance) {
+            min_distance = dis;
+            closestInput = input;
         }
     }
+
+    if (min_distance < m_inputsGap / 2) {
+        m_activeInput = closestInput;
+    }
+    else {
+        m_activeInput = nullptr;
+    }
+
     update();
-    QGraphicsItem::hoverMoveEvent(event);
 }
+
+// void LogicGate::hoverMoveEvent(QGraphicsSceneHoverEvent *event) {
+//     QPointF currentPos = event->pos();
+
+//     auto prev = m_inputs.begin();
+//     auto next = prev;
+//     ++next;
+
+//     while (next != m_inputs.end()) {
+//         qreal prev_current_dis = DistanceToPoints(currentPos, (*prev)->pos);
+//         qreal next_current_dis = DistanceToPoints(currentPos, (*next)->pos);
+//         qreal half_prev_next_dis = DistanceToPoints((*prev)->pos, (*next)->pos) / 2;
+
+//         if (prev_current_dis > half_prev_next_dis && next_current_dis > half_prev_next_dis) {
+//             m_activeInput = nullptr;
+//             qDebug() << "Out from inputs radius";
+//         }
+//         else if (prev_current_dis <= next_current_dis) {
+//             m_activeInput = *prev;
+//             qDebug() << "In the prev radius: " << m_activeInput->pos;
+//         }
+//         else if (prev_current_dis > next_current_dis) {
+//             m_activeInput = *next;
+//             qDebug() << "In the next radius: " << m_activeInput->pos;
+//         }
+
+//         ++next;
+//         ++prev;
+//     }
+//     update();
+//     qDebug() << "end";
+//     QGraphicsItem::hoverMoveEvent(event);
+// }
 
 QPointF LogicGate::ConnectToGrid(const QPointF& pos, int gridGap) {
     qreal x = qRound(pos.x() / gridGap) * gridGap;
@@ -83,24 +115,9 @@ std::vector<QSharedPointer<Input>> LogicGate::CreateInputPoints(QPainterPath pat
     QPointF p1 = {0,0}, p2{0,0};
 
     for (qreal t = 0; t <= 1; t += 0.1) {
-        // if (path.pointAtPercent(t).y() == m_pos.y() + m_inputsGap) {
-        //     p1 = path.pointAtPercent(t);
-        // }
-        // if (path.pointAtPercent(t).y() == m_pos.y() + m_gap - m_inputsGap) {
-        //     p2 = path.pointAtPercent(t);
-        // }
         QSharedPointer<Input> i = QSharedPointer<Input>::create(path.pointAtPercent(t));
         m_inputs.push_back(i);
     }
-    //QSharedPointer<InputPoint> in1 = QSharedPointer<InputPoint>::create(path.pointAtPercent(0));
-    //QSharedPointer<InputPoint> in2 = QSharedPointer<InputPoint>::create(path.pointAtPercent(1));
-
-    //QPointF a = QPointF { m_pos.x() + m_gap, m_pos.y() + m_gap / 2 };
-    //m_output = QSharedPointer<InputPoint>::create(a);
-//
-    //m_inputs.push_back(in1);
-    //m_inputs.push_back(in2);
-    //m_inputs.push_back(m_output);
 
     return m_inputs;
 }
@@ -110,7 +127,7 @@ QRectF LogicGate::boundingRect() const {
 }
 
 void LogicGate::GetInputPoint(QSharedPointer<Input> point) {
-    m_activePoint = point;
+    m_activeInput = point;
 }
 
 

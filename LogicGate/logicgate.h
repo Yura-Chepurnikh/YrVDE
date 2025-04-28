@@ -33,6 +33,8 @@ public:
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
 
+    qreal DistanceToPoints(const QPointF& from, const QPointF& to);
+
     void hoverMoveEvent(QGraphicsSceneHoverEvent* event) override;
 
     std::vector<QSharedPointer<Input>> CreateInputPoints(QPainterPath path);
@@ -40,7 +42,7 @@ public:
     bool m_superFlag { false };
 
     int m_inputsCount = 2;
-    QSharedPointer<Input> m_activePoint;
+    QSharedPointer<Input> m_activeInput;
     QPointF m_pos {5,5};
     int m_inputsGap;
     int m_gap;
