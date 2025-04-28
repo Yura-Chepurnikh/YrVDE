@@ -1,22 +1,16 @@
 #include "./workspace.h"
 #include <QDebug>
 
-int WorkSpace::m_gap = 60;
-int WorkSpace::m_inputsDistance = m_gap / 10;
+int WorkSpace::m_gap = GAP;
+int WorkSpace::m_inputsDistance = INPUTS_DISTANCE;
 
 WorkSpace::WorkSpace(QGraphicsScene* scene) : QGraphicsView(scene)
 {
-    this->setMouseTracking(true);
-    this->setDragMode(QGraphicsView::NoDrag);
-    this->setRenderHint(QPainter::Antialiasing);
-    this->setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
     this->setStyleSheet("background-color: #1F1F1F");
     scene->setSceneRect(this->viewport()->rect());
     setScene(scene);
     update();
 }
-
-WorkSpace::~WorkSpace() { }
 
 void WorkSpace::drawBackground(QPainter *painter, const QRectF &rect) {
     painter->setPen({QColor{"#404040"}, 0.1});
@@ -41,24 +35,13 @@ void WorkSpace::drawBackground(QPainter *painter, const QRectF &rect) {
     update();
 }
 
-void WorkSpace::GetLogicGate(LogicGate* gate) {
+void WorkSpace::AddGate(LogicGate* gate) {
     gate->setZValue(1);
     scene()->addItem(gate);
-
     m_gates.push_back(gate);
 
     QObject::connect(this, &WorkSpace::SendGap, gate, &LogicGate::GetGridGap);
     emit this->SendGap(m_gap);
-
-    m_wire = new BondingWire();
-    scene()->addItem(m_wire);
-
-    QObject::connect(this, &WorkSpace::SendGap, m_wire, &BondingWire::GetGridSize);
-    emit this->SendGap(m_gap);
-
-    //QObject::connect(m_wire, &BondingWire::SendPoint, this, &WorkSpace::GetBondingWirePoint);
-    connect(gate, &LogicGate::SendPermission, m_wire, &BondingWire::GetPermissionFromGate);
-    update();
 }
 
 void WorkSpace::wheelEvent(QWheelEvent* event) {
@@ -72,20 +55,44 @@ void WorkSpace::wheelEvent(QWheelEvent* event) {
     emit this->SendGap(m_gap);
 }
 
+// void WorkSpace::mousePressEvent(QMouseEvent *event) {
+
+// }
+
+// void WorkSpace::mouseMoveEvent(QMouseEvent *event) {
+
+// }
+
+// void WorkSpace::mouseReleaseEvent(QMouseEvent *event) {
+
+// }
+
 void WorkSpace::mousePressEvent(QMouseEvent *event) {
     if (event->button() == Qt::MiddleButton) {
-        qDebug() << "GGG";
         m_lastPosOfScene = event->pos();
-        m_isDrag = true;
     }
     QGraphicsView::mousePressEvent(event);
 }
 
 void WorkSpace::mouseMoveEvent(QMouseEvent *event) {
-    if (m_isDrag && (event->buttons() & Qt::MiddleButton)) {
+    if (event->buttons() & Qt::MiddleButton) {
         QPointF delta = event->pos() - m_lastPosOfScene;
-        this->setSceneRect(m_lastPosOfScene.x(), m_lastPosOfScene.y(), delta.x(), delta.y());
 
+        bool horizontal_visible = horizontalScrollBar()->isVisible();
+        bool vertical_visible = verticalScrollBar()->isVisible();
+
+        if (horizontal_visible || vertical_visible) {
+            delta /= STRONG_SMOOTH;
+            this->horizontalScrollBar()->setValue(this->horizontalScrollBar()->value() + delta.x());
+            this->verticalScrollBar()->setValue(this->verticalScrollBar()->value() + delta.y());
+        }
+        else {
+            delta /= WEAK_SMOOTH;
+            QRectF sceneRect = this->scene()->sceneRect();
+            sceneRect.moveLeft(sceneRect.left() - delta.x());
+            sceneRect.moveTop(sceneRect.top() - delta.y());
+            this->scene()->setSceneRect(sceneRect);
+        }
         m_lastPosOfScene = event->pos();
     }
     QGraphicsView::mouseMoveEvent(event);
@@ -93,7 +100,6 @@ void WorkSpace::mouseMoveEvent(QMouseEvent *event) {
 
 void WorkSpace::mouseReleaseEvent(QMouseEvent *event) {
     if (event->button() == Qt::MiddleButton) {
-        m_isDrag = false;
     }
     QGraphicsView::mouseReleaseEvent(event);
 }

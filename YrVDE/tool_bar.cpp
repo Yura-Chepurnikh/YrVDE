@@ -59,7 +59,6 @@ ToolBar::ToolBar()
         m_gate = LogicGateFactory<NOTGate>::create();
         emit this->createLogicGate(m_gate);
     });
-
 }
 
 void ToolBar::CreateButton(QToolButton*& button, const QString &icon_name, const QString &text) {
@@ -78,8 +77,5 @@ void ToolBar::CreateButton(QToolButton*& button, const QString &icon_name, const
     );
 }
 
-// void ToolBar::GetWorkSpace(WorkSpace *workspace) {
-//     m_workSpace = workspace;
-// }
 
 

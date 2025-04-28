@@ -9,6 +9,7 @@
 #include <QPoint>
 #include <QMouseEvent>
 #include <QApplication>
+#include <QScrollBar>
 
 #include "../BondingWire/bondingwire.h"
 #include "../LogicGate/logicgate.h"
@@ -22,23 +23,25 @@
 #include "../LogicGate/xor_gate.h"
 #include "../LogicGate/input.h"
 
+#define GAP 60
+#define INPUTS_DISTANCE GAP / 10
+#define WEAK_SMOOTH 1.1
+#define STRONG_SMOOTH 2
+
 class WorkSpace : public QGraphicsView {
     Q_OBJECT
 
 public:
     WorkSpace(QGraphicsScene* scene);
-    virtual ~WorkSpace();
+    virtual ~WorkSpace() = default;
     void ConnectBondingWireToGate();
 
 public slots:
-    void GetLogicGate(LogicGate* gate);
+    void AddGate(LogicGate* gate);
 
 signals:
-    void SendPoint(QPoint point);
-    void SendIsShow(bool isShow);
     void SendGap(int gap);
     void SendScene(WorkSpace* workSpace);
-    void SendInputPoint(QSharedPointer<Input> point);
 
 protected:
     void wheelEvent(QWheelEvent* event) override;
@@ -49,17 +52,12 @@ protected:
     void mouseReleaseEvent(QMouseEvent* event) override;
 
 private:
-    bool m_isDrag { false };
     QPointF m_lastPosOfScene;
     static int m_gap;
     static int m_inputsDistance;
 
-    BondingWire* m_wire;
-    QSharedPointer<Input> o;
     std::vector<std::vector<QPoint>> m_gridPoints;
     std::vector<LogicGate*> m_gates;
-
-    BondingWire* wire;
 };
 
 #endif // WORKSPACE_H
