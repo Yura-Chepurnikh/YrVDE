@@ -42,6 +42,14 @@ void WorkSpace::AddGate(LogicGate* gate) {
 
     QObject::connect(this, &WorkSpace::SendGap, gate, &LogicGate::GetGridGap);
     emit this->SendGap(m_gap);
+
+    QObject::connect(gate, &LogicGate::SendCreateWire, this, &WorkSpace::AddWire);
+}
+
+void WorkSpace::AddWire(LogicGate* gate) {
+    m_currentWire = new BondingWire();
+    scene()->addItem(m_currentWire);
+    m_wires.push_back(m_currentWire);
 }
 
 void WorkSpace::wheelEvent(QWheelEvent* event) {
@@ -63,7 +71,31 @@ void WorkSpace::mousePressEvent(QMouseEvent *event) {
 }
 
 void WorkSpace::mouseMoveEvent(QMouseEvent *event) {
-    if (event->buttons() & Qt::MiddleButton) {
+    if (m_wire_drag && (event->buttons() & Qt::LeftButton)) {
+        qDebug() << "mouseMoveEvent";
+        m_currentWire->m_path.clear();
+
+        // std::pair<QSharedPointer<QPointF>, QSharedPointer<QPointF>> segment;
+        // std::pair<QSharedPointer<QPointF>, QSharedPointer<QPointF>> perpendicularSegment;
+
+        // QPointF currentPos = m_currentWire->StickToTheGrid(event->pos());
+        // QPointF intersectionPos = QPointF {currentPos.x(), m_currentWire->m_startPos.y()};
+
+        // segment.first = QSharedPointer<QPointF>::create(m_currentWire->m_startPos);
+        // segment.second = perpendicularSegment.first = QSharedPointer<QPointF>::create(intersectionPos);
+        // perpendicularSegment.second = QSharedPointer<QPointF>::create(currentPos);
+
+        // m_currentWire->m_path.push_back(segment);
+        // m_currentWire->m_path.push_back(perpendicularSegment);
+        // m_currentWire->update();
+        m_currentWire->m_path.push_back(m_currentWire->m_startPos);
+        m_currentWire->m_path.push_back(event->pos());
+
+        qDebug() << "mouseMoveEvent END";
+
+        QGraphicsView::mouseMoveEvent(event);
+    }
+    else if (event->buttons() & Qt::MiddleButton) {
         QPointF delta = event->pos() - m_lastPosOfScene;
 
         bool horizontal_visible = horizontalScrollBar()->isVisible();
@@ -87,8 +119,11 @@ void WorkSpace::mouseMoveEvent(QMouseEvent *event) {
 }
 
 void WorkSpace::mouseReleaseEvent(QMouseEvent *event) {
-    if (event->button() == Qt::MiddleButton) {
+    if (m_wire_drag && event->button() == Qt::LeftButton) {
+        m_currentWire = nullptr;
     }
-    QGraphicsView::mouseReleaseEvent(event);
+    else {
+        QGraphicsView::mouseReleaseEvent(event);
+    }
 }
 

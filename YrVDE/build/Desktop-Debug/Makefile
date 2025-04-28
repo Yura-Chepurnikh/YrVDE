@@ -130,7 +130,6 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf \
-		../../.qmake.stash \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf \
@@ -235,7 +234,6 @@ Makefile: ../../YrVDE.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf \
-		.qmake.stash \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf \
@@ -323,7 +321,6 @@ Makefile: ../../YrVDE.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf:
-.qmake.stash:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf:
@@ -402,9 +399,9 @@ moc_mainwindow.cpp: ../../mainwindow.h \
 		../../../BondingWire/bondingwire.h \
 		../../../BondingWire/BondingWire_global.h \
 		../../../BusinessLogic/logic_state.h \
-		../../../LogicGate/logicgate.h \
-		../../../LogicGate/LogicGate_global.h \
 		../../../LogicGate/input.h \
+		../../../LogicGate/LogicGate_global.h \
+		../../../LogicGate/logicgate.h \
 		../../../LogicGate/nand_gate.h \
 		../../../LogicGate/xnor_gate.h \
 		../../../LogicGate/nor_gate.h \
@@ -426,8 +423,6 @@ moc_tool_bar.cpp: ../../tool_bar.h \
 		../../../LogicGate/LogicGate_global.h \
 		../../../LogicGate/input.h \
 		../../../BusinessLogic/logic_state.h \
-		../../../BondingWire/bondingwire.h \
-		../../../BondingWire/BondingWire_global.h \
 		../../../LogicGate/nand_gate.h \
 		../../../LogicGate/or_gate.h \
 		../../../LogicGate/nor_gate.h \
@@ -436,6 +431,8 @@ moc_tool_bar.cpp: ../../tool_bar.h \
 		../../../LogicGate/buffer_gate.h \
 		../../../LogicGate/not_gate.h \
 		../../workspace.h \
+		../../../BondingWire/bondingwire.h \
+		../../../BondingWire/BondingWire_global.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/chepurnikh/Projects/YrVDE/YrVDE/YrVDE/build/Desktop-Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/chepurnikh/Projects/YrVDE/YrVDE/YrVDE -I/home/chepurnikh/Projects/YrVDE/YrVDE/BondingWire/build/Desktop-Debug -I/home/chepurnikh/Projects/YrVDE/YrVDE/BusinessLogic/build/Desktop-Debug -I/home/chepurnikh/Projects/YrVDE/YrVDE/LogicGate/build/Desktop-Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/14 -I/usr/include/x86_64-linux-gnu/c++/14 -I/usr/include/c++/14/backward -I/usr/lib/gcc/x86_64-linux-gnu/14/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../../tool_bar.h -o moc_tool_bar.cpp
@@ -444,9 +441,9 @@ moc_workspace.cpp: ../../workspace.h \
 		../../../BondingWire/bondingwire.h \
 		../../../BondingWire/BondingWire_global.h \
 		../../../BusinessLogic/logic_state.h \
-		../../../LogicGate/logicgate.h \
-		../../../LogicGate/LogicGate_global.h \
 		../../../LogicGate/input.h \
+		../../../LogicGate/LogicGate_global.h \
+		../../../LogicGate/logicgate.h \
 		../../../LogicGate/nand_gate.h \
 		../../../LogicGate/xnor_gate.h \
 		../../../LogicGate/nor_gate.h \
@@ -485,9 +482,9 @@ main.o: ../../main.cpp ../../mainwindow.h \
 		../../../BondingWire/bondingwire.h \
 		../../../BondingWire/BondingWire_global.h \
 		../../../BusinessLogic/logic_state.h \
-		../../../LogicGate/logicgate.h \
-		../../../LogicGate/LogicGate_global.h \
 		../../../LogicGate/input.h \
+		../../../LogicGate/LogicGate_global.h \
+		../../../LogicGate/logicgate.h \
 		../../../LogicGate/nand_gate.h \
 		../../../LogicGate/xnor_gate.h \
 		../../../LogicGate/nor_gate.h \
@@ -505,9 +502,9 @@ mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
 		../../../BondingWire/bondingwire.h \
 		../../../BondingWire/BondingWire_global.h \
 		../../../BusinessLogic/logic_state.h \
-		../../../LogicGate/logicgate.h \
-		../../../LogicGate/LogicGate_global.h \
 		../../../LogicGate/input.h \
+		../../../LogicGate/LogicGate_global.h \
+		../../../LogicGate/logicgate.h \
 		../../../LogicGate/nand_gate.h \
 		../../../LogicGate/xnor_gate.h \
 		../../../LogicGate/nor_gate.h \
@@ -528,8 +525,6 @@ tool_bar.o: ../../tool_bar.cpp ../../tool_bar.h \
 		../../../LogicGate/LogicGate_global.h \
 		../../../LogicGate/input.h \
 		../../../BusinessLogic/logic_state.h \
-		../../../BondingWire/bondingwire.h \
-		../../../BondingWire/BondingWire_global.h \
 		../../../LogicGate/nand_gate.h \
 		../../../LogicGate/or_gate.h \
 		../../../LogicGate/nor_gate.h \
@@ -537,16 +532,18 @@ tool_bar.o: ../../tool_bar.cpp ../../tool_bar.h \
 		../../../LogicGate/xnor_gate.h \
 		../../../LogicGate/buffer_gate.h \
 		../../../LogicGate/not_gate.h \
-		../../workspace.h
+		../../workspace.h \
+		../../../BondingWire/bondingwire.h \
+		../../../BondingWire/BondingWire_global.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tool_bar.o ../../tool_bar.cpp
 
 workspace.o: ../../workspace.cpp ../../workspace.h \
 		../../../BondingWire/bondingwire.h \
 		../../../BondingWire/BondingWire_global.h \
 		../../../BusinessLogic/logic_state.h \
-		../../../LogicGate/logicgate.h \
-		../../../LogicGate/LogicGate_global.h \
 		../../../LogicGate/input.h \
+		../../../LogicGate/LogicGate_global.h \
+		../../../LogicGate/logicgate.h \
 		../../../LogicGate/nand_gate.h \
 		../../../LogicGate/xnor_gate.h \
 		../../../LogicGate/nor_gate.h \

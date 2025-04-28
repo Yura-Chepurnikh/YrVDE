@@ -38,6 +38,7 @@ public:
 
 public slots:
     void AddGate(LogicGate* gate);
+    void AddWire(LogicGate* gate);
 
 signals:
     void SendGap(int gap);
@@ -51,13 +52,18 @@ protected:
     void mouseMoveEvent(QMouseEvent* event) override;
     void mouseReleaseEvent(QMouseEvent* event) override;
 
+
+
 private:
+    BondingWire* m_currentWire;
+    bool m_wire_drag;
     QPointF m_lastPosOfScene;
     static int m_gap;
     static int m_inputsDistance;
 
     std::vector<std::vector<QPoint>> m_gridPoints;
     std::vector<LogicGate*> m_gates;
+    std::vector<BondingWire*> m_wires;
 };
 
 #endif // WORKSPACE_H

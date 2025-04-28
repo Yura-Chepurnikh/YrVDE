@@ -3,6 +3,8 @@
 
 #include "LogicGate_global.h"
 
+#define PARTS 10
+
 class LOGICGATE_EXPORT LogicGate : public QObject, public QGraphicsItem {
     Q_OBJECT
 
@@ -14,16 +16,9 @@ public:
 public slots:
     void GetGridGap(int gap);
     void GetGridPos(QPointF pos);
-    void GetInputPoint(QSharedPointer<Input> point);
 
 signals:
-    void SendPermission(bool isAllowed, QPointF& startPos);
-
-    void SendFirstCordinate(QPointF first);
-    void SendSecondCordinate(QPointF second);
-    void SendInputsDistance(int dis);
-    void SendGap(int gap);
-    void SendInputsPoints(const std::vector<QSharedPointer<Input>>);
+    void SendCreateWire(LogicGate* gate);
 
 public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) = 0;
@@ -39,15 +34,11 @@ public:
 
     std::vector<QSharedPointer<Input>> CreateInputPoints(QPainterPath path);
 
-    bool m_superFlag { false };
-
-    int m_inputsCount = 2;
+    unsigned int m_inputsCount = 2;
     QSharedPointer<Input> m_activeInput;
-    QPointF m_pos {5,5};
-    int m_inputsGap;
-    int m_gap;
+    QPointF m_pos;
+    qreal m_inputsGap, m_gap;
     bool m_isDrag;
-    bool m_isAllowed {false};
     std::vector<QSharedPointer<Input>> m_inputs;
     QSharedPointer<Input> m_output = QSharedPointer<Input>::create(QPointF{1, 1}, LogicState::HIGH_IMPEDANCE_STATE);
 
