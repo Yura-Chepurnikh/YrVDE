@@ -10,6 +10,8 @@ ToolBar::ToolBar()
     CreateButton(m_notGate, "not", "NOT");
     CreateButton(m_xorGate, "xor", "XOR");
     CreateButton(m_xnorGate, "xnor", "XNOR");
+    CreateButton(m_pin, "pin", "PIN");
+
 
     this->addWidget(m_andGate);
     this->addWidget(m_nandGate);
@@ -19,6 +21,7 @@ ToolBar::ToolBar()
     this->addWidget(m_notGate);
     this->addWidget(m_xorGate);
     this->addWidget(m_xnorGate);
+    this->addWidget(m_pin);
 
     QObject::connect(m_andGate, &QToolButton::clicked, this, [this]() {
         m_gate = LogicGateFactory<ANDGate>::create();
@@ -57,6 +60,11 @@ ToolBar::ToolBar()
 
     QObject::connect(m_notGate, &QToolButton::clicked, this, [this]() {
         m_gate = LogicGateFactory<NOTGate>::create();
+        emit this->createLogicGate(m_gate);
+    });
+
+    QObject::connect(m_pin, &QToolButton::clicked, this, [this]() {
+        m_gate = LogicGateFactory<Pin>::create();
         emit this->createLogicGate(m_gate);
     });
 }

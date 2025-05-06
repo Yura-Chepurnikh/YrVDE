@@ -11,14 +11,14 @@ void NANDGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
     painter->setPen(QPen(QColor{ "#23A9F2"}, 0.5));
 
     QPainterPath path;
-    path.moveTo(m_pos);
-    path.arcTo(m_pos.x(), m_pos.y(), m_gap, m_gap, 90, -180);
-    path.lineTo(m_pos.x(), m_pos.y() + m_gap);
-    path.lineTo(m_pos.x(), m_pos.y());
+    path.moveTo(m_gatePos);
+    path.arcTo(m_gatePos.x(), m_gatePos.y(), m_gridSize, m_gridSize, 90, -180);
+    path.lineTo(m_gatePos.x(), m_gatePos.y() + m_gridSize);
+    path.lineTo(m_gatePos.x(), m_gatePos.y());
 
     QPainterPath bubble;
-    int radius = m_gap / 20;
-    QPoint center { m_pos.x() + m_gap + radius, m_pos.y() + m_gap/2 };
+    int radius = m_gridSize / 20;
+    QPoint center { m_gatePos.x() + m_gridSize + radius, m_gatePos.y() + m_gridSize/2 };
     bubble.addEllipse(center, radius, radius);
 
     painter->drawPath(path);
@@ -26,6 +26,6 @@ void NANDGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
 }
 
 QRectF NANDGate::boundingRect() const {
-    return QRectF(m_pos.x(), m_pos.y(), m_gap, m_gap);
+    return QRectF(m_gatePos.x(), m_gatePos.y(), m_gridSize, m_gridSize);
 }
 

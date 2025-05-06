@@ -29,7 +29,6 @@ signals:
     void CreateGate(const std::string& type);
 
 private:
-    QMenu* m_menu;
     ToolBar* m_toolBar;
     QGraphicsView* m_view;
     QGraphicsScene* m_scene;

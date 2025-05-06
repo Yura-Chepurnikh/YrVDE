@@ -31,6 +31,7 @@ else:unix: LIBS += -L$$PWD/../BusinessLogic/build/Desktop-Debug/ -lBusinessLogic
 INCLUDEPATH += $$PWD/../BusinessLogic/build/Desktop-Debug
 DEPENDPATH += $$PWD/../BusinessLogic/build/Desktop-Debug
 
+
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../LogicGate/build/Desktop-Debug/release/ -lLogicGate
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../LogicGate/build/Desktop-Debug/debug/ -lLogicGate
 else:unix: LIBS += -L$$PWD/../LogicGate/build/Desktop-Debug/ -lLogicGate

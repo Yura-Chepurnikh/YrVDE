@@ -1,5 +1,6 @@
 #include "./workspace.h"
 #include <QDebug>
+#include <thread>
 
 int WorkSpace::m_gap = GAP;
 int WorkSpace::m_inputsDistance = INPUTS_DISTANCE;
@@ -9,6 +10,7 @@ WorkSpace::WorkSpace(QGraphicsScene* scene) : QGraphicsView(scene)
     this->setStyleSheet("background-color: #1F1F1F");
     scene->setSceneRect(this->viewport()->rect());
     setScene(scene);
+
     update();
 }
 
@@ -35,19 +37,23 @@ void WorkSpace::drawBackground(QPainter *painter, const QRectF &rect) {
     update();
 }
 
-void WorkSpace::AddGate(LogicGate* gate) {
+void WorkSpace::addGate(LogicGate* gate) {
+    m_activeGate = gate;
     gate->setZValue(1);
     scene()->addItem(gate);
     m_gates.push_back(gate);
 
-    QObject::connect(this, &WorkSpace::SendGap, gate, &LogicGate::GetGridGap);
-    emit this->SendGap(m_gap);
+    QObject::connect(this, &WorkSpace::sendGap, gate, &LogicGate::getGridSize);
+    emit this->sendGap(m_gap);
 
-    QObject::connect(gate, &LogicGate::SendCreateWire, this, &WorkSpace::AddWire);
+    QObject::connect(gate, &LogicGate::sendCreateWire, this, &WorkSpace::addWire);
+    QObject::connect(gate, &LogicGate::sendGateDrag, this, &WorkSpace::getGateDrag);
 }
 
-void WorkSpace::AddWire(LogicGate* gate) {
+void WorkSpace::addWire(LogicGate* gate, QSharedPointer<Port> activeInput) {
+    m_activePort = activeInput;
     m_currentWire = new BondingWire();
+    m_currentWire->setPos(m_activePort->pos);
     scene()->addItem(m_currentWire);
     m_wires.push_back(m_currentWire);
 }
@@ -60,41 +66,34 @@ void WorkSpace::wheelEvent(QWheelEvent* event) {
     } else {
         scale (1 / scaleFactor, 1 / scaleFactor);
     }
-    emit this->SendGap(m_gap);
+    emit this->sendGap(m_gap);
 }
 
 void WorkSpace::mousePressEvent(QMouseEvent *event) {
+    if (m_currentWire && (event->buttons() & Qt::LeftButton)) {
+        this->setCursor(Qt::PointingHandCursor);
+    }
     if (event->button() == Qt::MiddleButton) {
+        this->setCursor(Qt::ClosedHandCursor);
         m_lastPosOfScene = event->pos();
     }
     QGraphicsView::mousePressEvent(event);
 }
 
 void WorkSpace::mouseMoveEvent(QMouseEvent *event) {
-    if (m_wire_drag && (event->buttons() & Qt::LeftButton)) {
-        qDebug() << "mouseMoveEvent";
-        m_currentWire->m_path.clear();
+    if (m_currentWire && (event->buttons() & Qt::LeftButton)) {
+        if (m_activePort) {
+            QPointF sceneEnd = this->mapToScene(event->pos());
+            QPointF snappedEnd = connectToGrid(sceneEnd, m_inputsDistance);
+            QPointF localEnd = snappedEnd - m_activePort->pos;
 
-        // std::pair<QSharedPointer<QPointF>, QSharedPointer<QPointF>> segment;
-        // std::pair<QSharedPointer<QPointF>, QSharedPointer<QPointF>> perpendicularSegment;
-
-        // QPointF currentPos = m_currentWire->StickToTheGrid(event->pos());
-        // QPointF intersectionPos = QPointF {currentPos.x(), m_currentWire->m_startPos.y()};
-
-        // segment.first = QSharedPointer<QPointF>::create(m_currentWire->m_startPos);
-        // segment.second = perpendicularSegment.first = QSharedPointer<QPointF>::create(intersectionPos);
-        // perpendicularSegment.second = QSharedPointer<QPointF>::create(currentPos);
-
-        // m_currentWire->m_path.push_back(segment);
-        // m_currentWire->m_path.push_back(perpendicularSegment);
-        // m_currentWire->update();
-        m_currentWire->m_path.push_back(m_currentWire->m_startPos);
-        m_currentWire->m_path.push_back(event->pos());
-
-        qDebug() << "mouseMoveEvent END";
-
-        QGraphicsView::mouseMoveEvent(event);
+            auto p1 = QSharedPointer<Port>::create(QPointF(0, 0));
+            auto p2 = QSharedPointer<Port>::create(localEnd);
+            m_currentWire->m_path = std::make_pair(p1, p2);
+            m_currentWire->update();
+        }
     }
+
     else if (event->buttons() & Qt::MiddleButton) {
         QPointF delta = event->pos() - m_lastPosOfScene;
 
@@ -115,15 +114,51 @@ void WorkSpace::mouseMoveEvent(QMouseEvent *event) {
         }
         m_lastPosOfScene = event->pos();
     }
+
     QGraphicsView::mouseMoveEvent(event);
 }
 
+void WorkSpace::getGateDrag(LogicGate* gate) {
+    auto it = m_table.find(gate);
+    if (it != m_table.end()) {
+        auto& pair = it->second;
+
+        auto wire = pair.first;
+        auto mem = pair.second;
+
+        auto memGate = mem.gate;
+        auto port = memGate->m_inputs[mem.number];
+
+        wire->m_path = std::make_pair(gate->m_output, port);
+    }
+}
+
+
+QPointF WorkSpace::connectToGrid(const QPointF& pos, int gridGap) {
+    qreal x = qRound(pos.x() / gridGap) * gridGap;
+    qreal y = qRound(pos.y() / gridGap) * gridGap;
+    return QPointF { x, y };
+}
+
 void WorkSpace::mouseReleaseEvent(QMouseEvent *event) {
-    if (m_wire_drag && event->button() == Qt::LeftButton) {
+    if (m_currentWire && event->button() == Qt::LeftButton) {
+        QPointF wireEnd = m_currentWire->mapToScene(m_currentWire->m_path.second->pos);
+
+        for (auto gate : m_gates) {
+            for (int i = 0; i < gate->m_inputs.size(); ++i) {
+                if (wireEnd == gate->m_inputs[i].data()->pos) {
+                    MemGatePin m(gate, i);
+                    m_table[m_activeGate] = std::make_pair(m_currentWire, m);
+                    m_currentWire->update();
+                    break;
+                }
+            }
+        }
         m_currentWire = nullptr;
+        m_activePort = nullptr;
     }
     else {
         QGraphicsView::mouseReleaseEvent(event);
     }
+    this->setCursor(Qt::ArrowCursor);
 }
-

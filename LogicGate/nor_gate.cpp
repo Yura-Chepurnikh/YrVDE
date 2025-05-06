@@ -12,17 +12,17 @@ void NORGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
 
     QPainterPath path;
 
-    path.moveTo(m_pos);
+    path.moveTo(m_gatePos);
     path.closeSubpath();
 
-    int gap = m_gap/2;
-    path.quadTo(m_pos.x() + gap, m_pos.y(), m_pos.x() + 1.5 * gap, m_pos.y() + gap);
-    path.quadTo(m_pos.x() + gap, m_pos.y() + 2*gap, m_pos.x(), m_pos.y() + 2*gap);
-    path.quadTo(m_pos.x() + gap, m_pos.y() + gap, m_pos.x(), m_pos.y());
+    int gap = m_gridSize/2;
+    path.quadTo(m_gatePos.x() + gap, m_gatePos.y(), m_gatePos.x() + 1.5 * gap, m_gatePos.y() + gap);
+    path.quadTo(m_gatePos.x() + gap, m_gatePos.y() + 2*gap, m_gatePos.x(), m_gatePos.y() + 2*gap);
+    path.quadTo(m_gatePos.x() + gap, m_gatePos.y() + gap, m_gatePos.x(), m_gatePos.y());
 
     QPainterPath bubble;
-    int radius = m_gap / 20;
-    QPoint center { m_pos.x() + 1.5 * gap + radius, m_pos.y() + gap };
+    int radius = m_gridSize / 20;
+    QPoint center { m_gatePos.x() + 1.5 * gap + radius, m_gatePos.y() + gap };
     bubble.addEllipse(center, radius, radius);
 
     painter->drawPath(path);
@@ -30,5 +30,5 @@ void NORGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
 }
 
 QRectF NORGate::boundingRect() const {
-    return QRectF(m_pos.x(), m_pos.y(), m_gap, m_gap);
+    return QRectF(m_gatePos.x(), m_gatePos.y(), m_gridSize, m_gridSize);
 }

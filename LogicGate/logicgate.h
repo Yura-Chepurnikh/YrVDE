@@ -11,39 +11,45 @@ class LOGICGATE_EXPORT LogicGate : public QObject, public QGraphicsItem {
 public:
     LogicGate();
     ~LogicGate() = default;
-    QPointF ConnectToGrid(const QPointF& pos, int gridGap);
 
-public slots:
-    void GetGridGap(int gap);
-    void GetGridPos(QPointF pos);
-
-signals:
-    void SendCreateWire(LogicGate* gate);
-
-public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) = 0;
     QRectF boundingRect() const override;
+
+    void hoverMoveEvent(QGraphicsSceneHoverEvent* event) override;
 
     void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
 
-    qreal DistanceToPoints(const QPointF& from, const QPointF& to);
+    qreal distanceToPoints(const QPointF& from, const QPointF& to);
+    QPointF connectToGrid(const QPointF& pos, int gridGap);
 
-    void hoverMoveEvent(QGraphicsSceneHoverEvent* event) override;
+    virtual void createPorts(QPainterPath path);
+    virtual void createBackside(QPainterPath& path) const;
 
-    std::vector<QSharedPointer<Input>> CreateInputPoints(QPainterPath path);
+public slots:
+    void getGridSize(int size);
+    void getGridPos(QPointF pos);
 
-    unsigned int m_inputsCount = 2;
-    QSharedPointer<Input> m_activeInput;
-    QPointF m_pos;
-    qreal m_inputsGap, m_gap;
+signals:
+    void sendCreateWire(LogicGate* gate, QSharedPointer<Port> m_activePort);
+    void sendGateDrag(LogicGate* gate);
+
+public:
+    unsigned int m_inputsNumber;
+    std::vector<QSharedPointer<Port>> m_inputs;
+    QSharedPointer<Port> m_activePort;
+
+    std::vector<QLineF> m_inputWires;
+
+    QSharedPointer<Port> m_output;
+    QPointF m_gatePos;
+    qreal m_activeRadius, m_gridSize;
     bool m_isDrag;
-    std::vector<QSharedPointer<Input>> m_inputs;
-    QSharedPointer<Input> m_output = QSharedPointer<Input>::create(QPointF{1, 1}, LogicState::HIGH_IMPEDANCE_STATE);
 
     QPainterPath m_backSide;
-
 };
+
+
 
 #endif // LOGICGATE_H

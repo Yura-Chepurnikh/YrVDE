@@ -9,6 +9,7 @@
 #include "../LogicGate/xnor_gate.h"
 #include "../LogicGate/buffer_gate.h"
 #include "../LogicGate/not_gate.h"
+#include "../LogicGate/pin.h"
 
 
 template <typename T, typename = void>
@@ -52,6 +53,11 @@ struct LogicGateFactory<BUFFERGate> {
 template <>
 struct LogicGateFactory<NOTGate> {
     static LogicGate* create() { return new NOTGate(); }
+};
+
+template <>
+struct LogicGateFactory<Pin> {
+    static LogicGate* create() { return new Pin(); }
 };
 
 #endif // LOGIC_GATE_FACTORY_H

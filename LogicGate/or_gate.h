@@ -10,10 +10,12 @@ public:
     ~ORGate() override;
 
 protected:
-    QPainterPath shape() const override;
+    void createBackside(QPainterPath& path) const override;
+    void createLateralSides(QPainterPath& path) const;
+
+    void createOutputPort();
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
-    QRectF boundingRect() const override;
 };
 
 #endif // OR_GATE_H

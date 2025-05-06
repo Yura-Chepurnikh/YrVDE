@@ -38,7 +38,6 @@ else:unix: LIBS += -L$$PWD/../BondingWire/build/Desktop-Debug/ -lBondingWire
 INCLUDEPATH += $$PWD/../BondingWire/build/Desktop-Debug
 DEPENDPATH += $$PWD/../BondingWire/build/Desktop-Debug
 
-
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../BusinessLogic/build/Desktop-Debug/release/ -lBusinessLogic
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../BusinessLogic/build/Desktop-Debug/debug/ -lBusinessLogic
 else:unix: LIBS += -L$$PWD/../BusinessLogic/build/Desktop-Debug/ -lBusinessLogic

@@ -15,7 +15,6 @@
 #include <QSharedPointer>
 #include <QDebug>
 #include "../BusinessLogic/logic_state.h"
-#include "../LogicGate/input.h"
 
 #if defined(BONDINGWIRE_LIBRARY)
 #define BONDINGWIRE_EXPORT Q_DECL_EXPORT

@@ -12,6 +12,7 @@
 #include <QScrollBar>
 
 #include "../BondingWire/bondingwire.h"
+#include "../LogicGate/port.h"
 #include "../LogicGate/logicgate.h"
 #include "../LogicGate/nand_gate.h"
 #include "../LogicGate/xnor_gate.h"
@@ -21,9 +22,9 @@
 #include "../LogicGate/not_gate.h"
 #include "../LogicGate/and_gate.h"
 #include "../LogicGate/xor_gate.h"
-#include "../LogicGate/input.h"
+#include "../LogicGate/pin.h"
 
-#define GAP 60
+#define GAP 100
 #define INPUTS_DISTANCE GAP / 10
 #define WEAK_SMOOTH 1.1
 #define STRONG_SMOOTH 2
@@ -32,17 +33,26 @@ class WorkSpace : public QGraphicsView {
     Q_OBJECT
 
 public:
+    struct MemGatePin {
+        LogicGate* gate;
+        int number;
+
+        MemGatePin() = default;
+        MemGatePin(LogicGate* g, int n) : gate(g), number(n) { }
+    };
+
     WorkSpace(QGraphicsScene* scene);
     virtual ~WorkSpace() = default;
-    void ConnectBondingWireToGate();
+    void connectBondingWireToGate();
 
 public slots:
-    void AddGate(LogicGate* gate);
-    void AddWire(LogicGate* gate);
+    void addGate(LogicGate* gate);
+    void addWire(LogicGate* gate, QSharedPointer<Port> activePort);
+    void getGateDrag(LogicGate* gate);
 
 signals:
-    void SendGap(int gap);
-    void SendScene(WorkSpace* workSpace);
+    void sendGap(int gap);
+    void sendScene(WorkSpace* workSpace);
 
 protected:
     void wheelEvent(QWheelEvent* event) override;
@@ -52,17 +62,20 @@ protected:
     void mouseMoveEvent(QMouseEvent* event) override;
     void mouseReleaseEvent(QMouseEvent* event) override;
 
-
-
+    QPointF connectToGrid(const QPointF& pos, int gridGap);
 private:
-    BondingWire* m_currentWire;
-    bool m_wire_drag;
+    std::vector<LogicGate*> m_gates;
+
+    std::unordered_map<LogicGate*, std::pair<BondingWire*, MemGatePin>> m_table;
+
+    BondingWire* m_currentWire {nullptr};
     QPointF m_lastPosOfScene;
     static int m_gap;
     static int m_inputsDistance;
+    QSharedPointer<Port> m_activePort;
+    LogicGate* m_activeGate;
 
     std::vector<std::vector<QPoint>> m_gridPoints;
-    std::vector<LogicGate*> m_gates;
     std::vector<BondingWire*> m_wires;
 };
 

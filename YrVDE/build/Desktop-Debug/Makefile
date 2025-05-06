@@ -399,7 +399,7 @@ moc_mainwindow.cpp: ../../mainwindow.h \
 		../../../BondingWire/bondingwire.h \
 		../../../BondingWire/BondingWire_global.h \
 		../../../BusinessLogic/logic_state.h \
-		../../../LogicGate/input.h \
+		../../../LogicGate/port.h \
 		../../../LogicGate/LogicGate_global.h \
 		../../../LogicGate/logicgate.h \
 		../../../LogicGate/nand_gate.h \
@@ -421,7 +421,7 @@ moc_tool_bar.cpp: ../../tool_bar.h \
 		../../../LogicGate/and_gate.h \
 		../../../LogicGate/logicgate.h \
 		../../../LogicGate/LogicGate_global.h \
-		../../../LogicGate/input.h \
+		../../../LogicGate/port.h \
 		../../../BusinessLogic/logic_state.h \
 		../../../LogicGate/nand_gate.h \
 		../../../LogicGate/or_gate.h \
@@ -441,7 +441,7 @@ moc_workspace.cpp: ../../workspace.h \
 		../../../BondingWire/bondingwire.h \
 		../../../BondingWire/BondingWire_global.h \
 		../../../BusinessLogic/logic_state.h \
-		../../../LogicGate/input.h \
+		../../../LogicGate/port.h \
 		../../../LogicGate/LogicGate_global.h \
 		../../../LogicGate/logicgate.h \
 		../../../LogicGate/nand_gate.h \
@@ -482,7 +482,7 @@ main.o: ../../main.cpp ../../mainwindow.h \
 		../../../BondingWire/bondingwire.h \
 		../../../BondingWire/BondingWire_global.h \
 		../../../BusinessLogic/logic_state.h \
-		../../../LogicGate/input.h \
+		../../../LogicGate/port.h \
 		../../../LogicGate/LogicGate_global.h \
 		../../../LogicGate/logicgate.h \
 		../../../LogicGate/nand_gate.h \
@@ -502,7 +502,7 @@ mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
 		../../../BondingWire/bondingwire.h \
 		../../../BondingWire/BondingWire_global.h \
 		../../../BusinessLogic/logic_state.h \
-		../../../LogicGate/input.h \
+		../../../LogicGate/port.h \
 		../../../LogicGate/LogicGate_global.h \
 		../../../LogicGate/logicgate.h \
 		../../../LogicGate/nand_gate.h \
@@ -523,7 +523,7 @@ tool_bar.o: ../../tool_bar.cpp ../../tool_bar.h \
 		../../../LogicGate/and_gate.h \
 		../../../LogicGate/logicgate.h \
 		../../../LogicGate/LogicGate_global.h \
-		../../../LogicGate/input.h \
+		../../../LogicGate/port.h \
 		../../../BusinessLogic/logic_state.h \
 		../../../LogicGate/nand_gate.h \
 		../../../LogicGate/or_gate.h \
@@ -541,7 +541,7 @@ workspace.o: ../../workspace.cpp ../../workspace.h \
 		../../../BondingWire/bondingwire.h \
 		../../../BondingWire/BondingWire_global.h \
 		../../../BusinessLogic/logic_state.h \
-		../../../LogicGate/input.h \
+		../../../LogicGate/port.h \
 		../../../LogicGate/LogicGate_global.h \
 		../../../LogicGate/logicgate.h \
 		../../../LogicGate/nand_gate.h \

@@ -33,7 +33,8 @@ private:
     QToolButton* m_andGate, *m_nandGate,
         *m_orGate, *m_norGate,
         *m_bufferGate, *m_notGate,
-        *m_xorGate, *m_xnorGate;
+        *m_xorGate, *m_xnorGate,
+        *m_pin;
 };
 
 #endif // TOOL_BAR_H

@@ -3,7 +3,6 @@
 BondingWire::BondingWire() {
     setFlag(QGraphicsItem::ItemIsMovable);
     setFlag(QGraphicsItem::ItemIsSelectable);
-    m_isDrag = false;
 }
 
 BondingWire::~BondingWire() { }
@@ -12,78 +11,26 @@ void BondingWire::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    qDebug() << "wire paint start";
-
     painter->setPen(QPen(QColor{"#23A9F2"}, 0.3));
 
-    // for (auto begin = m_path.begin(); begin != m_path.end(); ++begin) {
-    //     if (*begin->first == *begin->second) // to avoid problems with the display
-    //         continue;
-    //     painter->drawLine(*begin->first, *begin->second);
-    // }
-
-    if (m_path.size() >= 2)
-    painter->drawLine(m_path[0], m_path[1]);
-
-
-
-    qDebug() << "wire paint end";
+    if (m_path.first && m_path.second) {
+        QPointF startPos = m_path.first->mapToScene(m_path.first->pos);
+        QPointF endPos = m_path.second->mapToScene(m_path.second->pos);
+        painter->drawLine(startPos, endPos);
+    }
 }
-
-// void BondingWire::mousePressEvent(QGraphicsSceneMouseEvent *event) {
-//     if (m_isAllowedFromGate && event->button() == Qt::LeftButton) {
-//         m_isDrag = true;
-//     }
-// }
-
-// void BondingWire::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
-//     if (m_isDrag && (event->buttons() & Qt::LeftButton)) {
-//         m_path.clear();
-
-//         std::pair<QSharedPointer<QPointF>, QSharedPointer<QPointF>> segment;
-//         std::pair<QSharedPointer<QPointF>, QSharedPointer<QPointF>> perpendicularSegment;
-
-//         QPointF currentPos = StickToTheGrid(event->pos());
-//         QPointF intersectionPos = QPointF {currentPos.x(), m_startPos.y()};
-
-//         segment.first = QSharedPointer<QPointF>::create(m_startPos);
-//         segment.second = perpendicularSegment.first = QSharedPointer<QPointF>::create(intersectionPos);
-//         perpendicularSegment.second = QSharedPointer<QPointF>::create(currentPos);
-
-//         m_path.push_back(segment);
-//         m_path.push_back(perpendicularSegment);
-
-//         update();
-//         QGraphicsItem::mousePressEvent(event);
-//     }
-// }
-
-// void BondingWire::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
-//     if (m_isDrag && event->button() == Qt::LeftButton) {
-//         m_isDrag = false;
-//     }
-// }
 
 QRectF BondingWire::boundingRect() const {
-    if (scene()) {
-        return scene()->sceneRect();
-    }
-    return QRectF {0, 0, 0, 0};
+    if (!m_path.first || !m_path.second)
+        return QRectF();
+
+    QPointF p1 = mapFromScene(m_path.first->mapToScene(m_path.first->pos));
+    QPointF p2 = mapFromScene(m_path.second->mapToScene(m_path.second->pos));
+
+    QRectF rect(p1, p2);
+    return rect.normalized().adjusted(-1, -1, 1, 1);
 }
 
-void BondingWire::GetGridSize(int size) {
-    m_step = size / 10;
-}
 
-void BondingWire::GetPermissionFromGate(bool isAllowed, QPointF& startPos) {
-    m_isAllowedFromGate = isAllowed;
-    m_startPos = startPos;
-}
-
-QPointF BondingWire::StickToTheGrid(const QPointF& current_pos) {
-    qreal x = qRound(current_pos.x() / m_step) * m_step;
-    qreal y = qRound(current_pos.y() / m_step) * m_step;
-    return QPointF {x, y};
-}
 
 

@@ -15,10 +15,10 @@ void ANDGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
     painter->translate(-boundingRect().center());
 
     QPainterPath path;
-    path.moveTo(m_pos);
-    path.arcTo(m_pos.x(), m_pos.y(), m_gap, m_gap, 90, -180);
-    path.lineTo(m_pos.x(), m_pos.y() + m_gap);
-    path.lineTo(m_pos.x(), m_pos.y());
+    path.moveTo(m_gatePos);
+    path.arcTo(m_gatePos.x(), m_gatePos.y(), m_gridSize, m_gridSize, 90, -180);
+    path.lineTo(m_gatePos.x(), m_gatePos.y() + m_gridSize);
+    path.lineTo(m_gatePos.x(), m_gatePos.y());
 
     for (auto& item : m_inputs)
         painter->drawPoint(item->pos);
@@ -27,5 +27,5 @@ void ANDGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
 }
 
 QRectF ANDGate::boundingRect() const {
-    return QRectF(m_pos.x(), m_pos.y(), m_gap, m_gap);
+    return QRectF(m_gatePos.x(), m_gatePos.y(), m_gridSize, m_gridSize);
 }
