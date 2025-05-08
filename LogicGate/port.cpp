@@ -1,5 +1,7 @@
 #include "./port.h"
 
+qreal Port::clickableRadius = 10;
+
 Port::Port(QPointF pos, LogicState state) {
     setZValue(3);
     this->pos = pos;
@@ -11,8 +13,8 @@ void Port::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
     Q_UNUSED(widget);
 }
 
+
 QRectF Port::boundingRect() const {
-    return QRectF {pos.x(), pos.y(), 100, 100};
+    QRectF rect(pos.x(), pos.y(), 2, 2);
+    return rect;
 }
-
-

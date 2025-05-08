@@ -11,6 +11,9 @@ WorkSpace::WorkSpace(QGraphicsScene* scene) : QGraphicsView(scene)
     scene->setSceneRect(this->viewport()->rect());
     setScene(scene);
 
+    Port* port = new Port();
+    this->scene()->addItem(port);
+
     update();
 }
 
@@ -38,19 +41,19 @@ void WorkSpace::drawBackground(QPainter *painter, const QRectF &rect) {
 }
 
 void WorkSpace::addGate(LogicGate* gate) {
-    m_activeGate = gate;
     gate->setZValue(1);
+    m_activeGate = gate;
     scene()->addItem(gate);
     m_gates.push_back(gate);
 
     QObject::connect(this, &WorkSpace::sendGap, gate, &LogicGate::getGridSize);
     emit this->sendGap(m_gap);
 
-    QObject::connect(gate, &LogicGate::sendCreateWire, this, &WorkSpace::addWire);
-    QObject::connect(gate, &LogicGate::sendGateDrag, this, &WorkSpace::getGateDrag);
+    QObject::connect(gate, &LogicGate::createWire, this, &WorkSpace::addWire);
 }
 
-void WorkSpace::addWire(LogicGate* gate, QSharedPointer<Port> activeInput) {
+void WorkSpace::addWire(Port* activeInput) {
+    qDebug() << "WorkSpace's createWire";
     m_activePort = activeInput;
     m_currentWire = new BondingWire();
     m_currentWire->setPos(m_activePort->pos);
@@ -118,22 +121,6 @@ void WorkSpace::mouseMoveEvent(QMouseEvent *event) {
     QGraphicsView::mouseMoveEvent(event);
 }
 
-void WorkSpace::getGateDrag(LogicGate* gate) {
-    auto it = m_table.find(gate);
-    if (it != m_table.end()) {
-        auto& pair = it->second;
-
-        auto wire = pair.first;
-        auto mem = pair.second;
-
-        auto memGate = mem.gate;
-        auto port = memGate->m_inputs[mem.number];
-
-        wire->m_path = std::make_pair(gate->m_output, port);
-    }
-}
-
-
 QPointF WorkSpace::connectToGrid(const QPointF& pos, int gridGap) {
     qreal x = qRound(pos.x() / gridGap) * gridGap;
     qreal y = qRound(pos.y() / gridGap) * gridGap;
@@ -144,13 +131,11 @@ void WorkSpace::mouseReleaseEvent(QMouseEvent *event) {
     if (m_currentWire && event->button() == Qt::LeftButton) {
         QPointF wireEnd = m_currentWire->mapToScene(m_currentWire->m_path.second->pos);
 
-        for (auto gate : m_gates) {
-            for (int i = 0; i < gate->m_inputs.size(); ++i) {
+        for (auto& gate : m_gates) {
+
+            for (size_t i = 0; i < gate->m_inputs.size(); ++i) {
                 if (wireEnd == gate->m_inputs[i].data()->pos) {
-                    MemGatePin m(gate, i);
-                    m_table[m_activeGate] = std::make_pair(m_currentWire, m);
-                    m_currentWire->update();
-                    break;
+                    qDebug() << "asd";
                 }
             }
         }

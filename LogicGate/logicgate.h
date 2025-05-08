@@ -32,7 +32,7 @@ public slots:
     void getGridPos(QPointF pos);
 
 signals:
-    void sendCreateWire(LogicGate* gate, QSharedPointer<Port> m_activePort);
+    void createWire(Port* port);
     void sendGateDrag(LogicGate* gate);
 
 public:

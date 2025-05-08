@@ -10,7 +10,6 @@
 #include "../../workspace.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
-#include <QtCore/QSharedPointer>
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'workspace.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
@@ -23,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_WorkSpace_t {
-    QByteArrayData data[14];
-    char stringdata0[130];
+    QByteArrayData data[13];
+    char stringdata0[97];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -44,15 +43,13 @@ QT_MOC_LITERAL(7, 54, 7), // "addGate"
 QT_MOC_LITERAL(8, 62, 10), // "LogicGate*"
 QT_MOC_LITERAL(9, 73, 4), // "gate"
 QT_MOC_LITERAL(10, 78, 7), // "addWire"
-QT_MOC_LITERAL(11, 86, 20), // "QSharedPointer<Port>"
-QT_MOC_LITERAL(12, 107, 10), // "activePort"
-QT_MOC_LITERAL(13, 118, 11) // "getGateDrag"
+QT_MOC_LITERAL(11, 86, 5), // "Port*"
+QT_MOC_LITERAL(12, 92, 4) // "port"
 
     },
     "WorkSpace\0sendGap\0\0gap\0sendScene\0"
     "WorkSpace*\0workSpace\0addGate\0LogicGate*\0"
-    "gate\0addWire\0QSharedPointer<Port>\0"
-    "activePort\0getGateDrag"
+    "gate\0addWire\0Port*\0port"
 };
 #undef QT_MOC_LITERAL
 
@@ -62,7 +59,7 @@ static const uint qt_meta_data_WorkSpace[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-       5,   14, // methods
+       4,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -70,13 +67,12 @@ static const uint qt_meta_data_WorkSpace[] = {
        2,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   39,    2, 0x06 /* Public */,
-       4,    1,   42,    2, 0x06 /* Public */,
+       1,    1,   34,    2, 0x06 /* Public */,
+       4,    1,   37,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       7,    1,   45,    2, 0x0a /* Public */,
-      10,    2,   48,    2, 0x0a /* Public */,
-      13,    1,   53,    2, 0x0a /* Public */,
+       7,    1,   40,    2, 0x0a /* Public */,
+      10,    1,   43,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Int,    3,
@@ -84,8 +80,7 @@ static const uint qt_meta_data_WorkSpace[] = {
 
  // slots: parameters
     QMetaType::Void, 0x80000000 | 8,    9,
-    QMetaType::Void, 0x80000000 | 8, 0x80000000 | 11,    9,   12,
-    QMetaType::Void, 0x80000000 | 8,    9,
+    QMetaType::Void, 0x80000000 | 11,   12,
 
        0        // eod
 };
@@ -99,8 +94,7 @@ void WorkSpace::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         case 0: _t->sendGap((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 1: _t->sendScene((*reinterpret_cast< WorkSpace*(*)>(_a[1]))); break;
         case 2: _t->addGate((*reinterpret_cast< LogicGate*(*)>(_a[1]))); break;
-        case 3: _t->addWire((*reinterpret_cast< LogicGate*(*)>(_a[1])),(*reinterpret_cast< QSharedPointer<Port>(*)>(_a[2]))); break;
-        case 4: _t->getGateDrag((*reinterpret_cast< LogicGate*(*)>(_a[1]))); break;
+        case 3: _t->addWire((*reinterpret_cast< Port*(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -124,16 +118,7 @@ void WorkSpace::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
             switch (*reinterpret_cast<int*>(_a[1])) {
             default: *reinterpret_cast<int*>(_a[0]) = -1; break;
             case 0:
-                *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< LogicGate* >(); break;
-            case 1:
-                *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< QSharedPointer<Port> >(); break;
-            }
-            break;
-        case 4:
-            switch (*reinterpret_cast<int*>(_a[1])) {
-            default: *reinterpret_cast<int*>(_a[0]) = -1; break;
-            case 0:
-                *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< LogicGate* >(); break;
+                *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< Port* >(); break;
             }
             break;
         }
@@ -185,13 +170,13 @@ int WorkSpace::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 5)
+        if (_id < 4)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 5;
+        _id -= 4;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 5)
+        if (_id < 4)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 5;
+        _id -= 4;
     }
     return _id;
 }

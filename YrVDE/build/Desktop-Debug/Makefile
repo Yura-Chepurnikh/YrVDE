@@ -410,6 +410,9 @@ moc_mainwindow.cpp: ../../mainwindow.h \
 		../../../LogicGate/not_gate.h \
 		../../../LogicGate/and_gate.h \
 		../../../LogicGate/xor_gate.h \
+		../../../LogicGate/pin.h \
+		../../../BusinessLogic/businesslogic.h \
+		../../../BusinessLogic/BusinessLogic_global.h \
 		../../tool_bar.h \
 		../../logic_gate_factory.h \
 		moc_predefs.h \
@@ -430,6 +433,9 @@ moc_tool_bar.cpp: ../../tool_bar.h \
 		../../../LogicGate/xnor_gate.h \
 		../../../LogicGate/buffer_gate.h \
 		../../../LogicGate/not_gate.h \
+		../../../LogicGate/pin.h \
+		../../../BusinessLogic/businesslogic.h \
+		../../../BusinessLogic/BusinessLogic_global.h \
 		../../workspace.h \
 		../../../BondingWire/bondingwire.h \
 		../../../BondingWire/BondingWire_global.h \
@@ -452,6 +458,9 @@ moc_workspace.cpp: ../../workspace.h \
 		../../../LogicGate/not_gate.h \
 		../../../LogicGate/and_gate.h \
 		../../../LogicGate/xor_gate.h \
+		../../../LogicGate/pin.h \
+		../../../BusinessLogic/businesslogic.h \
+		../../../BusinessLogic/BusinessLogic_global.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/chepurnikh/Projects/YrVDE/YrVDE/YrVDE/build/Desktop-Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/chepurnikh/Projects/YrVDE/YrVDE/YrVDE -I/home/chepurnikh/Projects/YrVDE/YrVDE/BondingWire/build/Desktop-Debug -I/home/chepurnikh/Projects/YrVDE/YrVDE/BusinessLogic/build/Desktop-Debug -I/home/chepurnikh/Projects/YrVDE/YrVDE/LogicGate/build/Desktop-Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/14 -I/usr/include/x86_64-linux-gnu/c++/14 -I/usr/include/c++/14/backward -I/usr/lib/gcc/x86_64-linux-gnu/14/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../../workspace.h -o moc_workspace.cpp
@@ -493,6 +502,9 @@ main.o: ../../main.cpp ../../mainwindow.h \
 		../../../LogicGate/not_gate.h \
 		../../../LogicGate/and_gate.h \
 		../../../LogicGate/xor_gate.h \
+		../../../LogicGate/pin.h \
+		../../../BusinessLogic/businesslogic.h \
+		../../../BusinessLogic/BusinessLogic_global.h \
 		../../tool_bar.h \
 		../../logic_gate_factory.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../../main.cpp
@@ -513,6 +525,9 @@ mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
 		../../../LogicGate/not_gate.h \
 		../../../LogicGate/and_gate.h \
 		../../../LogicGate/xor_gate.h \
+		../../../LogicGate/pin.h \
+		../../../BusinessLogic/businesslogic.h \
+		../../../BusinessLogic/BusinessLogic_global.h \
 		../../tool_bar.h \
 		../../logic_gate_factory.h \
 		ui_mainwindow.h
@@ -532,6 +547,9 @@ tool_bar.o: ../../tool_bar.cpp ../../tool_bar.h \
 		../../../LogicGate/xnor_gate.h \
 		../../../LogicGate/buffer_gate.h \
 		../../../LogicGate/not_gate.h \
+		../../../LogicGate/pin.h \
+		../../../BusinessLogic/businesslogic.h \
+		../../../BusinessLogic/BusinessLogic_global.h \
 		../../workspace.h \
 		../../../BondingWire/bondingwire.h \
 		../../../BondingWire/BondingWire_global.h
@@ -551,7 +569,10 @@ workspace.o: ../../workspace.cpp ../../workspace.h \
 		../../../LogicGate/buffer_gate.h \
 		../../../LogicGate/not_gate.h \
 		../../../LogicGate/and_gate.h \
-		../../../LogicGate/xor_gate.h
+		../../../LogicGate/xor_gate.h \
+		../../../LogicGate/pin.h \
+		../../../BusinessLogic/businesslogic.h \
+		../../../BusinessLogic/BusinessLogic_global.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o workspace.o ../../workspace.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 

@@ -1,10 +1,13 @@
 #include "logicgate.h"
 
 LogicGate::LogicGate() {
+    setFlags (QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
+
     m_isDrag = false;
     m_gatePos = connectToGrid(m_gatePos, m_gridSize);
     setAcceptHoverEvents (true);
-    setFlags (QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
+
+    createPorts(m_backSide);
 }
 
 void LogicGate::getGridSize(int size) {
@@ -17,14 +20,13 @@ void LogicGate::getGridPos(QPointF pos) {
 }
 
 void LogicGate::mousePressEvent(QGraphicsSceneMouseEvent *event) {
-    if (event->button() == Qt::LeftButton) {
-        if (m_activePort) {
-            emit this->sendCreateWire(this, m_activePort);
-        }
-        else {
-            setCursor(Qt::ClosedHandCursor);
-            QGraphicsItem::mousePressEvent(event);
-        }
+    if (m_activePort) {
+        emit this->createWire(m_activePort.data());
+    }
+    else if (event->button() == Qt::LeftButton) {
+        qDebug() << "a";
+        setCursor(Qt::ClosedHandCursor);
+        QGraphicsItem::mousePressEvent(event);
     }
 }
 
@@ -33,21 +35,24 @@ void LogicGate::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
         emit this->sendGateDrag(this);
         QPointF currentPoint = event->scenePos();
         m_gatePos = connectToGrid(currentPoint, m_activeRadius);
+
+        createPorts(m_backSide);
+
         update();
+
         QGraphicsItem::mousePressEvent(event);
     }
 }
 
 void LogicGate::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
     if (event->button() == Qt::LeftButton) {
-
         setCursor(Qt::CustomCursor);
         QGraphicsItem::mouseReleaseEvent(event);
     }
 }
 
+
 void LogicGate::hoverMoveEvent(QGraphicsSceneHoverEvent *event) {
-    qDebug() <<"gover";
     setCursor(Qt::ClosedHandCursor);
 
     QPointF currentPos = event->pos();

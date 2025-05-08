@@ -31,18 +31,13 @@ void ORGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
     }
 
     qreal diameter = 2;
-
+    createOutputPort();
     if (!m_inputs.empty()) {
+        int count = 0;
         for (auto input : m_inputs) {
-            if (input->state == LogicState::LOGIC_ONE_STATE) {
-                painter->setPen(QPen(Qt::green, 0.5));
-            }
-            else {
-                painter->setPen(QPen(QColor{ "#23A9F2"}, 0.5));
-            }
             painter->drawEllipse(input->pos, diameter, diameter);
+            ++count;
         }
-        createOutputPort();
         if (m_output) {
             if (m_output->state == LogicState::LOGIC_ONE_STATE) {
                 painter->setPen(QPen(Qt::green, 0.5));
@@ -61,6 +56,7 @@ void ORGate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
 
 void ORGate::createOutputPort() {
     m_output = QSharedPointer<Port>::create(QPointF{m_gatePos.x() + (m_gridSize / 10) * 8, m_gatePos.y() + m_gridSize / 2}, LogicState::HIGH_IMPEDANCE_STATE);
+    m_output->setParentItem(this);
 }
 
 void ORGate::createLateralSides(QPainterPath &path) const {
